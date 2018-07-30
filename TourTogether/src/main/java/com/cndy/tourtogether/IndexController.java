@@ -14,10 +14,9 @@ public class IndexController {
 	public String index() {
 		return "index";
 	}
-
+	
 	@RequestMapping(value = "/tour_together", method = RequestMethod.GET)
 	public String index2() {
 		return "index";
 	}
-
 }

@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html>
-<head> 
+<head>
 <meta charset="utf-8">
 <title>TourTogether</title>
 <link rel="stylesheet"
@@ -13,7 +13,7 @@
 		margin-top: 20px;
 	}
 	
-	#logout, #feed, #join {
+	#logout, #feed {
 		display: none
 	}
 	
@@ -25,7 +25,7 @@
 		text-decoration: none;
 		display: inline-block;
 	}
-	#logout, #close, #login, #join {
+	#logout, #close, #login {
 		background-color: #333333;
 		color: white;
 		padding: 14px 25px;
@@ -58,11 +58,11 @@
 .white_content > div {
 	position: absolute;
 	top: 25%;
-	left: 35%; 
-	width: 30%;
-	height: 40%;
-	padding: 70px;
-	/* border: 3px solid red; */
+	left: 25%;
+	width: 50%;
+	height: 50%;
+	padding: 16px;
+	border: 16px solid orange;
 	background-color: white;
 	overflow: auto;	
 }
@@ -168,6 +168,7 @@
     	}
       
     </script>
+
     <nav class="navbar navbar-default navbar-dark bg-dark">
       <div class="container">
         <div class="navbar-header">
@@ -181,13 +182,11 @@
         </div>
         <div >
       	  <ul class="nav navbar-nav">
-      	 	<!-- <li><a id="me" href="member/profile"> <img src="images/fb_default.jpg" width="100" height="100"></a></li> -->
       		<li><a id="me" href="member/profile"> <img src="//graph.facebook.com/${id}/picture?type=large" width="100" height="100"></a></li>
            	<%-- <li><a href="member/profile"> <img src="<c:url value="/resources/images/qwe.jpg" />" width="100" height="100"></a></li> --%>
            	<!-- <li><a href="member/profile"> <img src="/tour_together/images/qwe.jpg" width="100" height="100"></a></li> -->
-           	<!--c:url 사용 시 주의 사항) https://m.blog.naver.com/PostView.nhn?blogId=phrack&logNo=80105009259&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F -->
+           	<!--c:url ì¬ì© ì ì£¼ì ì¬í­) https://m.blog.naver.com/PostView.nhn?blogId=phrack&logNo=80105009259&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F -->
           </ul>
-
           <%-- ${pageContext.request.contextPath} : /tour_together --%>
           <ul class="nav navbar-nav">
             <li><a id="profile" href="member/profile">Profile</a></li>
@@ -195,58 +194,36 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a  style="display:none" id="logout" href="" onclick="logout()">Logout</a></li>
             
-            <!-- A.로그인 버튼을 사용하여 로그인 유도 https://developers.facebook.com/docs/facebook-login/web -->
+            <!-- A.ë¡ê·¸ì¸ ë²í¼ì ì¬ì©íì¬ ë¡ê·¸ì¸ ì ë https://developers.facebook.com/docs/facebook-login/web -->
             <!-- <fb:login-button 
               id="fb-btn"
               scope="public_profile,email,user_birthday,user_location,user_posts"
               onlogin="checkLoginState();">
             </fb:login-button> -->
-            <li><a id="login" href="#open">로그인</a></li>
-            <li><a id="join" href="#openn">회원가입</a></li>
+            <li><a id="login" href="#open">LOGIN</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
     <div class="container">
-    		<P> 
-		    <br/>
+    		    <br/>
 		    <a href="diary/list.do">다이어리 리스트</a><br/>
-		    <a href="diary/test.do">test</a><br/>
- 
-		</P>
+
+		    <a href="admin/admin_mem.do">관리자</a><br/>
       <h3 id="heading">Log in to view your profile</h3>
       <div id="profile"></div>
       <div id="feed"></div>
     </div>
     <div class="white_content" id="open">
-        <div align="center">
+        <div>
             <p>
-            <!-- A.로그인 버튼을 사용하여 로그인 유도 https://developers.facebook.com/docs/facebook-login/web -->
+            <!-- A.ë¡ê·¸ì¸ ë²í¼ì ì¬ì©íì¬ ë¡ê·¸ì¸ ì ë https://developers.facebook.com/docs/facebook-login/web -->
             <fb:login-button 
-              id="fb-btn" size="xlarge"
+              id="fb-btn"
               scope="public_profile"
               onlogin="checkLoginState();">
-              페이스북 계정으로 로그인
             </fb:login-button>
             <a href="#close">CLOSE</a></p>
-        </div>
-    </div>
-    
-    <div class="white_content" id="openn">
-        <div align="center">
-            
-            <!-- A.로그인 버튼을 사용하여 로그인 유도 https://developers.facebook.com/docs/facebook-login/web -->
- <!--            
- 		<div class="fb-login-button" data-max-rows="1" data-size="large" 
-		data-button-type="continue_with" data-show-faces="true"
-		data-auto-logout-link="true" data-use-continue-as="true"
-		scope="public_profile,email,publish_pages,manage_pages" onlogin="checkLoginState();"></div> 
--->
-			<fb:login-button size="xlarge" id="fb-btn"
-	                 onlogin="checkLoginState();">
-			 	 페이스북 계정으로 회원가입
-			</fb:login-button>
-			<div><a href="#close">CLOSE</a></div>
         </div>
     </div>
   </body>

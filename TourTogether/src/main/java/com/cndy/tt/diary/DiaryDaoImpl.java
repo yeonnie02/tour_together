@@ -8,8 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository("diaryDao")
 public class DiaryDaoImpl implements DiaryDao {
+	private String TAG = "DiaryDaoImpl";
 	
-	@Autowired 
+	@Autowired //
 	private SqlSessionTemplate sqlSession;
 	private String ns = "com.cndy.tt.mybatis.Diary.";
 
@@ -33,18 +34,16 @@ public class DiaryDaoImpl implements DiaryDao {
 
 	@Override
 	public void edit(Diary diary) {
-		sqlSession.update(ns + "diaryEdit", diary);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public List<Diary> content(long diary_no) {
+		System.out.println(TAG + " diary_no: " + diary_no);
 		List<Diary> content = sqlSession.selectList(ns + "diaryContent", diary_no); 
+		System.out.println(TAG + "content: " + content);
 		return content;
-	}
-
-	@Override
-	public void updateCountRead(long diary_no) {
-		sqlSession.update(ns + "diaryCountRead", diary_no);		
 	}
 	
 }

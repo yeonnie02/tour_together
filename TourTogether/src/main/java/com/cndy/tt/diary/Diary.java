@@ -14,13 +14,13 @@ public class Diary {
 	private String company;
 	private Date write_date;
 	private int count_read;
-	private int user_like;
-
+	private String photo_path;
 	
 	public Diary() {}
 
 	public Diary(long diary_no, String email, String title, String region, Date start_date, Date end_date,
-			String diary_content, String company, Date write_date, int count_read, int user_like) {
+			String diary_content, String company, Date write_date, int count_read, String photo_path) {
+		super();
 		this.diary_no = diary_no;
 		this.email = email;
 		this.title = title;
@@ -31,10 +31,8 @@ public class Diary {
 		this.company = company;
 		this.write_date = write_date;
 		this.count_read = count_read;
-		this.user_like = user_like;
-
+		this.photo_path = photo_path;
 	}
-
 
 	public long getDiary_no() {
 		return diary_no;
@@ -116,13 +114,14 @@ public class Diary {
 		this.count_read = count_read;
 	}
 
-	public int getUser_like() {
-		return user_like;
+	public String getPhoto_path() {
+		return photo_path;
 	}
 
-	public void setUser_like(int user_like) {
-		this.user_like = user_like;
+	public void setPhoto_path(String photo_path) {
+		this.photo_path = photo_path;
 	}
-
+	
+	
 }
 
