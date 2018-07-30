@@ -64,9 +64,9 @@
 			        </th>
 			        <td>${data.email}</td>	        
 			        <td>${data.telephone}</td>
-			        <td>${data.lastName}</td>	        
-			        <td>${data.firstName}</td>
-			        <td>${data.mem_class}</td>			        	        
+			        <td>${data.last_name}</td>	        
+			        <td>${data.first_name}</td>
+			        <td>${data.member_class}</td>			        	        
 			        <td>${data.country}</td>
 			        <td>${data.gender}</td>
 			        <td>${data.join_date}</td>

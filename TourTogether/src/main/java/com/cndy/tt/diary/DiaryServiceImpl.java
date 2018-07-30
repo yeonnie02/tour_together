@@ -33,7 +33,13 @@ public class DiaryServiceImpl implements DiaryService {
 
 	@Override
 	public List<Diary> contentService(long diary_no) {
-		return diaryDao.content(diary_no);
+		System.out.println(" DiaryServiceImpl diary_no : "+ diary_no);
+		
+		diaryDao.updateCountRead(diary_no);
+		List<Diary> content = diaryDao.content(diary_no);
+		
+		System.out.println("DiaryServiceImpl : diary content "+content.get(0).getDiary_content()
+			+" count read: "+content.get(0).getCount_read());
+		return content;
 	}
-	
 }
