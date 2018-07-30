@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="Diary" type="com.cndy.tt.diary.Diary"/>
+		<typeAlias alias="PagingVo" type="com.cndy.tt.paging.PagingVo"/>
+		<typeAlias alias="Photo" type="com.cndy.tt.file.Photo"/>
+		<typeAlias alias="Comment" type="com.cndy.tt.comment.Comment"/>
+		<typeAlias alias="Member" type="com.cndy.tt.member.Member"/>
+
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/cndy/tt/mybatis/Paging.xml" />
+		<mapper resource="com/cndy/tt/mybatis/Diary.xml" /> 
+		<mapper resource="com/cndy/tt/mybatis/Photo.xml"/>
+		<mapper resource="com/cndy/tt/mybatis/Comment.xml"/>
+		<mapper resource="com/cndy/tt/mybatis/Member.xml" />
+	</mappers>
+</configuration>
