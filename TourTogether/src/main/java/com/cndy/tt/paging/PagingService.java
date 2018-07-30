@@ -3,7 +3,7 @@ package com.cndy.tt.paging;
 import java.util.List;
 
 
-import com.cndy.tt.admin.Member;
+import com.cndy.tt.member.Member;
 import com.cndy.tt.diary.Diary;
 
 public interface PagingService {

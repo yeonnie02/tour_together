@@ -3,6 +3,8 @@ package com.cndy.tt.admin;
 import java.util.Date;
 import java.util.List;
 
+import com.cndy.tt.member.Member;
+
 public interface AdminService {
 	List<Member> chartDateService();
 	List<Integer> chartNumService();

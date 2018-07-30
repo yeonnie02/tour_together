@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.cndy.tt.member.Member;
+
 @Service("adminService")
 public class AdminServiceImpl implements AdminService{
 	@Resource(name="adminDao")

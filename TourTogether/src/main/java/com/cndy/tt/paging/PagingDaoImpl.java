@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cndy.tt.admin.Member;
+import com.cndy.tt.member.Member;
 import com.cndy.tt.diary.Diary;
 
 @Repository("pagingDao")

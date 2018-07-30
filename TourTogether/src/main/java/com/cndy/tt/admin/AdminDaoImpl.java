@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cndy.tt.member.Member;
+
 @Repository("adminDao")
 public class AdminDaoImpl implements AdminDao{
 	

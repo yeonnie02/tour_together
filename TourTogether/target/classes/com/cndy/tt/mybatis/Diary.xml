@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cndy.tt.mybatis.Diary">
 	
+
 	<resultMap id="diaryResult" type="Diary">
         <result property="diary_no" column="DIARY_NO"/>
         <result property="email" column="EMAIL"/>
@@ -21,7 +22,7 @@
 	<select id="diarySelectAll" resultType="Diary">
        select * from TOUR_DIARY order by diary_no desc
     </select>
-    
+
     <select id="diaryContent" resultType="Diary" parameterType="long">
     	select * from TOUR_DIARY where DIARY_NO=#{diary_no}
     </select>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cndy.tt.member.Member;
 import com.cndy.tt.paging.PagingService;
 import com.cndy.tt.paging.PagingVo;
 
