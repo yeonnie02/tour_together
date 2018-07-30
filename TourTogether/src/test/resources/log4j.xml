@@ -19,7 +19,6 @@
 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>	
-
 	
 	<logger name="org.springframework.beans">
 		<level value="info" />
@@ -40,4 +39,3 @@
 	</root>
 	
 </log4j:configuration>
-

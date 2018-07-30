@@ -39,6 +39,7 @@
 	<resources mapping="/admin/admin_plugin/**" location="/resources/admin_plugin/" />
 	<resources mapping="/admin/css/**" location="/resources/css/" />
 
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
@@ -54,6 +55,7 @@
         <beans:property name="maxUploadSize" value="20971520" /> <!-- 20MB -->
         <!-- max size of file in memory (in bytes) -->
         <beans:property name="maxInMemorySize" value="1048576" /> <!-- 1MB -->
+
 	</beans:bean>
 
 	

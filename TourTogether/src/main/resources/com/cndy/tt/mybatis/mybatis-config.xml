@@ -7,10 +7,12 @@
 		<typeAlias alias="Diary" type="com.cndy.tt.diary.Diary"/>
 		<typeAlias alias="PagingVo" type="com.cndy.tt.paging.PagingVo"/>
 		<typeAlias alias="Member" type="com.cndy.tt.member.Member"/>
+		<typeAlias alias="BoardDTO" type="com.cndy.tt.board.BoardDTO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/cndy/tt/mybatis/Paging.xml" />
 		<mapper resource="com/cndy/tt/mybatis/Diary.xml" /> 
 		<mapper resource="com/cndy/tt/mybatis/Member.xml" /> 
+		<mapper resource="com/cndy/tt/mybatis/Board.xml" />
 	</mappers>
 </configuration>
