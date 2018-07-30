@@ -12,9 +12,9 @@
 	<!-- summernote -->
 	
 	<!-- include libraries(jQuery, bootstrap) --> 
+ 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
- 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	
 	<!-- Font -->
 
@@ -34,83 +34,51 @@
 	
 	<!-- SCIPTS -->
 
-<!-- 	<script src="common-js/jquery-3.1.1.min.js"></script> -->
+	<script src="common-js/jquery-3.1.1.min.js"></script>
 
 	<script src="common-js/tether.min.js"></script>
 
-<!-- 	<script src="common-js/bootstrap.js"></script>
+	<script src="common-js/bootstrap.js"></script>
 
-	<script src="common-js/scripts.js"></script> -->
-
+	<script src="common-js/scripts.js"></script>
 	
 	<!-- include summernote css/js -->
 	<link href="summernote/summernote.css" rel="stylesheet">
 	<script src="summernote/summernote.js"></script>
 	<script src="summernote/lang/summernote-ko-KR.js"></script>
 	
+	<!-- summernote script -->
 	<script>
-		function submitContent(){
-			document.input.submit();		
-		}
-		
-		/* summernote script */
 		/* jQuery.noConflict(); */
 	    $(document).ready(function() {
 	        $('#summernote').summernote({
 	        	height: 400,
 	        	minHeight: null,         
 	            maxHeight: null,
-	 	        lang : 'ko-KR',
-	 	        callbacks: {
-					onImageUpload: function(files, editor, welEditable) {			            
-			            for(var i=0; i<files.length; i++){
-			            	sendFile(files[i], editor, welEditable);
-			            }	
-			        },
-			        
-			        // TODO 이미지 지우기
-			        onMediaDelete: function(target){
-			        	console.log(target[0].src);
-			        	deleteFile(target[0]);
-			        }
-				} 
+	 	        lang : 'ko-KR'
 	        });
 	    });
 		
-		function sendFile(file, editor, welEditable){
-        	data = new FormData();
-        	data.append("file", file);
-        	var $note = $(this);
-        	$.ajax({
-        		data: data,
-        		type: 'POST',
-        		url: "fileUpload.do",
-        		cache: false,
-        		contentType: false,
-        		processData: false,
-        		enctype: "multipart/form-data",
-        		success: function(url){
-        			alert(url);
-        			$('#summernote').summernote('insertImage', url);
-        		}
-        	});
-		}
-		
-		function deleteFile(src){
-			$.ajax({
-				data: {src: src},
-				type: 'POST',
-				url: myUrl,
-				cache: false,
-				success: function(resp){
-					console.log(resp);
-				}
-			});
-		}
+ 	    $('#summernote').summernote({
+	    	  toolbar: [
+	    	    // [groupName, [list of button]]
+	    	    ['style', ['bold', 'italic', 'underline', 'clear']],
+	    	    ['font', ['strikethrough', 'superscript', 'subscript']],
+	    	    ['fontsize', ['fontsize']],
+	    	    ['color', ['color']],
+	    	    ['para', ['ul', 'ol', 'paragraph']],
+	    	    ['height', ['height']]
+	    	  ]
+	    	}); 
+ 	    
+ 	   function showContent() {
+           $('.output').html($('#summernote').summernote('code'));
+       }
 	</script>
+
 </head>
 
-<body onload="input.title.focus()">
+<body >
 
 	<header>
 		<div class="container-fluid position-relative no-side-padding">
@@ -147,16 +115,11 @@
 				<div class="col-lg-8 col-md-12">
 				
 					<!-- content -->
-					<form name="input" method="post" action="../diary/write.do" enctype="multipart/form-data">
-						<div><a>제목</a>&emsp;<input type="text" name="title"></div><br/>
-						<div><a>글쓴이</a>&emsp;<input type="text" name="email"></div><br/>
-						<div><a>지역</a>&emsp;<input type="text" name="region"></div><br/>
-						<div><a>동행자</a>&emsp;<input type="text" name="company"></div><br/>
-						<!-- summernote -->
-						<textarea id="summernote" name="diary_content"></textarea>
-						
-						<button type="button" onclick="submitContent()">작성</button>
-   					</form>
+					<div><a>제목</a>&emsp;<input></div><br/>
+					<!-- summernote -->
+					<div id="summernote"></div>
+					<button type="button" onclick="showContent();">작성</button>
+   					<div class="output"></div>
 				    
 				</div><!-- col-sm-8 col-sm-offset-2 -->
 			</div><!-- row -->

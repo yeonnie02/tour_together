@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cndy.tt.admin.Member;
 import com.cndy.tt.diary.Diary;
 
 
@@ -30,5 +31,21 @@ public class PagingServiceImpl implements PagingService {
 	@Override
 	public boolean deleteAllService() {
 		return dao.deleteAll();
+	}
+	@Override
+	public List<Member> selectAdminPagingService(PagingVo pagingVo) {
+		return dao.selectAdminPaging(pagingVo);
+	}
+	@Override
+	public int selectAdminTotalPagingService() {
+		return dao.selectAdminTotalPaging();
+	}
+	@Override
+	public List<Member> selectAdminSearchPagingService(String searchOpt, String inputText, PagingVo pagingVo) {
+		return dao.selectAdminSearchPaging(searchOpt, inputText, pagingVo);
+	}
+	@Override
+	public int selectAdminSearchTotalPagingService(String searchOpt, String inputText) {
+		return dao.selectAdminSearchTotalPaging(searchOpt, inputText);
 	}
 }

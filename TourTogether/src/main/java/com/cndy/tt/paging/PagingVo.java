@@ -3,17 +3,17 @@ package com.cndy.tt.paging;
 //1. PagingVo
 public class PagingVo {
 	
-	private int pageCnt;		// 출력할 페이지번호 갯수 (변경해볼것)
-	private int index;			// 출력할 페이지번호
-	private int pageStartNum;	// 출력할 페이지 시작 번호
-	private int listCnt;		// 출력할 리스트 갯수
-	private int total;			// 리스트 총 갯수	
+	private int pageCnt;		
+	private int index;			
+	private int pageStartNum;	
+	private int listCnt;		
+	private int total;			
 	
 	{
 		pageCnt = 5; 
 		index = 0;
 		pageStartNum = 1;
-		listCnt = 9;
+		listCnt = 5;
 	}
 	
 	public PagingVo() {}

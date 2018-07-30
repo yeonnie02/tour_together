@@ -31,7 +31,36 @@
 		<maven-compiler-plugin-version>3.7.0</maven-compiler-plugin-version>
 		<exec-maven-plugin-version>1.6.0</exec-maven-plugin-version>
 	</properties>
+	
+	<!-- FOR Ojdbc -->
+	<repositories>
+	    <repository>
+	        <id>mesir-repo</id>
+	        <url>https://maven.atlassian.com/3rdparty/</url>
+	    </repository>
+	</repositories>
+			
 	<dependencies>
+	
+		<!-- ojdbc -->
+		<dependency>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		    <version>1.4</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.oracle</groupId>
+		    <artifactId>ojdbc6</artifactId>
+		    <version>12.1.0.1-atlassian-hosted</version>
+		</dependency>
+	
+		<!-- JSON -->
+		  <dependency>
+		      <groupId>com.googlecode.json-simple</groupId>
+		      <artifactId>json-simple</artifactId>
+		      <version>1.1</version>
+	      </dependency>
 	
 		
 		<!-- (1) tomcat-dbcp -->  
@@ -62,7 +91,6 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		
-		
 		<!-- (5) commons-fileupload --> 
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -83,22 +111,22 @@
 			<artifactId>jackson-databind</artifactId> 
 			<version>2.5.1</version> 
 		</dependency>	
-
 		
 		<!-- Data Format이 XML일 때 추가 -->
-		<!-- XML Converter --> 
+		<!-- XML Converter 
 		<dependency> 
 			<groupId>com.thoughtworks.xstream</groupId> 
 			<artifactId>xstream</artifactId> 
 			<version>1.4.3</version> 
 		</dependency> 
-		<!-- XML Parser --> 
-
+		-->
+		<!-- XML Parser  
 		<dependency> 
 			<groupId>org.jdom</groupId> 
 			<artifactId>jdom2</artifactId> 
 			<version>2.0.4</version> 
 		</dependency>
+		-->
 		
 		<!-- spring-core --> 
 		<dependency>

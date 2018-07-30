@@ -13,7 +13,6 @@
 	          ORDER BY DIARY_NO DESC ) P )
 	  WHERE RNUM BETWEEN #{start} AND #{last}
 	</select>
-
 	<!-- 2. Total Query -->
 	<select id="selectTotalPaging" resultType="java.lang.Integer">
 	  SELECT COUNT(*) FROM TOUR_DIARY
@@ -28,7 +27,45 @@
 	<delete id="deleteAll">
 	  DELETE FROM TOUR_DIARY
 	</delete>
-
+<!-- 	
+	<select id="SelectByWriter" resultType="Board" parameterType="HashMap">
+		select * from (select A.*, ROWNUM as rn from (
+		select * from BOARD where WRITER like '%'||#{keyword}||'%' order by SEQ desc) A) 
+		where rn between #{start} and #{end}
+	</select>
+	
+	<select id="CountSelectbyWriter" resultType="int" parameterType="String">
+		 select count(*) from (select A.*, ROWNUM as rn from (
+		 select * from BOARD where WRITER like '%'||#{keyword}||'%' order by SEQ desc) A)
+	</select>
+ --> 	
+ 
+ 	<!-- Admin -->
+	<select id="selectAdminPaging" parameterType="PagingVo" resultType="Member">
+	  SELECT *
+	  FROM (  SELECT ROWNUM RNUM, P.*
+	      FROM (  SELECT *
+	          FROM MEMBER_INFO
+	          ORDER BY JOIN_DATE DESC ) P )
+	  WHERE RNUM BETWEEN #{start} AND #{last}
+	</select>
+	<select id="selectAdminTotalPaging" resultType="java.lang.Integer">
+	  SELECT COUNT(*) FROM MEMBER_INFO
+	</select>
+	
+	<!-- Admin Search -->
+	<select id="selectAdminSearchPaging" parameterType="map" resultType="Member">
+	  SELECT *
+	  FROM (  SELECT ROWNUM RNUM, P.*
+	      FROM (  SELECT *
+	          FROM MEMBER_INFO
+	          WHERE ${searchOpt} LIKE '%'||#{inputText}||'%'
+	          ORDER BY JOIN_DATE DESC ) P )
+	  WHERE RNUM BETWEEN #{pagingVo.start} AND #{pagingVo.last}
+	</select>
+	<select id="selectAdminSearchTotalPaging" parameterType="map" resultType="java.lang.Integer">
+	  SELECT COUNT(*) FROM MEMBER_INFO WHERE ${searchOpt} LIKE '%'||#{inputText}||'%'
+	</select>
 </mapper>
 
 

@@ -15,11 +15,11 @@
         <result property="company" column="COMPANY"/>
         <result property="write_date" column="WRITE_DATE"/>
         <result property="count_read" column="COUNT_READ"/>
-        <result property="user_like" column="USER_LIKE"/>
+        <result property="photo_path" column="PHOTO_PATH"/>
 	</resultMap>
 	
 	<select id="diarySelectAll" resultType="Diary">
-       select * from TOUR_DIARY order by DIARY_NO desc
+       select * from TOUR_DIARY order by diary_no desc
     </select>
     
     <select id="diaryContent" resultType="Diary" parameterType="long">
@@ -27,20 +27,10 @@
     </select>
 	
 	<insert id="diaryInsert" parameterType="Diary">
-		insert into TOUR_DIARY values
-			( TOUR_DIARY_SEQ.nextval, #{email}, #{title}, 
-		   	#{region}, SYSDATE, SYSDATE, #{diary_content}, #{company}, 
-		   	SYSDATE, #{count_read, jdbcType=INTEGER}, #{user_like, jdbcType=INTEGER})
+	   insert into TOUR_DIARY values( TOUR_DIARY_SEQ.nextval, #{email}, #{title}, 
+	   		#{region}, #{start_date}, #{end_date}, #{diary_content}, #{company}, 
+	   		#{write_date}, #{count_read}, #{photo_path} )
 	</insert>
-	
-	<update id="diaryCountRead" parameterType="long">
-		update TOUR_DIARY set COUNT_READ = COUNT_READ +1 where DIARY_NO=#{diary_no}
-	</update>
-	
-	<update id="diaryEdit" parameterType="Diary">
-		update TOUR_DIARY set TITLE=#{title}, EMAIL=#{email}, REGION=#{region}, 
-			COMPANY=#{company}, DIARY_CONTENT=#{diary_content} where DIARY_NO=#{diary_no}
-	</update>
 	
 	<delete id="diaryDelete" parameterType="long">
 	   delete from TOUR_DIARY where DIARY_NO = #{diary_no}
