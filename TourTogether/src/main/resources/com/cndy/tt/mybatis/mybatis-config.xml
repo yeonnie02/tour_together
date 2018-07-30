@@ -11,6 +11,6 @@
 	<mappers>
 		<mapper resource="com/cndy/tt/mybatis/Paging.xml" />
 		<mapper resource="com/cndy/tt/mybatis/Diary.xml" /> 
-		<mapper resource="com/cndy/tt/mybatis/Member.xml" />
+		<mapper resource="com/cndy/tt/mybatis/Member.xml" /> 
 	</mappers>
 </configuration>

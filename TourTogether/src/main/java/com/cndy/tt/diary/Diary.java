@@ -3,7 +3,6 @@ package com.cndy.tt.diary;
 import java.sql.Date;
 
 // Model
- 
 public class Diary {
 	private long diary_no;
 	private String email;

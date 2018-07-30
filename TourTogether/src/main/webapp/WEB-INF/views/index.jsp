@@ -15,8 +15,8 @@
 		<P> 
 		    <br/>
 		    <a href="diary/list.do">다이어리 리스트</a><br/>
-		    <a href="diary/test.do">test</a><br/>
- 
+
+		    <a href="admin/admin_mem.do">관리자</a><br/>
 		</P>
 	</body>
 </html>
