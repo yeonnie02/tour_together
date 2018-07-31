@@ -7,6 +7,7 @@
 <head>
 	<title>TITLE</title>
 	
+	<!-- 페이징 스크립트 -->
 	<script type="text/javascript" src="../js/paging.js"></script>
 	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -67,7 +68,7 @@
 		<div class="container">
 		
 			<!-- 글쓰기 버튼  -->
-			<div><a href='../diary/write.do'><button>글쓰기</button></a><br/><br/></div>
+			<div><a href='write.do'><button>글쓰기</button></a><br/><br/></div>
 		
 			<!-- 게시물 출력 -->
 			<div class="row">
@@ -86,13 +87,13 @@
 								<div class="blog-info">
 									<!-- ## TITLE -->
 									<h4 class="title">
-										<a href='../diary/content.do?diary_no=${data.diary_no}&index=${pagingVo.index}'>
+										<a href='content.do?diary_no=${data.diary_no}&index=${pagingVo.index}'>
 										<b>${data.title}</b></a>
 									</h4>
 	
 									<!-- ## post footer -->
 									<ul class="post-footer">
-										<li><i class="ion-heart"></i>57</a></li>
+										<li><i class="ion-heart"></i>${ data.user_like }</a></li>
 										<li><i class="ion-chatbubble"></i>6</a></li>
 										<li><i class="ion-eye"></i>${data.count_read}</a></li>
 									</ul>
