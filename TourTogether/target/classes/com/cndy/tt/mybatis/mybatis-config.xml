@@ -7,18 +7,14 @@
 		<typeAlias alias="Diary" type="com.cndy.tt.diary.Diary"/>
 		<typeAlias alias="PagingVo" type="com.cndy.tt.paging.PagingVo"/>
 		<typeAlias alias="Member" type="com.cndy.tt.member.Member"/>
-<<<<<<< HEAD
-=======
 		<typeAlias alias="Comment" type="com.cndy.tt.comment.Comment"/>
->>>>>>> db4acb2ad5d586bf6dacaa35b37886b38dfad82b
+		<typeAlias alias="BoardDTO" type="com.cndy.tt.board.BoardDTO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/cndy/tt/mybatis/Paging.xml" />
 		<mapper resource="com/cndy/tt/mybatis/Diary.xml" /> 
 		<mapper resource="com/cndy/tt/mybatis/Member.xml" /> 
-<<<<<<< HEAD
-=======
 		<mapper resource="com/cndy/tt/mybatis/Comment.xml"/>
->>>>>>> db4acb2ad5d586bf6dacaa35b37886b38dfad82b
+		<mapper resource="com/cndy/tt/mybatis/Board.xml"/>
 	</mappers>
 </configuration>
