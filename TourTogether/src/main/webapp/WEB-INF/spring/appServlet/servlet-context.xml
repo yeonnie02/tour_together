@@ -30,6 +30,7 @@
 	<resources mapping="/diary/front-page-category/**" location="/resources/front-page-category/" />
 	<resources mapping="/diary/blank-static/**" location="/resources/blank-static/" />
 	<resources mapping="/diary/summernote/**" location="/resources/summernote/" />
+	<resources mapping="/static/uploadimg/**" location="/static/uploadimg/"/>
 	
 	<resources mapping="/admin/admin_bootstrap/**" location="/resources/admin_bootstrap/" />
 	<resources mapping="/admin/admin_font-awesome/**" location="/resources/admin_font-awesome/" />
@@ -49,15 +50,12 @@
 	<!-- (8) 파일 업로드용 resolver -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="defaultEncoding" value="UTF-8" />
-
 		<!-- max upload size in bytes -->
         <beans:property name="maxUploadSize" value="20971520" /> <!-- 20MB -->
         <!-- max size of file in memory (in bytes) -->
         <beans:property name="maxInMemorySize" value="1048576" /> <!-- 1MB -->
 	</beans:bean>
-
 	
 	<context:component-scan base-package="com.cndy" />
-	
 	
 </beans:beans>
