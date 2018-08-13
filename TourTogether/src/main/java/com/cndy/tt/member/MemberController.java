@@ -3,6 +3,9 @@ package com.cndy.tt.member;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -10,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,10 +24,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("firstname")//����
+@SessionAttributes("firstname")
 @RequestMapping("/member")
 public class MemberController {
 	
+	@Autowired
+	MemberDao memberDao;
+
 	@Resource(name="memberService")
 	private MemberService memberService;
 	
@@ -41,6 +49,7 @@ public class MemberController {
         System.out.println("gender : "+member.getGender());
         System.out.println("birthday : "+member.getBirthday());
         System.out.println("email : "+member.getEmail());
+
        /* if(member.getGender()==null) {//ó�����ϸ� ���� ��? -> ��ܿ��� �Ѱܹ��� gender���� java�� null�� ���� ���� �� -> Member.xml���� �� ������ ����ؼ� ó���ص�
         	//nested exception is org.springframework.jdbc.UncategorizedSQLException: Error setting null for parameter #4 with JdbcType OTHER . Try setting a different JdbcType for this parameter or a different jdbcTypeForNull configuration property.
         	member.setGender("0");
@@ -66,6 +75,7 @@ public class MemberController {
     	System.out.println("MemberController - profile()");
     	HttpSession session = request.getSession();
     	String id = (String) session.getAttribute("id");
+
     	Member member = memberService.profileContentService(id);//���� ������ �ٽ� �α����ϸ��-���Ǹ���Ǽ� id���� null�ε�
 
         model.addAttribute("member", member);
@@ -112,6 +122,12 @@ public class MemberController {
     	return "member/profile";
     }
     
+    @RequestMapping(value="/guide_list.do", method=RequestMethod.GET)
+    public String guide_list() {
+    	System.out.println("MemberController - guide_list()");
+    	return "/member/guide_list";
+    }
+    
     @RequestMapping("/userpic")
     public String listAttach(HttpSession session, HttpServletResponse response) {
     	  response.setContentType( "image/gif" ); 
@@ -156,6 +172,26 @@ public class MemberController {
 			System.out.println("nothing completes..");
 		}
 		return "redirect:/member/profile";
+	}
+
+	@RequestMapping(value = "autocomplete", method = RequestMethod.POST)
+	public void AutoTest(Locale locale, Model model, HttpServletRequest request,
+			HttpServletResponse resp, Member member) throws IOException {
+		System.out.println("MemberController - AutoTest()");
+
+		String result = request.getParameter("term");//
+		System.out.println(result);
+		List<Member> list = memberDao.autoComplete(result); //result���� ���ԵǾ� �ִ� emp���̺��� ������ ����
+
+		JSONArray ja = new JSONArray();
+		if(list != null) {
+			for (int i = 0; i < list.size(); i++) {
+				ja.add(list.get(i).getFirst_name());
+			}
+		}
+		PrintWriter out = resp.getWriter();
+
+		out.print(ja.toString());
 	}
 
 }

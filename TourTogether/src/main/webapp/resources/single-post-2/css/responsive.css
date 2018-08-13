@@ -40,6 +40,9 @@
 
 	.main-post .post-top-area,
 	.main-post .post-bottom-area{ margin: 30px; }
+	
+	.main-post .post-top-area-x,
+	.main-post .post-bottom-area-x{ margin: 30px; }
 
 	/* ---------------------------------
 	7. SIDEBAR AREA

@@ -4,30 +4,26 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>TITLE</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="UTF-8">
 
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *Must* come first in the head; any other head content must come *after* these tags -->
 
-	<!-- Font -->
+    <!-- Title -->
+    <title>Clever - Education &amp; Courses Template | Courses</title>
 
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="../clever-img/core-img/favicon.ico">
 
-
-	<!-- Stylesheets -->
-
-	<link href="common-css/bootstrap.css" rel="stylesheet">
-
-	<link href="common-css/ionicons.css" rel="stylesheet">
-
-
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	<link rel="stylesheet" href="../clever/style.css">
 	<link href="single-post-2/css/styles.css" rel="stylesheet">
-
 	<link href="single-post-2/css/responsive.css" rel="stylesheet">
-	
 	<script type="text/javascript">
-	
+
 		function submitComment(){
 			if(document.comment.form_name.value == ""){
 				document.comment.form_name.focus();
@@ -103,123 +99,126 @@
 </head>
 <body >
 
-	<header>
-		<div class="container-fluid position-relative no-side-padding">
-
-			<a href="#" class="logo"><img src="images/logo.png" alt="Logo Image"></a>
-
-			<div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
-
-			<ul class="main-menu visible-on-click" id="main-menu">
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Categories</a></li>
-				<li><a href="#">Features</a></li>
-			</ul><!-- main-menu -->
-
-			<div class="src-area">
-				<form>
-					<button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
-					<input class="src-input" type="text" placeholder="Type of search">
-				</form>
-			</div>
-
-		</div><!-- conatiner -->
-	</header>
-
-	<div class="slider">
-
-	</div><!-- slider -->
-
-	<section class="post-area">
-		<div class="container">
-
-			<div class="row">
-
-				<div class="col-lg-1 col-md-0"></div>
-				<div class="col-lg-10 col-md-12">
-				
+    <!-- ##### Header Area Start ##### -->
+	<%@include file="../include2/navybar4.jsp"%>
+    <!-- ##### Header Area End ##### -->
+	
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area">
+        <!-- Breadcumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Tour</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tour &amp; Diary</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->	
+    
+<style>
+	#profile{
+		border-radius: 30%;
+	}
+</style>
 				<!-- 다이어리 내용 출력 -->
 				<c:forEach items="${ diary }" var="diary">
 					<c:set var="board_no" value="${ diary.diary_no }"/>
-					<div class="main-post">
 
-						<div class="post-top-area">
-							
-							<h5 class="pre-title"><b>${ diary.region }</b></h5>
+    <!-- ##### Catagory Area Start ##### -->
+    <div class="clever-catagory blog-details bg-img d-flex align-items-center justify-content-center p-3 height-400" style="background-image: url(../clever-img/blog-img/7.jpg);">
+         <div class="blog-details-headline">
+         	<h3><a href="#"><img id="profile" src="images/avatar-1-120x120.jpg" alt="Profile Image" height="30%"width="30%"></a></h3>
+            <h3>${ diary.title }</h3>
+            <div class="meta d-flex align-items-center justify-content-center">
+                <a href="#">${ diary.write_date }</a>
+                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                <a href="#">${ diary.region }</a>
+                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                <a href="#">Tourist</a>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Catagory Area End ##### -->
 
-							<h3 class="title"><b>${ diary.title }</b></a></h3>
+    <!-- ##### Blog Details Content ##### -->
+    <div class="blog-details-content section-padding-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <!-- Blog Details Text -->
+                    <div class="blog-details-text">
+                        <p class="text-right py-1">
+                        		동행자: ${diary.company}<br/> 
+								투어 시작날짜: ${diary.start_date}
+						<p>
+                        <h5 class="py-1">${diary.diary_content}</h5>
+                        <!-- Tags -->
+                        <div class="post-tags">
+                            <ul>
 
-							<div class="post-info">
-
-								<div class="left-area">
-									<a class="avatar" href="#"><img src="images/avatar-1-120x120.jpg" alt="Profile Image"></a>
-								</div>
-
-								<div class="middle-area">
-									<a class="name" href="#"><b>${ diary.email }</b></a>
-									<h6 class="date">${ diary.write_date }</h6>
-								</div>
-
-							</div><!-- post-info -->
-
-							<p class="para"> 
-								동행자: ${ diary.company }<br/> 
-								투어 시작날짜: ${ diary.start_date }
-							</p>
-
-						</div><!-- post-top-area -->
-
-						<div class="post-image"><img src="images/blog-1-1000x600.jpg" alt="Blog Image"></div>
-						<div class="post-image"><img src="images/blog-1-1000x600.jpg" alt="Blog Image"></div>
-
-						<div class="post-bottom-area">
-
-							${ diary.diary_content }
-							<%-- <p class="para"> ${ diary.diary_content }</p> --%>
-
-							<ul class="tags">
 								<li><a href="#">Mnual</a></li>
 								<li><a href="#">Liberty</a></li>
 								<li><a href="#">Recommendation</a></li>
 								<li><a href="#">Inspiration</a></li>
-							</ul>
+                            </ul>
+                        </div>
+                    </div>
+                    								<!-- 수정 및 삭제 버튼  -->
+								<div class="editdel">
+							        <a href="edit.do?diary_no=${diary.diary_no }" class="editt">수정</a>
+							        <a href="delete.do?diary_no=${ diary.diary_no }" class="dell">삭제</a><!-- 수정 및 삭제 버튼  -->
+							    </div>
+                </div>
+            </div>
+        </div>
+        
+        </c:forEach><!-- 다이어리 내용 출력 끝 -->
 
-							<div class="post-icons-area">
-								<ul class="post-icons">
-									<li><a href="#"><i class="ion-heart"></i>${ diary.user_like }</a></li>
-									<li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
-									<li><i class="ion-eye"></i>${ diary.count_read }</a></li>
-								</ul>
+        <div class="related-posts section-padding-100-0">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Single Blog Area -->
+                    <div class="col-12 col-lg-6">
+                        <div class="single-blog-area mb-100">
+                            <img src="../clever-img/blog-img/3.jpg" alt="">
+                            <!-- Blog Content -->
+                            <div class="blog-content">
+                                <a href="#" class="blog-headline">
+                                    <h4>북촌 한옥마을 기기</h4>
+                                </a>
+                                <div class="meta d-flex align-items-center">
+                                    <a href="#">Sarah Parker</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a href="#">Tourist</a>
+                                </div>
+                                <p>놀러가즈아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ</p>
+                            </div>
+                        </div>
+                    </div>
 
-							</div>
-
-							<div class="post-footer post-info">
-
-								<div class="left-area">
-									<a class="avatar" href="#"><img src="images/avatar-1-120x120.jpg" alt="Profile Image"></a>
-								</div>
-
-								<div class="middle-area">
-									<a class="name" href="#"><b> ${ diary.email }</b></a>
-									<h6 class="date">${ diary.write_date }</h6>
-								</div>
-
-							</div><!-- post-info -->
-							
-							<!-- 수정 및 삭제 버튼  -->
-							<br/><a href='edit.do?diary_no=${diary.diary_no }'><button class="submit-btn">수정</button></a>
-							<a href='delete.do?diary_no=${ diary.diary_no }'><button class="submit-btn">삭제</button></a>
-
-						</div><!-- post-bottom-area -->
-
-					</div><!-- main-post -->
-					
-					</c:forEach>
-
-				</div><!-- col-lg-8 col-md-12 -->
-			</div><!-- row -->
-		</div><!-- container -->
-	</section><!-- post-area -->
+                    <!-- Single Blog Area -->
+                    <div class="col-12 col-lg-6">
+                        <div class="single-blog-area mb-100">
+                            <img src="../clever-img/blog-img/4.jpg" alt="">
+                            <!-- Blog Content -->
+                            <div class="blog-content">
+                                <a href="#" class="blog-headline">
+                                    <h4>안산 영어마을 고고</h4>
+                                </a>
+                                <div class="meta d-flex align-items-center">
+                                    <a href="#">Sarah Parker</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a href="#">Art &amp; Design</a>
+                                </div>
+                                <p>여행가즈아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 	<section class="comment-section center-text">
 		<div class="container"><br/>
@@ -318,72 +317,60 @@
 		</div><!-- container -->
 	</section>
 
-	<footer>
+   
+    <!-- ##### Blog Details Content ##### -->
+    
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <!-- Top Footer Area -->
+        <div class="top-footer-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Footer Logo -->
+                        <div class="footer-logo">
+                            <a href="index.html"><img src="../clever-img/core-img/logo2.png" alt=""></a>
+                        </div>
+                        <!-- Copywrite -->
+                        <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		<div class="container">
-			<div class="row">
+        <!-- Bottom Footer Area -->
+        <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <a href="#"><span>Phone:</span> +44 300 303 0266</a>
+                <a href="#"><span>Email:</span> info@clever.com</a>
+            </div>
+            <!-- Follow Us -->
+            <div class="follow-us">
+                <span>Follow us</span>
+                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
 
-				<div class="col-lg-4 col-md-6">
-					<div class="footer-section">
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="../clever-js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="../clever-js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="../clever-js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="../clever-js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="../clever-js/active.js"></script>
+	<!-- Facebook Login js -->
 
-						<a class="logo" href="#"><img src="images/logo.png" alt="Logo Image"></a>
-						<p class="copyright">Bona @ 2017. All rights reserved.</p>
-						<p class="copyright">Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-						<ul class="icons">
-							<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
-						</ul>
-
-					</div><!-- footer-section -->
-				</div><!-- col-lg-4 col-md-6 -->
-
-				<div class="col-lg-4 col-md-6">
-						<div class="footer-section">
-						<h4 class="title"><b>CATAGORIES</b></h4>
-						<ul>
-							<li><a href="#">BEAUTY</a></li>
-							<li><a href="#">HEALTH</a></li>
-							<li><a href="#">MUSIC</a></li>
-						</ul>
-						<ul>
-							<li><a href="#">SPORT</a></li>
-							<li><a href="#">DESIGN</a></li>
-							<li><a href="#">TRAVEL</a></li>
-						</ul>
-					</div><!-- footer-section -->
-				</div><!-- col-lg-4 col-md-6 -->
-
-				<div class="col-lg-4 col-md-6">
-					<div class="footer-section">
-
-						<h4 class="title"><b>SUBSCRIBE</b></h4>
-						<div class="input-area">
-							<form>
-								<input class="email-input" type="text" placeholder="Enter your email">
-								<button class="submit-btn" type="submit"><i class="icon ion-ios-email-outline"></i></button>
-							</form>
-						</div>
-
-					</div><!-- footer-section -->
-				</div><!-- col-lg-4 col-md-6 -->
-
-			</div><!-- row -->
-		</div><!-- container -->
-	</footer>
-
-
-	<!-- SCIPTS -->
-
-	<script src="common-js/jquery-3.1.1.min.js"></script>
-
-	<script src="common-js/tether.min.js"></script>
-
-	<script src="common-js/bootstrap.js"></script>
-
-	<script src="common-js/scripts.js"></script>
 
 </body>
 </html>

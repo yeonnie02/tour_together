@@ -1,235 +1,567 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- spring security -->
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
-<%@ page import="org.springframework.security.core.Authentication" %>
-<%@ page import="com.cndy.tt.member.Member" %>
-<%
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication(); //(로그인)인증 객체
-
-	Object principal = auth.getPrincipal(); //인증에 성공시 member 객체 리턴 
-	
-	System.out.println(" jsp principal: "+principal);
-	System.out.println(" isAuthenticated(): "+auth.isAuthenticated());
-	String email = "";
-	if(principal != null && principal instanceof Member){
-		email = ((Member)principal).getEmail();
-		System.out.println("email: "+email);
-		System.out.println("id: "+((Member)principal).getId());
-		System.out.println("password: "+((Member)principal).getPassword());
-	}
-%>
-
+<%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>TourTogether</title>
-<link rel="stylesheet"
-	href="https://bootswatch.com/4/spacelab/bootstrap.min.css">
-<style media="screen">
-	#fb-btn {
-		margin-top: 20px;
-	}
-	
-	#logout, #feed {
-		display: none
-	}
-	
-	#profile:link, #profile:visited {
-		background-color: #f44336;
-		color: white;
-		padding: 14px 25px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-	}
-	#logout, #close, #login {
-		background-color: #333333;
-		color: white;
-		padding: 14px 25px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-	}
-	
-	#profile:hover, #profile:active {
-		background-color: red;
-	}
-	
-	.white_content {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.8);
-    opacity:0;
-    -webkit-transition: opacity 400ms ease-in;
-    -moz-transition: opacity 400ms ease-in;
-    transition: opacity 400ms ease-in;
-    pointer-events: none;
-}
-.white_content:target {
-    opacity:1;
-    pointer-events: auto;
-}
-.white_content > div {
-	position: absolute;
-	top: 25%;
-	left: 25%;
-	width: 50%;
-	height: 50%;
-	padding: 16px;
-	border: 16px solid orange;
-	background-color: white;
-	overflow: auto;	
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *Must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Clever - Education &amp; Courses Template | Home</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="clever-img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="clever/style.css">
+
 </head>
+
 <body>
-<!--   <script src='{% static "js/jquery-1.11.3.min.js" %}'></script> -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-    /* SDKë¥¼ ì½ì´ë¤ì¸ ë¤ì ì´ê¸°í  start */
-      window.fbAsyncInit = function() {//window.fbAsyncInitì í ë¹ë í¨ìë SDKë¥¼ ëª¨ë ì½ì´ë¤ì´ë©´ ì¤íë¨
-        FB.init({//SDKì´ê¸°í(ì¤ì )			//ëª¨ë  SDK í¨ìë FB.init ë¤ìì í¸ì¶í´ì¼ í¨
-          appId      : '637602396604778',
-          cookie     : true,
-          xfbml      : true,
-          version    : 'v3.0'
-        });
-         FB.getLoginStatus(function(response) {//ì¬ì©ìì Facebook ë¡ê·¸ì¸ ìí ë° ì± ì¸ì¦ ì¬ë¶ë¥¼ íì¸
-            statusChangeCallback(response);//í¨ìí¸ì¶
-        }); //ì´ê² ëë¬¸ì ì´ê¸°ì ì¤ë¥ ë°ìíìì
-      };
-      (function(d, s, id){ //ì¦ì í¸ì¶ í¨ì ì (Immediately Invoked Function Expression, IIFE) //ì¸í°íë¦¬í°ê° í´ë¹ í¨ìì ëë¬íë©´ ìëì¼ë¡ í¸ì¶ëë í¨ì
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "https://connect.facebook.net/en_US/sdk.js";//https ìë¶íë©´ ì¤ë¥ //sdkì½ì´ë¤ì´ë urlì¸ë¯
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-      /* SDKë¥¼ ì½ì´ë¤ì¸ ë¤ì ì´ê¸°í  end */
-      
-       function statusChangeCallback(response){//ë¡ê·¸ì¸ ìíë³ if else ë¡ì§
-         if(response.status === 'connected'){
-           console.log('Logged in and authenticated');
-           
-           //authResponseë ì¬ì©ìì ID, ì í¨í ì¡ì¸ì¤ í í°, ìëªë ìì²­ ë° ì¡ì¸ì¤ í í°ê³¼ ìëªë ìì²­ì´ ê°ê° ë§ë£ëë ìê°ì ì ê³µ.
-           var uid = response.authResponse.userID;
-           //í í°: ê¸¸ì´ê° ë³í  ì ìë ë¶ëªíí ë¬¸ìì´  https://developers.facebook.com/docs/facebook-login/access-tokens/?translation
-           var accessToken = response.authResponse.accessToken;//JavaScriptì© Facebook SDKììë ìëì¼ë¡ ì¬ì©ì ì¡ì¸ì¤ í í°ì ì»ì´ ë¸ë¼ì°ì  ì¿ í¤ì ì ì§->í í°ì¼ë¡ ì¸ìì ì§íë¨ë§?
-        		   //ë§ì½ ê·¸ë ë¤ë©´ í í°ì responseìì ì»ì ì ìì¼ëê¹ - responseê° ì¿ í¤ì ì ì§ëë¨ë§!? -> í í°ë§ ì¿ í¤ì ì¡´ì¬í´ë ë¡ê·¸ì¸ì ì ì§ê°ë¥í´ì ì¥ë´ëª»í¨
-        		   // -> ë¡ê·¸ì¸í  ëë§ë¤ response(í í°)ë¥¼ ì»ê¸°ìí´ FB.getLoginStatus(function(response){} í¸ì¶
-        				   //ê²°êµ­ ì¶ê°ì ì¸ ì¸ìì²ë¦¬ë íìíì§ ìë?
-           console.log('uid: '+uid+' /  accessToken: '+accessToken)
-           setElements(true);
-           //testAPI();
-         } else {
-           console.log('Not authenticated');
-           setElements(false);
-         }
-       }
-      function checkLoginState() { // fb:login-button ë²í¼ì í´ë¦­íë©´ ìíë¨ 
-        FB.getLoginStatus(function(response) {//ì¬ì©ìì Facebook ë¡ê·¸ì¸ ìí ë° ì± ì¸ì¦ ì¬ë¶ë¥¼ íì¸ //responseê°ì²´ë¥¼ ë°ë ê³³!? ë°ìì ì¿ í¤ì ìëì ì¥!?
-          statusChangeCallback(response);//í¨ìí¸ì¶
-          testAPI();//ë¡ê·¸ì¸ë²í¼í´ë¦­ì ëªìí fieldë¥¼ ê°ì²´íìì¼ë¡ responseì ì ì¥
-        }, true);//(true ì¶ê°ì´ì ) https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus#events
-      }
-      function testAPI(){//
-        FB.api('/me?fields=first_name, last_name, gender, birthday, email', function(response){//FB.api()ë¥¼ íµí´ Graph APIë¥¼ í¸ì¶í  ì ìì //responseë ì´ë¨ëê±°ì§???????
-          if(response && !response.error){
-            console.log("FB.api()");
-            alert(JSON.stringify(response));
-            //buildProfile(response);
-            addBook(response);
-          }
-        })
-      }
-      function setElements(isLoggedIn){//ì´ê±°ë¥¼ íë©´ ë°ëëë§ë¤ íì¸í´ì¼í¨ 1.ë©ì¸íì´ì§ë¡ëì 2.ë¡ê·¸ì¸,ë¡ê·¸ìì ì§í //1ë²ì´ ì²ë¦¬ìë¨ true,false
-        if(isLoggedIn){
-          document.getElementById('logout').style.display = 'block';//ë¡ê·¸ììë²í¼
-          document.getElementById('fb-btn').style.display = 'none';
-          document.getElementById('heading').style.display = 'none';
-          document.getElementById('open').style.display = 'none';
-          document.getElementById('login').style.display = 'none';
-        } else {
-          document.getElementById('login').style.display = 'block';
-          document.getElementById('logout').style.display = 'none';
-          document.getElementById('fb-btn').style.display = 'block';
-          document.getElementById('heading').style.display = 'block';
-        }
-      }
-      function logout(){//ë¡ê·¸ììë²í¼ ëë ì ë ìí //íë¶ë¡ê·¸ìì í htmlë³ê²½
-        FB.logout(function(response){
-          setElements(false);
-        });
-        $.post("member/sessionoff", function(){ alert("sessionofffffffffffffffffffffffffffffffffffffffffffffffffffff")})
-        .done(function(){
-        	console.log("sessionoff done^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        })
-		.error(function(){
-			console.log("sessionoff error####################################################");
-		})
-      }
-      function addBook(response) {
-    	    $.post("member/add03", 
-    	            response,
-    	            function(checkIdNum) { alert("success!! checkIdNum : "+checkIdNum); }
-			)
-			.fail(function() {
-    			alert( "error" );
- 			 })
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
 
-    	}
-      
-    </script>
+    <!-- ##### Header Area Start ##### -->
+	<%@include file="include2/navybar3.jsp"%>
+    <!-- ##### Header Area End ##### -->
 
-    <nav class="navbar navbar-default navbar-dark bg-dark">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="">TourTogether</a>
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area bg-img bg-overlay-2by5" style="background-image: url(clever-img/bg-img/bg1.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <!-- Hero Content -->
+                    <div class="hero-content text-center">
+                        <h2>Let's go on a trip together</h2>
+                        <a href="diary/list.do" class="btn clever-btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div >
-      	  <ul class="nav navbar-nav">
-      		<li><a id="me" href="member/profile"> <img src="//graph.facebook.com/${id}/picture?type=large" width="100" height="100"></a></li>
-           	<%-- <li><a href="member/profile"> <img src="<c:url value="/resources/images/qwe.jpg" />" width="100" height="100"></a></li> --%>
-           	<!-- <li><a href="member/profile"> <img src="/tour_together/images/qwe.jpg" width="100" height="100"></a></li> -->
-           	<!--c:url ì¬ì© ì ì£¼ì ì¬í­) https://m.blog.naver.com/PostView.nhn?blogId=phrack&logNo=80105009259&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F -->
-          </ul>
-          <%-- ${pageContext.request.contextPath} : /tour_together --%>
-          <ul class="nav navbar-nav">
-            <li><a id="profile" href="member/profile">Profile</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a  style="display:none" id="logout" href="" onclick="logout()">Logout</a></li>
-            
-            <!-- A.ë¡ê·¸ì¸ ë²í¼ì ì¬ì©íì¬ ë¡ê·¸ì¸ ì ë https://developers.facebook.com/docs/facebook-login/web -->
-            <!-- <fb:login-button 
-              id="fb-btn"
-              scope="public_profile,email,user_birthday,user_location,user_posts"
-              onlogin="checkLoginState();">
-            </fb:login-button> -->
-            <li><a id="login" href="#open">LOGIN</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-    <div class="container"><br/>
+    </section>
+    <!-- ##### Hero Area End ##### -->
+
+    <!-- ##### Cool Facts Area Start ##### -->
+    <section class="cool-facts-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <!-- Single Cool Facts Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="250ms">
+                        <div class="icon">
+                            <img src="clever-img/core-img/docs.png" alt="">
+                        </div>
+                        <h2><span class="counter">1912</span></h2>
+                        <h5>Tourist posts</h5>
+                    </div>
+                </div>
+
+                <!-- Single Cool Facts Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="500ms">
+                        <div class="icon">
+                            <img src="clever-img/core-img/star.png" alt="">
+                        </div>
+                        <h2><span class="counter">123</span></h2>
+                        <h5>Guide posts</h5>
+                    </div>
+                </div>
+
+                <!-- Single Cool Facts Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="750ms">
+                        <div class="icon">
+                            <img src="clever-img/core-img/events.png" alt="">
+                        </div>
+                        <h2><span class="counter">89</span></h2>
+                        <h5>this month</h5>
+                    </div>
+                </div>
+
+                <!-- Single Cool Facts Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="1000ms">
+                        <div class="icon">
+                            <img src="clever-img/core-img/earth.png" alt="">
+                        </div>
+                        <h2><span class="counter">56</span></h2>
+                        <h5>this week</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Cool Facts Area End ##### -->
+
+    <!-- ##### Popular Courses Start ##### -->
+    <section class="popular-courses-area section-padding-100-0" style="background-image: url(clever-img/core-img/texture.png);">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>Popular Online Courses</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
+                        <img src="clever-img/bg-img/c1.jpg" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>English Grammar</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> 10
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                </div>
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href="#" class="free">Free</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="500ms">
+                        <img src="clever-img/bg-img/c2.jpg" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>Vocabulary</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> 10
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                </div>
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href="#">$20</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="750ms">
+                        <img src="clever-img/bg-img/c3.jpg" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>Expository writing</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> 10
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                </div>
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href="#">$45</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Popular Courses End ##### -->
+
+    <!-- ##### Best Tutors Start ##### -->
+    <section class="best-tutors-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>The Best Tutors in Town</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="tutors-slide owl-carousel wow fadeInUp" data-wow-delay="250ms">
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
+                            <!-- Tutor Thumbnail -->
+                            <div class="tutor-thumbnail">
+                                <img src="clever-img/bg-img/t1.png" alt="">
+                            </div>
+                            <!-- Tutor Information -->
+                            <div class="tutor-information text-center">
+                                <h5>Alex Parker</h5>
+                                <span>Teacher</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum laoreet elit, sit amet tincidunt mauris ultrices vitae.</p>
+                                <div class="social-info">
+                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
+                            <!-- Tutor Thumbnail -->
+                            <div class="tutor-thumbnail">
+                                <img src="clever-img/bg-img/t2.png" alt="">
+                            </div>
+                            <!-- Tutor Information -->
+                            <div class="tutor-information text-center">
+                                <h5>Alex Parker</h5>
+                                <span>Teacher</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum laoreet elit, sit amet tincidunt mauris ultrices vitae.</p>
+                                <div class="social-info">
+                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
+                            <!-- Tutor Thumbnail -->
+                            <div class="tutor-thumbnail">
+                                <img src="clever-img/bg-img/t3.png" alt="">
+                            </div>
+                            <!-- Tutor Information -->
+                            <div class="tutor-information text-center">
+                                <h5>Alex Parker</h5>
+                                <span>Teacher</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum laoreet elit, sit amet tincidunt mauris ultrices vitae.</p>
+                                <div class="social-info">
+                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
+                            <!-- Tutor Thumbnail -->
+                            <div class="tutor-thumbnail">
+                                <img src="clever-img/bg-img/t4.png" alt="">
+                            </div>
+                            <!-- Tutor Information -->
+                            <div class="tutor-information text-center">
+                                <h5>Alex Parker</h5>
+                                <span>Teacher</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum laoreet elit, sit amet tincidunt mauris ultrices vitae.</p>
+                                <div class="social-info">
+                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
+                            <!-- Tutor Thumbnail -->
+                            <div class="tutor-thumbnail">
+                                <img src="clever-img/bg-img/t5.png" alt="">
+                            </div>
+                            <!-- Tutor Information -->
+                            <div class="tutor-information text-center">
+                                <h5>Alex Parker</h5>
+                                <span>Teacher</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum laoreet elit, sit amet tincidunt mauris ultrices vitae.</p>
+                                <div class="social-info">
+                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Best Tutors End ##### -->
+
+    <!-- ##### Register Now Start ##### -->
+    <section class="register-now section-padding-100-0 d-flex justify-content-between align-items-center" style="background-image: url(clever-img/core-img/texture.png);">
+        <!-- Register Contact Form -->
+        <div class="register-contact-form mb-100 wow fadeInUp" data-wow-delay="250ms">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="forms">
+                            <h4>Courses For Free</h4>
+                            <form action="#" method="post">
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="text" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" id="email" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="phone" placeholder="Phone">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="site" placeholder="Site">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn clever-btn w-100">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Now Countdown -->
+        <div class="register-now-countdown mb-100 wow fadeInUp" data-wow-delay="500ms">
+            <h3>Register Now</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum laoreet elit, sit amet tincidunt mauris ultrices vitae. Donec bibendum tortor sed mi faucibus vehicula. Sed erat lorem</p>
+            <!-- Register Countdown -->
+            <div class="register-countdown">
+                <div class="events-cd d-flex flex-wrap" data-countdown="2019/03/01"></div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Register Now End ##### -->
+
+    <!-- ##### Upcoming Events Start ##### -->
+    <section class="upcoming-events section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>Upcoming events</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Single Upcoming Events -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-upcoming-events mb-50 wow fadeInUp" data-wow-delay="250ms">
+                        <!-- Events Thumb -->
+                        <div class="events-thumb">
+                            <img src="clever-img/bg-img/e1.jpg" alt="">
+                            <h6 class="event-date">August 26</h6>
+                            <h4 class="event-title">Networking Day</h4>
+                        </div>
+                        <!-- Date & Fee -->
+                        <div class="date-fee d-flex justify-content-between">
+                            <div class="date">
+                                <p><i class="fa fa-clock"></i> August 26 @ 9:00 am</p>
+                            </div>
+                            <div class="events-fee">
+                                <a href="#">$45</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Upcoming Events -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-upcoming-events mb-50 wow fadeInUp" data-wow-delay="500ms">
+                        <!-- Events Thumb -->
+                        <div class="events-thumb">
+                            <img src="clever-img/bg-img/e2.jpg" alt="">
+                            <h6 class="event-date">August 7</h6>
+                            <h4 class="event-title">Open Doors Day</h4>
+                        </div>
+                        <!-- Date & Fee -->
+                        <div class="date-fee d-flex justify-content-between">
+                            <div class="date">
+                                <p><i class="fa fa-clock"></i> August 7 @ 9:00 am</p>
+                            </div>
+                            <div class="events-fee">
+                                <a href="#" class="free">Free</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Upcoming Events -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-upcoming-events mb-50 wow fadeInUp" data-wow-delay="750ms">
+                        <!-- Events Thumb -->
+                        <div class="events-thumb">
+                            <img src="clever-img/bg-img/e3.jpg" alt="">
+                            <h6 class="event-date">August 3</h6>
+                            <h4 class="event-title">Creative Leadership</h4>
+                        </div>
+                        <!-- Date & Fee -->
+                        <div class="date-fee d-flex justify-content-between">
+                            <div class="date">
+                                <p><i class="fa fa-clock"></i> August 3 @ 9:00 am</p>
+                            </div>
+                            <div class="events-fee">
+                                <a href="#">$45</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Upcoming Events End ##### -->
+
+    <!-- ##### Blog Area Start ##### -->
+    <section class="blog-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>From Our Blog</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Single Blog Area -->
+                <div class="col-12 col-md-6">
+                    <div class="single-blog-area mb-100 wow fadeInUp" data-wow-delay="250ms">
+                        <img src="clever-img/blog-img/1.jpg" alt="">
+                        <!-- Blog Content -->
+                        <div class="blog-content">
+                            <a href="#" class="blog-headline">
+                                <h4>English Grammer</h4>
+                            </a>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Blog Area -->
+                <div class="col-12 col-md-6">
+                    <div class="single-blog-area mb-100 wow fadeInUp" data-wow-delay="500ms">
+                        <img src="clever-img/blog-img/2.jpg" alt="">
+                        <!-- Blog Content -->
+                        <div class="blog-content">
+                            <a href="#" class="blog-headline">
+                                <h4>English Grammer</h4>
+                            </a>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Blog Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <!-- Top Footer Area -->
+        <div class="top-footer-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Footer Logo -->
+                        <div class="footer-logo">
+                            <a href="index.html"><img src="clever-img/core-img/logo2.png" alt=""></a>
+                        </div>
+                        <!-- Copywrite -->
+                        <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Footer Area -->
+        <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <a href="#"><span>Phone:</span> +44 300 303 0266</a>
+                <a href="#"><span>Email:</span> info@clever.com</a>
+            </div>
+            <!-- Follow Us -->
+            <div class="follow-us">
+                <span>Follow us</span>
+                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="clever-js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="clever-js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="clever-js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="clever-js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="clever-js/active.js"></script>
+</body>
     	
-<%-- 		    <a href="<c:url value="diary/list.do"/>" >다이어리 리스트</a><br/>
-		    <a href="<c:url value="admin/admin_mem.do"/>" >관리자</a><br/> --%>
+<%-- 		 
 		    
 		    <!-- spring security 권한 확인 -->
 		    <sec:authorize access="isAnonymous()"> 
@@ -238,7 +570,7 @@
 		    </sec:authorize>
 		        
 		    <sec:authorize access="isAuthenticated()">
-		    <%=email %>님 반갑습니다<br/>
+
 		    <ul>
 		    	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		    	<a href="<c:url value="admin/admin_mem.do"/>" >관리자</a><br/>
@@ -251,22 +583,6 @@
 		    	<input type="submit" value="로그아웃"/>
 		    </form:form>
 		    </sec:authorize>
-		    
-      <h3 id="heading">Log in to view your profile</h3>
-      <div id="profile"></div>
-      <div id="feed"></div>
-    </div>
-    <div class="white_content" id="open">
-        <div>
-            <p>
-            <!-- A.ë¡ê·¸ì¸ ë²í¼ì ì¬ì©íì¬ ë¡ê·¸ì¸ ì ë https://developers.facebook.com/docs/facebook-login/web -->
-            <fb:login-button 
-              id="fb-btn"
-              scope="public_profile"
-              onlogin="checkLoginState();">
-            </fb:login-button>
-            <a href="#close">CLOSE</a></p>
-        </div>
-    </div>
-  </body>
+--%>
+
 </html>

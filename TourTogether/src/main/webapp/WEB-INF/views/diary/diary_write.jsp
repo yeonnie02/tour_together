@@ -9,38 +9,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8">
 	
-	<!-- summernote -->
-	
 	<!-- include libraries(jQuery, bootstrap) --> 
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
  	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	
-	<!-- Font -->
-
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-
-
-	<!-- Stylesheets -->
-
-	<link href="common-css/bootstrap.css" rel="stylesheet">
-
-	<link href="common-css/ionicons.css" rel="stylesheet">
-
-
-	<link href="blank-static/css/styles.css" rel="stylesheet">
-
-	<link href="blank-static/css/responsive.css" rel="stylesheet">	 
+	<!-- autocomplete + modal css-->
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+	<style>
+		.ui-autocomplete { 
+			position: absolute;
+			z-index: 12000;/* 이거로 오토컴플릿 안가리고 보이게 할수있다고함- 나중에 하기*/
+		    overflow-y: scroll; 
+		    overflow-x: hidden;
+		}
+	</style>
 	
-	<!-- SCIPTS -->
-
-	<script src="common-js/tether.min.js"></script>
-
+	<!-- Stylesheets -->
+	<link href="common-css/bootstrap.css" rel="stylesheet">
+	<link href="common-css/ionicons.css" rel="stylesheet">
+	<link href="single-post-2/css/styles.css" rel="stylesheet">
+	<link href="single-post-2/css/responsive.css" rel="stylesheet">	 
+	<link href="single-post-2/css/form.css" rel="stylesheet">
 	
 	<!-- include summernote css/js -->
 	<link href="summernote/summernote.css" rel="stylesheet">
-	<script src="summernote/summernote.js"></script>
-	<script src="summernote/lang/summernote-ko-KR.js"></script>
+
+	
+	<!-- Clever CSS -->
+  	<link rel="stylesheet" href="../clever/style.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
 	
 	<script>
 		function submitContent(){
@@ -107,52 +106,92 @@
 
 <body onload="input.title.focus()">
 
-	<header>
-		<div class="container-fluid position-relative no-side-padding">
+	<!-- header -->
+	<%@include file="../include2/navybar4.jsp"%>
 
-			<a href="#" class="logo"><img src="images/logo.png" alt="Logo Image"></a>
-
-			<div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
-
-			<ul class="main-menu visible-on-click" id="main-menu">
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Categories</a></li>
-				<li><a href="#">Features</a></li>
-			</ul><!-- main-menu -->
-
-			<div class="src-area">
-				<form>
-					<button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
-					<input class="src-input" type="text" placeholder="Type of search">
-				</form>
-			</div>
-
-		</div><!-- conatiner -->
-	</header>
-
-	<div class="slider display-table center-text">
-		<h1 class="title display-table-cell"></h1>
+	<div class="slider2">
+		<!-- <h1 class="title display-table-cell"></h1> -->
 	</div><!-- slider -->
+	
+<!-- autocomplete js http://api.jqueryui.com/autocomplete/ -->
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#input-4").autocomplete({
+		source : function(request, response) {
 
-	<section class="blog-area section">
+			$.ajax({
+				url : "../member/autocomplete",//Specifies the URL to send the request to.
+				type : "post",
+				dataType : "json",//The data type expected of the server response.
+				data: request,//Specifies data to be sent to the server
+
+				success : function(data) {
+					var result = data;
+					response(result);
+				},
+				error : function(data) {//request fails
+					alert("에러가 발생하였습니다.")
+				}
+			});
+		}
+	});
+});
+</script>	
+
+	<section class="post-area">
 		<div class="container">
 
 			<div class="row">
-				<div class="col-lg-2 col-md-0"></div>
-				<div class="col-lg-8 col-md-12">
-				
-					<!-- content -->
-					<form name="input" method="post" action="../diary/write.do" enctype="multipart/form-data">
-						<div><a>제목</a>&emsp;<input type="text" name="title"></div><br/>
-						<div><a>글쓴이</a>&emsp;<input type="text" name="email"></div><br/>
-						<div><a>지역</a>&emsp;<input type="text" name="region"></div><br/>
-						<div><a>동행자</a>&emsp;<input type="text" name="company"></div><br/>
-						<!-- summernote -->
-						<textarea id="summernote" name="diary_content"></textarea>
-						
-						<button type="button" onclick="submitContent()">작성</button>
-   					</form>
-				    
+				<div class="col-lg-1 col-md-0"></div>
+				<div class="col-lg-10 col-md-12">
+					<div class="main-post">
+							<!-- content -->
+							<form name="input" method="post" action="../diary/write.do" enctype="multipart/form-data">
+						<div class="post-top-area-x">
+
+							  <span class="input">
+							    <input type="text" class="input__field" id="input-1" name="title"/>
+							    <label for="input-1" class="input__label">
+							      <span class="input__label-content">제목</span>
+							  </label>
+							  </span>
+							
+							  <span class="input">
+							    <input type="text" class="input__field" id="input-2" name="email"/>
+							    <label for="input-2" class="input__label">
+							      <span class="input__label-content">글쓴이</span>
+							    </label>
+							  </span>
+							
+							  <span class="input">
+							    <input type="text" class="input__field" id="input-3" name="region"/>
+							    <label for="input-3" class="input__label">
+							      <span class="input__label-content">지역</span>
+							    </label>
+							  </span>
+							
+							  <span class="input">
+							    <input type="text" class="input__field" id="input-4" name="company"/>
+							    <label for="input-4" class="input__label">
+							      <span class="input__label-content">동행자</span>
+							    </label>
+							  </span>
+							  <!-- summernote -->
+							  <span class="input message">
+							    <textarea class="input__field" id="summernote" name="diary_content"></textarea>
+							    <!-- <label for="input-5" class="input__label">
+							      <span class="input__label-content">Message</span>
+							    </label> -->
+							  </span><!-- summernote -->
+							  	
+							  <button id="send-button" type="button" onclick="submitContent()">List</button>	
+							  <button id="send-button" type="button" onclick="submitContent()">Send</button>
+							
+	
+	   					</div>
+	   					</form>
+				    </div>
+
 				</div><!-- col-sm-8 col-sm-offset-2 -->
 			</div><!-- row -->
 
@@ -160,60 +199,48 @@
 	</section><!-- section -->
 
 
-	<footer>
-		<div class="container">
-			<div class="row">
-
-				<div class="col-lg-4 col-md-6">
-					<div class="footer-section">
-
-						<a class="logo" href="#"><img src="images/logo.png" alt="Logo Image"></a>
-						<p class="copyright">Bona @ 2017. All rights reserved.</p>
-						<p class="copyright">Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-						<ul class="icons">
-							<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
-						</ul>
-
-					</div><!-- footer-section -->
-				</div><!-- col-lg-4 col-md-6 -->
-
-				<div class="col-lg-4 col-md-6">
-						<div class="footer-section">
-						<h4 class="title"><b>CATAGORIES</b></h4>
-						<ul>
-							<li><a href="#">BEAUTY</a></li>
-							<li><a href="#">HEALTH</a></li>
-							<li><a href="#">MUSIC</a></li>
-						</ul>
-						<ul>
-							<li><a href="#">SPORT</a></li>
-							<li><a href="#">DESIGN</a></li>
-							<li><a href="#">TRAVEL</a></li>
-						</ul>
-					</div><!-- footer-section -->
-				</div><!-- col-lg-4 col-md-6 -->
-
-				<div class="col-lg-4 col-md-6">
-					<div class="footer-section">
-
-						<h4 class="title"><b>SUBSCRIBE</b></h4>
-						<div class="input-area">
-							<form>
-								<input class="email-input" type="text" placeholder="Enter your email">
-								<button class="submit-btn" type="submit"><i class="icon ion-ios-email-outline"></i></button>
-							</form>
-						</div>
-
-					</div><!-- footer-section -->
-				</div><!-- col-lg-4 col-md-6 -->
-
-			</div><!-- row -->
-		</div><!-- container -->
-	</footer>
+	
+	<!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="../js/bootstrap/jquery-2.2.4.min.js"></script>
+	<!-- Popper js -->
+    <script src="../js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="../js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="../js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="../js/plugins/active.js"></script>
+	<!-- Summernote js -->
+	<script src="summernote/summernote.js"></script>
+	<script src="summernote/lang/summernote-ko-KR.js"></script>
+	<!-- Autocomplete-UI js -->
+	<script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+	<!-- Autocomplete js http://api.jqueryui.com/autocomplete/ -->
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#input-4").autocomplete({
+			source : function(request, response) {
+	
+				$.ajax({
+					url : "../member/autocomplete",//Specifies the URL to send the request to.
+					type : "post",
+					dataType : "json",//The data type expected of the server response.
+					data: request,//Specifies data to be sent to the server
+	
+					success : function(data) {
+						var result = data;
+						response(result);
+					},
+					error : function(data) {//request fails
+						alert("에러가 발생하였습니다.")
+					}
+				});
+			}
+		});
+	});
+	</script>    
+	
 
 </body>
 </html>

@@ -44,6 +44,12 @@
 		where ID = #{id, jdbcType=VARCHAR}
 	</update>
 	
+	<select id="autoComplete" parameterType="String" resultType="Member">
+		select first_name from MEMBER_INFO
+	 	where first_name like concat('%',concat(UPPER(#{b}),'%'))
+			or first_name like concat('%',concat(LOWER(#{b}),'%'))
+	</select> 
+	
 	<select id="initDateSelectAll" resultType="Member">
        select JOIN_DATE from MEMBER_INFO <![CDATA[where JOIN_DATE <= SYSDATE]]> GROUP BY JOIN_DATE ORDER BY JOIN_DATE
     </select>

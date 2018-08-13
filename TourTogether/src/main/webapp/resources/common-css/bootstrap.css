@@ -5,17 +5,17 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
-html {
+/* html {
   font-family: sans-serif;
   line-height: 1.15;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-}
-
+} */
+/* 
 body {
   margin: 0;
 }
-
+ */
 article,
 aside,
 footer,
@@ -315,35 +315,36 @@ template {
   }
 }
 
-html {
+/* html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-}
+} */
 
+/*
 *,
 *::before,
-*::after {
+ *::after {
   -webkit-box-sizing: inherit;
           box-sizing: inherit;
-}
+} */
 
 @-ms-viewport {
   width: device-width;
 }
-
+/* 
 html {
   -ms-overflow-style: scrollbar;
   -webkit-tap-highlight-color: transparent;
 }
-
-body {
+ */
+/* body {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   font-weight: normal;
   line-height: 1.5;
   color: #292b2c;
   background-color: #fff;
-}
+} */
 
 [tabindex="-1"]:focus {
   outline: none !important;
@@ -369,13 +370,13 @@ address {
   font-style: normal;
   line-height: inherit;
 }
-
+/*
 ol,
 ul,
 dl {
   margin-top: 0;
   margin-bottom: 1rem;
-}
+} */
 
 ol ol,
 ul ul,
@@ -396,7 +397,7 @@ dd {
 blockquote {
   margin: 0 0 1rem;
 }
-
+/* 
 a {
   color: #0275d8;
   text-decoration: none;
@@ -420,7 +421,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 a:not([href]):not([tabindex]):focus {
   outline: 0;
 }
-
+ */
 pre {
   margin-top: 0;
   margin-bottom: 1rem;
@@ -4720,7 +4721,7 @@ tbody.collapse.show {
     margin-bottom: 0.75rem;
   }
 }
-
+/* 
 .breadcrumb {
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
@@ -4758,7 +4759,7 @@ tbody.collapse.show {
 .breadcrumb-item.active {
   color: #636c72;
 }
-
+ */
 .pagination {
   display: -webkit-box;
   display: -webkit-flex;
@@ -5669,7 +5670,7 @@ button.close {
   top: 0;
   left: 0;
   z-index: 1060;
-  display: block;
+  display: none;
   max-width: 276px;
   padding: 1px;
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;

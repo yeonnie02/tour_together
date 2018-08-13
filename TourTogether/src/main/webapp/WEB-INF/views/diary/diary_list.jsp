@@ -1,210 +1,467 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html lang="en">
 
-
-<!DOCTYPE HTML>
-<html>
 <head>
-	<title>TITLE</title>
-	
-	<!-- 페이징 스크립트 -->
-	<script type="text/javascript" src="../js/paging.js"></script>
-	
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *Must* come first in the head; any other head content must come *after* these tags -->
 
-	<!-- Font -->
+    <!-- Title -->
+    <title>Clever - Education &amp; Courses Template | Courses</title>
 
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="../clever-img/core-img/favicon.ico">
 
-
-	<!-- Stylesheets -->
-
-	<link href="common-css/bootstrap.css" rel="stylesheet">
-
-	<link href="common-css/ionicons.css" rel="stylesheet">
-
-	<link href="layout-1/css/styles.css" rel="stylesheet">
-
-	<link href="layout-1/css/responsive.css" rel="stylesheet">
-	
 	<!-- paging css  -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="../clever/style.css">
+	
+<style>
+#acenter{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+</style>
 </head>
-<body >
 
-	<header>
-		<div class="container-fluid position-relative no-side-padding">
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
 
-			<!-- ## LOGO -->
-			<a href="#" class="logo"><img src="images/logo.png" alt="Logo Image"></a>
+    <!-- ##### Header Area Start ##### -->
+	<%@include file="../include2/navybar4.jsp"%>
+    <!-- ##### Header Area End ##### -->
 
-			<div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area">
+        <!-- Breadcumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Tour</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tour &amp; Diary</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
 
-			<!-- ## main-menu -->
-			<ul class="main-menu visible-on-click" id="main-menu">
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Categories</a></li>
-				<li><a href="#">Features</a></li>
-			</ul>
-			
-			<!-- ## search -->
-			<div class="src-area">
-				<form>
-					<button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
-					<input class="src-input" type="text" placeholder="Type of search">
-				</form>
-			</div>
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area bg-img bg-overlay-2by5" style="background-image: url(../clever-img/bg-img/bg2.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <!-- Hero Content -->
+                    <div class="hero-content text-center">
+                        <h2>Tour &amp; Diary</h2>
+                        <a href="../diary/write.do" class="btn clever-btn">Write a diary</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Hero Area End ##### -->
 
-		</div><!-- conatiner -->
-	</header>
+    <!-- ##### Catagory ##### -->
+<!--     <div class="clever-catagory bg-img d-flex align-items-center justify-content-center p-3" style="background-image: url(../clever-img/bg-img/bg2.jpg);">
+                    <div class="hero-content text-center">
+                        <h1>Tour &amp; Diary</h1>
+                        <a href="#" class="btn clever-btn">Get Started</a>
+                    </div>
+    </div> -->
 
-	<div class="slider"></div><!-- slider -->
+    <!-- ##### Popular Course Area Start ##### -->
+    <section class="popular-courses-area section-padding-100">
+        <div class="container">
+            <div class="row">
+           		<c:forEach items="${list}" var="data">
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
+                        <img src="../clever-img/bg-img/c1.jpg" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                        	<a href='content.do?diary_no=${data.diary_no}&index=${pagingVo.index}'>
+                            <h4>${data.title}</h4></a>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Tourist</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-heart" aria-hidden="true"></i> 10
+                                </div>
+                                <div class="rating">
+                                    <i class="far fa-comment" aria-hidden="true"></i> 4.5
+                                </div>
+                                <div class="rating">
+                                    <i class="far fa-eye" aria-hidden="true"></i> 4.5
+                                </div>
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href='content.do?diary_no=${data.diary_no}&index=${pagingVo.index}'>Click</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </c:forEach>
 
-	<section class="blog-area section">
-		<div class="container">
-		
-			<!-- 글쓰기 버튼  -->
-			<div><a href='write.do'><button>글쓰기</button></a><br/><br/></div>
-		
-			<!-- 게시물 출력 -->
-			<div class="row">
-			
-				<c:forEach items="${list}" var="data">
-					
-					<div class="col-lg-4 col-md-6">
-						<div class="card h-100">
-							<div class="single-post post-style-2">
-								
-								<div class="blog-image"><img src="images/marion-michele-330691.jpg" alt="Blog Image"></div>
-	
-								<!-- ## PROFILE -->
-								<a class="avatar" href="#"><img src="images/icons8-team-355979.jpg" alt="Profile Image"></a>
-	
-								<div class="blog-info">
-									<!-- ## TITLE -->
-									<h4 class="title">
-										<a href='content.do?diary_no=${data.diary_no}&index=${pagingVo.index}'>
-										<b>${data.title}</b></a>
-									</h4>
-	
-									<!-- ## post footer -->
-									<ul class="post-footer">
-										<li><i class="ion-heart"></i>${ data.user_like }</a></li>
-										<li><i class="ion-chatbubble"></i>6</a></li>
-										<li><i class="ion-eye"></i>${data.count_read}</a></li>
-									</ul>
-									
-								</div><!-- blog-info -->
-							</div><!-- single-post -->
-						</div><!-- card -->
-					</div><!-- col-lg-4 col-md-6 -->
-					
-				</c:forEach>
-				
-			</div><!-- row -->
-			
-			<!-- paging view -->	
-			<ul id="paging" class="pagination">
-				<c:if test="${pagingVo.pageStartNum ne 1}">
-					<!--맨 첫페이지 이동 -->
-					<li><a onclick='pagePre(${pagingVo.pageCnt+1},${pagingVo.pageCnt});'>&laquo;</a></li>
-					<!--이전 페이지 이동 -->
-					<li><a onclick='pagePre(${pagingVo.pageStartNum},${pagingVo.pageCnt});'>&lsaquo;</a></li>
-				</c:if>
-				
-				<!--페이지번호 -->
-				<c:forEach var='i' begin="${pagingVo.pageStartNum}" end="${pagingVo.pageLastNum}" step="1">
-					<li class='pageIndex${i}'><a onclick='pageIndex(${i});'>${i}</a></li>
-				</c:forEach>
-				
-				<c:if test="${pagingVo.lastChk}">
-					<!--다음 페이지 이동 -->
-					<li><a onclick='pageNext(${pagingVo.pageStartNum},${pagingVo.total},${pagingVo.listCnt},${pagingVo.pageCnt});'>&rsaquo;</a></li>
-					<!--마지막 페이지 이동 -->
-					<li><a onclick='pageLast(${pagingVo.pageStartNum},${pagingVo.total},${pagingVo.listCnt},${pagingVo.pageCnt});'>&raquo;</a></li>
-				</c:if>
-			</ul>
-	  	    <form action="./list.do" method="post" id='frmPaging'>
-				<!--출력할 페이지번호, 출력할 페이지 시작 번호, 출력할 리스트 갯수 -->
-				<input type='hidden' name='index' id='index' value='${pagingVo.index}'>
-				<input type='hidden' name='pageStartNum' id='pageStartNum' value='${pagingVo.pageStartNum}'>
-				<input type='hidden' name='listCnt' id='listCnt' value='${pagingVo.listCnt}'>	
-			</form>
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="500ms">
+                        <img src="../clever-img/bg-img/c2.jpg" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>Vocabulary</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> 10
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                </div>
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href="#">Click</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-		</div><!-- container -->
-	</section><!-- section -->
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="750ms">
+                        <img src="../clever-img/bg-img/c3.jpg" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>Expository writing</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> 10
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                </div>
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href="#">Click</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
+                        <img src="../clever-img/bg-img/c4.jpg" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>Vocabulary</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> 10
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                </div>
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href="#">Click</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-	<footer>
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="500ms">
+                        <img src="../clever-img/bg-img/c5.jpg" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>English Grammer</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> 10
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                </div>
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href="#" class="free">Click</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-		<div class="container">
-			<div class="row">
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="750ms">
+                        <img src="../clever-img/bg-img/c6.jpg" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>Expository writing</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> 10
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                </div>
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href="#">Click</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-				<div class="col-lg-4 col-md-6">
-					<div class="footer-section">
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
+                        <img src="../clever-img/bg-img/c7.jpg" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>English Grammer</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> 10
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                </div>
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href="#" class="free">Click</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-						<a class="logo" href="#"><img src="images/logo.png" alt="Logo Image"></a>
-						<p class="copyright">Bona @ 2017. All rights reserved.</p>
-						<p class="copyright">Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-						<ul class="icons">
-							<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="500ms">
+                        <img src="../clever-img/bg-img/c8.jpg" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>Vocabulary</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> 10
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                </div>
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href="#">Click</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="750ms">
+                        <img src="../clever-img/bg-img/c9.jpg" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>Expository writing</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> 10
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                </div>
+                            </div>
+                            <div class="course-fee h-100">
+                                <a href="#">Click</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="acenter" class="row">
+                <div class="col-12">
+                    <div class="load-more text-center wow fadeInUp" data-wow-delay="1000ms">
+                        <!-- paging view -->	
+						<ul id="paging" class="pagination">
+							<c:if test="${pagingVo.pageStartNum ne 1}">
+								<!--맨 첫페이지 이동 -->
+								<li><a onclick='pagePre(${pagingVo.pageCnt+1},${pagingVo.pageCnt});'>&laquo;</a></li>
+								<!--이전 페이지 이동 -->
+								<li><a onclick='pagePre(${pagingVo.pageStartNum},${pagingVo.pageCnt});'>&lsaquo;</a></li>
+							</c:if>
+							
+							<!--페이지번호 -->
+							<c:forEach var='i' begin="${pagingVo.pageStartNum}" end="${pagingVo.pageLastNum}" step="1">
+								<li class='pageIndex${i}'><a onclick='pageIndex(${i});'>${i}</a></li>
+							</c:forEach>
+							
+							<c:if test="${pagingVo.lastChk}">
+								<!--다음 페이지 이동 -->
+								<li><a onclick='pageNext(${pagingVo.pageStartNum},${pagingVo.total},${pagingVo.listCnt},${pagingVo.pageCnt});'>&rsaquo;</a></li>
+								<!--마지막 페이지 이동 -->
+								<li><a onclick='pageLast(${pagingVo.pageStartNum},${pagingVo.total},${pagingVo.listCnt},${pagingVo.pageCnt});'>&raquo;</a></li>
+							</c:if>
 						</ul>
+				  	    <form action="./list.do" method="post" id='frmPaging'>
+							<!--출력할 페이지번호, 출력할 페이지 시작 번호, 출력할 리스트 갯수 -->
+							<input type='hidden' name='index' id='index' value='${pagingVo.index}'>
+							<input type='hidden' name='pageStartNum' id='pageStartNum' value='${pagingVo.pageStartNum}'>
+							<input type='hidden' name='listCnt' id='listCnt' value='${pagingVo.listCnt}'>	
+						</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Popular Course Area End ##### -->
 
-					</div><!-- footer-section -->
-				</div><!-- col-lg-4 col-md-6 -->
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <!-- Top Footer Area -->
+        <div class="top-footer-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Footer Logo -->
+                        <div class="footer-logo">
+                            <a href="index.html"><img src="../clever-img/core-img/logo2.png" alt=""></a>
+                        </div>
+                        <!-- Copywrite -->
+                        <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-				<div class="col-lg-4 col-md-6">
-						<div class="footer-section">
-						<h4 class="title"><b>CATAGORIES</b></h4>
-						<ul>
-							<li><a href="#">BEAUTY</a></li>
-							<li><a href="#">HEALTH</a></li>
-							<li><a href="#">MUSIC</a></li>
-						</ul>
-						<ul>
-							<li><a href="#">SPORT</a></li>
-							<li><a href="#">DESIGN</a></li>
-							<li><a href="#">TRAVEL</a></li>
-						</ul>
-					</div><!-- footer-section -->
-				</div><!-- col-lg-4 col-md-6 -->
+        <!-- Bottom Footer Area -->
+        <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <a href="#"><span>Phone:</span> +44 300 303 0266</a>
+                <a href="#"><span>Email:</span> info@clever.com</a>
+            </div>
+            <!-- Follow Us -->
+            <div class="follow-us">
+                <span>Follow us</span>
+                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
 
-				<div class="col-lg-4 col-md-6">
-					<div class="footer-section">
-
-						<h4 class="title"><b>SUBSCRIBE</b></h4>
-						<div class="input-area">
-							<form>
-								<input class="email-input" type="text" placeholder="Enter your email">
-								<button class="submit-btn" type="submit"><i class="icon ion-ios-email-outline"></i></button>
-							</form>
-						</div>
-
-					</div><!-- footer-section -->
-				</div><!-- col-lg-4 col-md-6 -->
-
-			</div><!-- row -->
-		</div><!-- container -->
-	</footer>
-
-
-	<!-- SCIPTS -->
-
-	<script src="common-js/jquery-3.1.1.min.js"></script>
-
-	<script src="common-js/tether.min.js"></script>
-
-	<script src="common-js/bootstrap.js"></script>
-
-	<script src="common-js/scripts.js"></script>
-
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="../clever-js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="../clever-js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="../clever-js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="../clever-js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="../clever-js/active.js"></script>
+    <!-- Paging js -->
+    <script type="text/javascript" src="../js/paging.js"></script>
 </body>
+
 </html>
+
