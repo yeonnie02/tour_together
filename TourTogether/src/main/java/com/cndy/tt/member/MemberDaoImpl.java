@@ -1,7 +1,6 @@
 package com.cndy.tt.member;
 
 import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class MemberDaoImpl implements MemberDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
 	private String ns = "com.cndy.tt.mybatis.Member";
+	private String ns_au = "com.cndy.tt.mybatis.Authority.";
 
 	@Override
-	public void insert(Member member) {
+	public boolean insert(Member member) {
         System.out.println("MemberDaoImpl - insert()");
-        System.out.println("id : "+member.getId());
-        System.out.println("first_name : "+member.getFirst_name());
-        System.out.println("last_name: "+member.getLast_name());
-        System.out.println("gender : "+member.getGender());
-		sqlSession.insert(ns + ".memberInsert", member);
+        
+		int i = sqlSession.insert(ns + ".memberInsert", member);
+		System.out.println(" i: "+i);
+		
+		if(i>0) return true;
+		else return false;
 	}
 
 	@Override
@@ -27,10 +29,13 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("MemberDaoImpl - checkId()");
 		return sqlSession.selectOne(ns + ".checkIdSelect", member);
 	}
+
 	@Override
 	public Member profileContent(String id) {
 		System.out.println("MemberDaoImpl - profileContent()");
+
 		return sqlSession.selectOne(ns + ".profileSelect", id);//selectOne->select하면 왜안될까
+
 	}
 
 	@Override
@@ -43,5 +48,21 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Member> autoComplete(String b) {
 		System.out.println("MemberDaoImpl - autoComplete()");
 		return sqlSession.selectList(ns+".autoComplete", b);
+	}
+
+	@Override
+	public String checkAuthority(String id) {
+		System.out.println("MemberDaoImpl - checkAuthority()");
+		return sqlSession.selectOne(ns_au + "checkAuthority", id);
+	}
+
+	@Override
+	public boolean insertAuthority(String id) {
+		System.out.println("MemberDaoImpl - insertAuthority()");
+		
+		int i = sqlSession.insert(ns_au + "insertAuthority", id);
+		System.out.println(" i: "+i);
+		if(i>0) return true;
+		else return false;
 	}
 }

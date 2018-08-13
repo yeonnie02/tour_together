@@ -30,7 +30,6 @@ public class AdminController {
 	@Resource(name="pagingService")
 	private PagingService pagingService;
 	
-	//회원관리
 	@RequestMapping(value="admin_mem.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public String memCont(Model model, PagingVo pagingVo, HttpSession session) {
 		List<Member> list = pagingService.selectAdminPagingService(pagingVo);
@@ -38,12 +37,9 @@ public class AdminController {
 		model.addAttribute("list", list);
 		session.setAttribute("pagingVo", pagingVo);
 		
-		System.out.println("회원 테이블 컨트롤러 들어옴");
-		
 		return "admin_mem";
 	}
 	
-	//회원검색
 	@RequestMapping(value="searchMem.do", method= {RequestMethod.POST})
 	public String memSearch(Model model, PagingVo pagingVo, HttpSession session,
 								@RequestParam(value="searchOpt") String searchOpt,
@@ -56,12 +52,9 @@ public class AdminController {
 		
 		session.setAttribute("pagingVo", pagingVo);
 		
-		System.out.println("회원 검색 컨트롤러 들어옴, searchOpt: "+searchOpt);
-		
 		return "admin_search";
 	}
 	
-	//가입자 추이 통계
 	@RequestMapping(value="admin_stat_join.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView chartJoin(Model model) {
 		List<Member> chartDate = adminService.chartDateService();
@@ -72,7 +65,6 @@ public class AdminController {
 		return mv;
 	}
 	
-	//가입자 성별 등급 통계
 	@RequestMapping(value="admin_stat_gen.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView chartGend(Model model) {
 		int chartGenF = adminService.chartGenFService();

@@ -20,6 +20,7 @@
 	<resources mapping="/clever-scss/**" location="/resources/clever/scss/" />
 	<resources mapping="/clever/**" location="/resources/clever/" />
 	
+
 	<resources mapping="/js/**" location="/resources/js/" /> 
 	<resources mapping="/images/**" location="/resources/images/" />
 	<resources mapping="/css/**" location="/resources/css/" />

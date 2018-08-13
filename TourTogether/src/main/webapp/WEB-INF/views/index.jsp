@@ -560,5 +560,30 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- Active js -->
     <script src="clever-js/active.js"></script>
 </body>
+    	
+<%-- 		    <a href="<c:url value="diary/list.do"/>" >다이어리 리스트</a><br/>
+		    <a href="<c:url value="admin/admin_mem.do"/>" >관리자</a><br/> 
+		    
+		    <!-- spring security 권한 확인 -->
+		    <sec:authorize access="isAnonymous()"> 
+		    <a href="<c:url value="login/login.do"/>" >로그인</a><br/>
+		    <a href="<c:url value="login/join.do" />">회원가입</a>
+		    </sec:authorize>
+		        
+		    <sec:authorize access="isAuthenticated()">
+
+		    <ul>
+		    	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		    	<a href="<c:url value="admin/admin_mem.do"/>" >관리자</a><br/>
+		    	</sec:authorize>
+		    	<sec:authorize access="permitAll">
+		    	<a href="<c:url value="diary/list.do"/>" >다이어리 리스트</a><br/>
+		    	</sec:authorize>
+		    </ul>
+		    <form:form action="${pageContext.request.contextPath }/logout" method="POST">
+		    	<input type="submit" value="로그아웃"/>
+		    </form:form>
+		    </sec:authorize>
+--%>
 
 </html>

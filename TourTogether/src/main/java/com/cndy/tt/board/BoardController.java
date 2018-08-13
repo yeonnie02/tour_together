@@ -105,6 +105,7 @@ public class BoardController {
 		
 		return "redirect:board.do";
 	}
+
 	@RequestMapping(value="board/list.do")
 	public String board_list() {
 		return "board/board_list";
@@ -117,6 +118,7 @@ public class BoardController {
 	public String board_form() {
 		return "board/board_form";
 	}
+
 //	@RequestMapping(value="/region.do")
 //	public String region_select() {
 //		return "board/region_select";

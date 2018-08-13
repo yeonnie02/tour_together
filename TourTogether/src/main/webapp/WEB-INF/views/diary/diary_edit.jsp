@@ -14,6 +14,7 @@
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
  	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	
+
 	<!-- autocomplete + modal css-->
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 	<style>
@@ -55,6 +56,7 @@
 		function submitContent(){
 			document.input.submit();
 			
+
 		}
 		
 		/* summernote script */
@@ -188,6 +190,7 @@
 	   					</form>
 	   					</c:forEach>
 				    </div>
+
 				</div><!-- col-sm-8 col-sm-offset-2 -->
 			</div><!-- row -->
 
@@ -273,6 +276,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		});
 	});
 	</script>
+
 
 </body>
 </html>

@@ -39,6 +39,7 @@
 	<!-- Clever CSS -->
   	<link rel="stylesheet" href="../clever/style.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
 	
 	<script>
 		function submitContent(){
@@ -190,6 +191,7 @@ $(document).ready(function() {
 	   					</div>
 	   					</form>
 				    </div>
+
 				</div><!-- col-sm-8 col-sm-offset-2 -->
 			</div><!-- row -->
 
@@ -239,5 +241,6 @@ $(document).ready(function() {
 	});
 	</script>    
 	
+
 </body>
 </html>

@@ -3,9 +3,6 @@ package com.cndy.tt.member;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -13,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,12 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("firstname")//세션
+@SessionAttributes("firstname")
 @RequestMapping("/member")
 public class MemberController {
+	
 	@Autowired
 	MemberDao memberDao;
-	
+
 	@Resource(name="memberService")
 	private MemberService memberService;
 	
@@ -48,6 +44,7 @@ public class MemberController {
         System.out.println("gender : "+member.getGender());
         System.out.println("birthday : "+member.getBirthday());
         System.out.println("email : "+member.getEmail());
+
        /* if(member.getGender()==null) {//처리안하면 오류 왜? -> 뷰단에서 넘겨받은 gender값이 java의 null과 같지 않은 듯 -> Member.xml에서 이 로직을 대신해서 처리해둠
         	//nested exception is org.springframework.jdbc.UncategorizedSQLException: Error setting null for parameter #4 with JdbcType OTHER . Try setting a different JdbcType for this parameter or a different jdbcTypeForNull configuration property.
         	member.setGender("0");
@@ -73,6 +70,7 @@ public class MemberController {
     	System.out.println("MemberController - profile()");
     	HttpSession session = request.getSession();
     	String id = (String) session.getAttribute("id");
+
     	Member member = memberService.profileContentService(id);//여기 오류면 다시 로그인하면됨-세션만료되서 id값이 null인듯
 
         model.addAttribute("member", member);
@@ -190,4 +188,5 @@ public class MemberController {
 
 		out.print(ja.toString());
 	}
+
 }

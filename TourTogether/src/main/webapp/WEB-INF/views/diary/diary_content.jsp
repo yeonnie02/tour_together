@@ -4,6 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,6 +24,7 @@
 	<link href="single-post-2/css/styles.css" rel="stylesheet">
 	<link href="single-post-2/css/responsive.css" rel="stylesheet">
 	<script type="text/javascript">
+
 		function submitComment(){
 			if(document.comment.form_name.value == ""){
 				document.comment.form_name.focus();
@@ -155,6 +157,7 @@
                         <!-- Tags -->
                         <div class="post-tags">
                             <ul>
+
 								<li><a href="#">Mnual</a></li>
 								<li><a href="#">Liberty</a></li>
 								<li><a href="#">Recommendation</a></li>
@@ -217,6 +220,7 @@
             </div>
         </div>
     </div>
+
 	<section class="comment-section center-text">
 		<div class="container"><br/>
 			<div class="row">
@@ -367,6 +371,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- Active js -->
     <script src="../clever-js/active.js"></script>
 	<!-- Facebook Login js -->
+
 
 </body>
 </html>
