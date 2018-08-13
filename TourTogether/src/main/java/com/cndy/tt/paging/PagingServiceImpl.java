@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cndy.tt.admin.Member;
+import com.cndy.tt.member.Member;
+import com.cndy.tt.admin.Notice;
+import com.cndy.tt.board.BoardDTO;
 import com.cndy.tt.diary.Diary;
 
 
@@ -32,6 +34,7 @@ public class PagingServiceImpl implements PagingService {
 	public boolean deleteAllService() {
 		return dao.deleteAll();
 	}
+
 	@Override
 	public List<Member> selectAdminPagingService(PagingVo pagingVo) {
 		return dao.selectAdminPaging(pagingVo);
@@ -48,4 +51,29 @@ public class PagingServiceImpl implements PagingService {
 	public int selectAdminSearchTotalPagingService(String searchOpt, String inputText) {
 		return dao.selectAdminSearchTotalPaging(searchOpt, inputText);
 	}
+	@Override
+	public List<Notice> selectNoticePagingService(PagingVo pagingVo) {
+		return dao.selectNoticePaging(pagingVo);
+	}
+	@Override
+	public int selectNoticeTotalPagingService() {
+		return dao.selectNoticeTotalPaging();
+	}
+	@Override
+	public List<BoardDTO> selectBoardPagingService(PagingVo pagingVo) {		
+		return dao.selectAdminBoardPaging(pagingVo);
+	}
+	@Override
+	public int selectBoardTotalPagingService() {
+		return dao.selectAdminTotalPagingService();
+	}
+	@Override
+	public List<BoardDTO> selectAdminBoardSearchService(String searchOpt, String inputText, PagingVo pagingVo) {
+		return dao.selectBoardSearchPaging(searchOpt, inputText, pagingVo);
+	}
+	@Override
+	public int selectAdminTotalBoardSearchService(String searchOpt, String inputText) {
+		return dao.selectBoardSearchTotalPaging(searchOpt, inputText);
+	}
+	
 }

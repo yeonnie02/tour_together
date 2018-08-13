@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cndy.tt.board.BoardDTO;
+import com.cndy.tt.diary.Diary;
+import com.cndy.tt.member.Member;
 import com.cndy.tt.paging.PagingService;
 import com.cndy.tt.paging.PagingVo;
 
@@ -37,9 +40,7 @@ public class AdminController {
 		model.addAttribute("list", list);
 		session.setAttribute("pagingVo", pagingVo);
 		
-		System.out.println("회원 테이블 컨트롤러 들어옴");
-		
-		return "admin_mem";
+		return "admin/admin_mem";
 	}
 	
 	//회원검색
@@ -55,9 +56,33 @@ public class AdminController {
 		
 		session.setAttribute("pagingVo", pagingVo);
 		
-		System.out.println("회원 검색 컨트롤러 들어옴, searchOpt: "+searchOpt);
+		return "admin/admin_memSearch";
+	}
+	
+	//게시글 관리
+	@RequestMapping(value="admin_board.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public String controlBoard(Model model, PagingVo pagingVo, HttpSession session) {
+		List<BoardDTO> list = pagingService.selectBoardPagingService(pagingVo);
+		pagingVo.setTotal(pagingService.selectBoardTotalPagingService());
+		model.addAttribute("list", list);
+		session.setAttribute("pagingVo", pagingVo);
 		
-		return "admin_search";
+		return "admin/admin_board";
+	}
+	
+	//게시물검색
+	@RequestMapping(value="searchBoard.do", method= {RequestMethod.POST})
+	public String boardSearch(Model model, PagingVo pagingVo, HttpSession session,
+								@RequestParam(value="searchOpt") String searchOpt,
+								@RequestParam(value="inputText") String inputText) {
+		List<BoardDTO> list = pagingService.selectAdminBoardSearchService(searchOpt, inputText, pagingVo);
+		pagingVo.setTotal(pagingService.selectAdminTotalBoardSearchService(searchOpt, inputText));
+		model.addAttribute("list", list);
+		model.addAttribute("searchOpt", searchOpt);
+		model.addAttribute("inputText", inputText);		
+		session.setAttribute("pagingVo", pagingVo);
+		
+		return "admin/admin_boardSearch";
 	}
 	
 	//가입자 추이 통계
@@ -66,7 +91,7 @@ public class AdminController {
 		List<Member> chartDate = adminService.chartDateService();
 		List<Integer> chartNum = adminService.chartNumService();
 		model.addAttribute("chartCount", chartNum);
-		String view = "admin_stat_join";
+		String view = "admin/admin_stat_join";
 		ModelAndView mv = new ModelAndView(view, "chart", chartDate);
 		return mv;
 	}
@@ -81,11 +106,12 @@ public class AdminController {
 		model.addAttribute("chartGenF", chartGenF);
 		model.addAttribute("chartClsA", chartClsA);
 		model.addAttribute("chartClsP", chartClsP);
-		String view = "admin_stat_genNcls";
+		String view = "admin/admin_stat_genNcls";
 		ModelAndView mv = new ModelAndView(view, "chartGenM", chartGenM);
 		return mv;
 	}
 	
+	//회원가입자 통계 날짜 검색
 	@RequestMapping(value="changeChart.do")
 	@ResponseBody
 	public JSONArray buttonSearch(@RequestParam("startYear") int startYear,
@@ -106,7 +132,6 @@ public class AdminController {
 			String dateStr = dateFormat.format(date);
 			
 			object.put("Date", dateStr);
-			System.out.println("object: "+object);
 			json.add(object);			
 		}
 		for(Integer i : newChartCount) {
@@ -116,5 +141,73 @@ public class AdminController {
 			json.add(object);
 		}
 		return json;
+	}
+	
+	//가입자 추이 통계
+	@RequestMapping(value="admin_stat_country.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView chartCountry(Model model) {
+		List<Member> chartCountry = adminService.chartCountryService();
+		List<Integer> chartCount = adminService.chartCountryCountService();
+		model.addAttribute("chartCount", chartCount);
+		String view = "admin/admin_stat_country";
+		ModelAndView mv = new ModelAndView(view, "chart", chartCountry);
+		return mv;
+	}
+	
+	//공지사항 리스팅
+	@RequestMapping(value="admin_notice.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public String adminBoard(Model model, PagingVo pagingVo, HttpSession session) {		
+		List<Notice> list = pagingService.selectNoticePagingService(pagingVo);
+		pagingVo.setTotal(pagingService.selectNoticeTotalPagingService());
+		model.addAttribute("list", list);
+		session.setAttribute("pagingVo", pagingVo);
+		
+		return "admin/admin_notice";
+	}
+	
+	//공지사항 글쓰기
+	@RequestMapping(value="noticeWrite.do", method=RequestMethod.POST)
+	public ModelAndView write(Notice notice) {		
+		ModelAndView mv = new ModelAndView();
+		boolean flag = adminService.insertNoticeService(notice);
+		if(flag) {
+			mv.addObject("result", true);
+		}else {
+			mv.addObject("result", false);
+		}
+		mv.setViewName("admin/result_msg");
+		return mv;
+	}
+	
+	//공지사항 삭제
+	@RequestMapping(value="deleteNotice.do")
+	public String delete(@RequestParam("notice_no") long notice_no) {		
+		adminService.deleteNoticeService(notice_no);
+		return "redirect:/admin/admin_notice.do";
+	}
+	
+	//공지사항 수정 페이지로 넘기기
+	@RequestMapping(value="showEditPage.do")
+	public ModelAndView showEditPage(@RequestParam("notice_no") long notice_no) {
+		ModelAndView mv = new ModelAndView();
+		List<Notice> notice = adminService.selectNoticeContent(notice_no);
+		mv.addObject("notice", notice);
+		mv.addObject("notice_no", notice_no);
+		mv.setViewName("admin/admin_editPage");
+
+		return mv;
+	}
+	//공지사항 수정
+	@RequestMapping(value="editNotice.do")
+	public ModelAndView editPage(Notice notice) {
+		ModelAndView mv = new ModelAndView();
+		boolean flag = adminService.editNotice(notice);
+		if(flag) {
+			mv.addObject("result", true);
+		}else {
+			mv.addObject("result", false);
+		}
+		mv.setViewName("admin/result_msg");
+		return mv;
 	}
 } 

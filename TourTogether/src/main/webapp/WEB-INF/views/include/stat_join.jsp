@@ -76,11 +76,16 @@
 					"trendLines": [],
 					"graphs": [
 						{
-							"fillAlphas": 1,
+							"bullet": "round",
 							"id": "AmGraph-1",
 							"title": "graph 1",
-							"type": "column",
 							"valueField": "column-1"
+						},
+						{
+							"bullet": "square",
+							"id": "AmGraph-2",
+							"title": "graph 2",
+							"valueField": "column-2"
 						}
 					],
 					"guides": [],

@@ -13,31 +13,83 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	
+	<!-- searching css -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>		
+		.topnav {
+		  overflow: hidden;
+		}		
+		.topnav .search-container {
+		  float: right;
+		}		
+		.topnav input[type=text] {
+		  padding: 6px;
+		  margin-top: 8px;
+		  font-size: 17px;
+		  border: none;
+		}		
+		.topnav .search-container button {
+		  float: right;
+		  padding: 6px 10px;
+		  margin-top: 8px;
+		  margin-right: 16px;
+		  background: #ddd;
+		  font-size: 17px;
+		  border: none;
+		  cursor: pointer;
+		}		
+		.topnav .search-container button:hover {
+		  background: #ccc;
+		}		
+		@media screen and (max-width: 600px) {
+		  .topnav .search-container {
+		    float: none;
+		  }
+		  .topnav a, .topnav input[type=text], .topnav .search-container button {
+		    float: none;
+		    display: block;
+		    text-align: left;
+		    width: 100%;
+		    margin: 0;
+		    padding: 14px;
+		  }
+		  .topnav input[type=text] {
+		    border: 1px solid #ccc;  
+		  }
+		}		
+		.select {
+			float: right;
+			padding: 6px 10px;
+			margin-top: 8px;
+			margin-right: 0px;
+			font-size: 17px;
+			border: none;
+			cursor: pointer;
+		}		
+	</style>
 </head>
 <body>
 	<!-- 회원 검색 테이블 -->
 	<form action="searchMem.do" method="post" class="search">
-		<table class="type03">
-		    <tr>
-		        <th scope="row">
-		        	<select name="searchOpt" id="searchOpt" style="width:80px; height:30px;">
-					  <option value="email">이메일</option>
-					  <option value="telephone">전화번호</option>
-					  <option value="lastName">성</option>
-					  <option value="firstName">이름</option>
-					  <option value="mem_class">등급</option>
-					  <option value="join_date">가입일</option>
-					  <option value="country">나라</option>
-					  <option value="gender">성별</option>
-					</select>
-		        </th>
-		        <td>
-		        	<input type="text" name="inputText">
-		        	<button type="submit" id="search">검색</button>
-		        </td>
-		    </tr>
-		</table>
+		<div class="topnav">
+			<div class="search-container">
+	 			<input type="text" name="inputText" value="${ inputText }" placeholder="Search..">
+	 			<button type="submit" id="search"><i class="fa fa-search"></i></button>
+	 		</div>
+			<!-- 게시물 검색 select -->
+	 		<div class="select">
+	        	<select name="searchOpt" id="searchOpt" style="width:80px; height:30px;">
+				  <option value="email">이메일</option>
+				  <option value="telephone">전화번호</option>
+				  <option value="last_name">성</option>
+				  <option value="first_name">이름</option>
+				  <option value="member_class">등급</option>
+				  <option value="join_date">가입일</option>
+				  <option value="country">나라</option>
+				  <option value="gender">성별</option>
+				</select>
+			</div>
+		</div>
 	</form>
 	
 	<!-- 회원 테이블 -->
@@ -64,9 +116,9 @@
 			        </th>
 			        <td>${data.email}</td>	        
 			        <td>${data.telephone}</td>
-			        <td>${data.lastName}</td>	        
-			        <td>${data.firstName}</td>
-			        <td>${data.mem_class}</td>			        	        
+			        <td>${data.last_name}</td>	        
+			        <td>${data.first_name}</td>
+			        <td>${data.member_class}</td>			        	        
 			        <td>${data.country}</td>
 			        <td>${data.gender}</td>
 			        <td>${data.join_date}</td>

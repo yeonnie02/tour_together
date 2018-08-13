@@ -2,7 +2,9 @@ package com.cndy.tt.paging;
 
 import java.util.List;
 
-import com.cndy.tt.admin.Member;
+import com.cndy.tt.member.Member;
+import com.cndy.tt.admin.Notice;
+import com.cndy.tt.board.BoardDTO;
 import com.cndy.tt.diary.Diary;
 
 public interface PagingDao {
@@ -19,4 +21,12 @@ public interface PagingDao {
 	public List<Member> selectAdminSearchPaging(String searchOpt, String inputText, PagingVo pagingVo);
 	public int selectAdminSearchTotalPaging(String searchOpt, String inputText);
 	
+	public List<Notice> selectNoticePaging(PagingVo pagingVo);
+	public int selectNoticeTotalPaging();
+	
+	public List<BoardDTO> selectAdminBoardPaging(PagingVo pagingVo);
+	public int selectAdminTotalPagingService();
+	
+	public List<BoardDTO> selectBoardSearchPaging(String searchOpt, String inputText, PagingVo pagingVo);
+	public int selectBoardSearchTotalPaging(String searchOpt, String inputText);
 }

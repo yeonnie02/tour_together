@@ -6,11 +6,17 @@
 	<typeAliases>
 		<typeAlias alias="Diary" type="com.cndy.tt.diary.Diary"/>
 		<typeAlias alias="PagingVo" type="com.cndy.tt.paging.PagingVo"/>
-		<typeAlias alias="Member" type="com.cndy.tt.admin.Member"/>
+		<typeAlias alias="Member" type="com.cndy.tt.member.Member"/>
+		<typeAlias alias="Comment" type="com.cndy.tt.comment.Comment"/>
+		<typeAlias alias="BoardDTO" type="com.cndy.tt.board.BoardDTO"/>
+		<typeAlias alias="Notice" type="com.cndy.tt.admin.Notice"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/cndy/tt/mybatis/Paging.xml" />
 		<mapper resource="com/cndy/tt/mybatis/Diary.xml" /> 
 		<mapper resource="com/cndy/tt/mybatis/Member.xml" /> 
+		<mapper resource="com/cndy/tt/mybatis/Comment.xml"/>
+		<mapper resource="com/cndy/tt/mybatis/Board.xml"/>
+		<mapper resource="com/cndy/tt/mybatis/Notice.xml"/>
 	</mappers>
 </configuration>

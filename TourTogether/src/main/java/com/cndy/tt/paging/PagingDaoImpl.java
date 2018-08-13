@@ -9,7 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cndy.tt.admin.Member;
+import com.cndy.tt.member.Member;
+import com.cndy.tt.admin.Notice;
+import com.cndy.tt.board.BoardDTO;
 import com.cndy.tt.diary.Diary;
 
 @Repository("pagingDao")
@@ -27,11 +29,13 @@ public class PagingDaoImpl implements PagingDao {
 		return sqlSession.selectList(NS+"selectPaging", pagingVo);
 	}
 	
+
 	@Override
 	public int selectTotalPaging() {
 		logger.info("selectTotalPaging()");
 		return sqlSession.selectOne(NS+"selectTotalPaging");
 	}
+
 	
 	@Override
 	public boolean insert(Diary diary) {
@@ -43,6 +47,7 @@ public class PagingDaoImpl implements PagingDao {
 		logger.info("deleteAll()");
 		return sqlSession.delete(NS+"deleteAll")==0 ? true : false;
 	}
+
 
 	@Override
 	public List<Member> selectAdminPaging(PagingVo pagingVo) {
@@ -73,6 +78,52 @@ public class PagingDaoImpl implements PagingDao {
 		map.put("searchOpt", searchOpt);
 		map.put("inputText", inputText);
 		return sqlSession.selectOne(NS+"selectAdminSearchTotalPaging", map);
+	}
+
+
+	@Override
+	public List<Notice> selectNoticePaging(PagingVo pagingVo) {
+		logger.info("selectPaging() : " + pagingVo);
+		return sqlSession.selectList(NS+"selectNoticePaging", pagingVo);
+	}
+
+
+	@Override
+	public int selectNoticeTotalPaging() {
+		logger.info("selectNoticeTotalPaging()");
+		return sqlSession.selectOne(NS+"selectNoticeTotalPaging");
+	}
+
+
+	@Override
+	public List<BoardDTO> selectAdminBoardPaging(PagingVo pagingVo) {
+		logger.info("selectAdminBoardPaging()");
+		return sqlSession.selectList(NS+"selectBoardPaging", pagingVo);
+	}
+
+
+	@Override
+	public int selectAdminTotalPagingService() {
+		logger.info("selectAdminTotalPagingService()");
+		return sqlSession.selectOne(NS+"selectBoardTotalPaging");
+	}
+
+
+	@Override
+	public List<BoardDTO> selectBoardSearchPaging(String searchOpt, String inputText, PagingVo pagingVo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("searchOpt", searchOpt);
+		map.put("inputText", inputText);
+		map.put("pagingVo", pagingVo);
+		return sqlSession.selectList(NS+"selectBoardSearchPaging", map);
+	}
+
+	@Override
+	public int selectBoardSearchTotalPaging(String searchOpt, String inputText) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("searchOpt", searchOpt);
+		map.put("inputText", inputText);
+		return sqlSession.selectOne(NS+"selectBoardSearchTotalPaging", map);
 	}
 
 }

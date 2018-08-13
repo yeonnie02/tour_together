@@ -25,6 +25,29 @@
 	<link href="single-post-2/css/styles.css" rel="stylesheet">
 
 	<link href="single-post-2/css/responsive.css" rel="stylesheet">
+	
+	<script type="text/javascript">
+	
+		function submitComment(){
+			document.comment.submit();
+		}
+		
+		function replyReady(comment_no, refer, lev, step){		
+			$('#form_comment_no').val(comment_no);
+			$('#form_refer').val(refer);
+			$('#form_lev').val(lev);
+			$('#form_step').val(step);
+			document.comment.comment_content.focus();
+		}
+		
+		function cancelReply(){
+			$('#form_comment_no').val("0");
+			$('#form_refer').val("0");
+			$('#form_lev').val("0");
+			$('#form_step').val("0");
+		}
+	
+	</script>
 
 </head>
 <body >
@@ -66,11 +89,11 @@
 				
 				<!-- 다이어리 내용 출력 -->
 				<c:forEach items="${ diary }" var="diary">
-
+					<c:set var="board_no" value="${ diary.diary_no }"/>
 					<div class="main-post">
 
 						<div class="post-top-area">
-
+							
 							<h5 class="pre-title"><b>${ diary.region }</b></h5>
 
 							<h3 class="title"><b>${ diary.title }</b></a></h3>
@@ -96,10 +119,12 @@
 						</div><!-- post-top-area -->
 
 						<div class="post-image"><img src="images/blog-1-1000x600.jpg" alt="Blog Image"></div>
+						<div class="post-image"><img src="images/blog-1-1000x600.jpg" alt="Blog Image"></div>
 
 						<div class="post-bottom-area">
 
-							<p class="para"> ${ diary.diary_content }</p>
+							${ diary.diary_content }
+							<%-- <p class="para"> ${ diary.diary_content }</p> --%>
 
 							<ul class="tags">
 								<li><a href="#">Mnual</a></li>
@@ -110,7 +135,7 @@
 
 							<div class="post-icons-area">
 								<ul class="post-icons">
-									<li><a href="#"><i class="ion-heart"></i>57</a></li>
+									<li><a href="#"><i class="ion-heart"></i>${ diary.user_like }</a></li>
 									<li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
 									<li><i class="ion-eye"></i>${ diary.count_read }</a></li>
 								</ul>
@@ -129,134 +154,70 @@
 								</div>
 
 							</div><!-- post-info -->
+							
+							<!-- 수정 및 삭제 버튼  -->
+							<br/><a href='edit.do?diary_no=${diary.diary_no }'><button class="submit-btn">수정</button></a>
+							<a href='delete.do?diary_no=${ diary.diary_no }'><button class="submit-btn">삭제</button></a>
 
 						</div><!-- post-bottom-area -->
 
 					</div><!-- main-post -->
 					
 					</c:forEach>
-					
+
 				</div><!-- col-lg-8 col-md-12 -->
 			</div><!-- row -->
 		</div><!-- container -->
 	</section><!-- post-area -->
 
-
-	<section class="recomended-area section">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-lg-4 col-md-6">
-					<div class="card h-100">
-						<div class="single-post post-style-1">
-
-							<div class="blog-image"><img src="images/alex-lambley-205711.jpg" alt="Blog Image"></div>
-
-							<a class="avatar" href="#"><img src="images/icons8-team-355979.jpg" alt="Profile Image"></a>
-
-							<div class="blog-info">
-
-								<h4 class="title"><a href="#"><b>How Did Van Gogh's Turbulent Mind Depict One of the Most Complex
-								Concepts in Physics?</b></a></h4>
-
-								<ul class="post-footer">
-									<li><a href="#"><i class="ion-heart"></i>57</a></li>
-									<li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
-									<li><a href="#"><i class="ion-eye"></i>138</a></li>
-								</ul>
-
-							</div><!-- blog-info -->
-						</div><!-- single-post -->
-					</div><!-- card -->
-				</div><!-- col-md-6 col-sm-12 -->
-
-				<div class="col-lg-4 col-md-6">
-					<div class="card h-100">
-						<div class="single-post post-style-1">
-
-							<div class="blog-image"><img src="images/caroline-veronez-165944.jpg" alt="Blog Image"></div>
-
-							<a class="avatar" href="#"><img src="images/icons8-team-355979.jpg" alt="Profile Image"></a>
-
-							<div class="blog-info">
-								<h4 class="title"><a href="#"><b>How Did Van Gogh's Turbulent Mind Depict One of the Most Complex
-									Concepts in Physics?</b></a></h4>
-
-								<ul class="post-footer">
-									<li><a href="#"><i class="ion-heart"></i>57</a></li>
-									<li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
-									<li><a href="#"><i class="ion-eye"></i>138</a></li>
-								</ul>
-							</div><!-- blog-info -->
-
-						</div><!-- single-post -->
-
-					</div><!-- card -->
-				</div><!-- col-md-6 col-sm-12 -->
-
-				<div class="col-lg-4 col-md-6">
-					<div class="card h-100">
-						<div class="single-post post-style-1">
-
-							<div class="blog-image"><img src="images/marion-michele-330691.jpg" alt="Blog Image"></div>
-
-							<a class="avatar" href="#"><img src="images/icons8-team-355979.jpg" alt="Profile Image"></a>
-
-							<div class="blog-info">
-								<h4 class="title"><a href="#"><b>How Did Van Gogh's Turbulent Mind Depict One of the Most Complex
-									Concepts in Physics?</b></a></h4>
-
-								<ul class="post-footer">
-									<li><a href="#"><i class="ion-heart"></i>57</a></li>
-									<li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
-									<li><a href="#"><i class="ion-eye"></i>138</a></li>
-								</ul>
-							</div><!-- blog-info -->
-
-						</div><!-- single-post -->
-
-					</div><!-- card -->
-				</div><!-- col-md-6 col-sm-12 -->
-
-			</div><!-- row -->
-
-		</div><!-- container -->
-	</section>
-
 	<section class="comment-section center-text">
-		<div class="container">
-			<h4><b>POST COMMENT</b></h4>
+		<div class="container"><br/>
 			<div class="row">
 
 				<div class="col-lg-2 col-md-0"></div>
 
 				<div class="col-lg-8 col-md-12">
-					<div class="comment-form">
-						<form method="post">
-							<div class="row">
-
-								<div class="col-sm-6">
-									<input type="text" aria-required="true" name="contact-form-name" class="form-control"
-										placeholder="Enter your name" aria-invalid="true" required >
-								</div><!-- col-sm-6 -->
-								<div class="col-sm-6">
-									<input type="email" aria-required="true" name="contact-form-email" class="form-control"
-										placeholder="Enter your email" aria-invalid="true" required>
-								</div><!-- col-sm-6 -->
-
-								<div class="col-sm-12">
-									<textarea name="contact-form-message" rows="2" class="text-area-messge form-control"
-										placeholder="Enter your comment" aria-required="true" aria-invalid="false"></textarea >
-								</div><!-- col-sm-12 -->
-								<div class="col-sm-12">
-									<button class="submit-btn" type="submit" id="form-submit"><b>POST COMMENT</b></button>
-								</div><!-- col-sm-12 -->
-
-							</div><!-- row -->
-						</form>
-					</div><!-- comment-form -->
 
 					<h4><b>COMMENTS(12)</b></h4>
+					
+					<!-- commnets-area -->
+					<c:forEach items="${ comments }" var="comment">
+						<c:set var="comment_no" value="${ comment.comment_no }"/>
+						<c:set var="refer" value="${ comment.refer }"/>
+						<c:set var="lev" value="${ comment.lev }"/>
+						<c:set var="step" value="${ comment.step }"/>
+						
+						<div class="commnets-area text-left">
+	
+							<div class="comment">
+	
+								<div class="post-info">
+									
+									<input type="hidden" name="comment_no" id="comment_no" value="${ comment_no }">
+									<input type="hidden" name="refer" id="refer" value="${ refer }">
+									<input type="hidden" name="lev" id="lev" value="${ lev }">
+									<input type="hidden" name="step" id="step" value="${ step }">
+									<div class="left-area">
+										<a class="avatar" href="#"><img src="images/avatar-1-120x120.jpg" alt="Profile Image"></a>
+									</div>
+	
+									<div class="middle-area">
+										<a class="name" href="#" name="email"><b>${ comment.email }</b></a>
+										<h6 class="date" name="comment_date">${ comment.comment_date }</h6>
+									</div>
+	
+									<div class="right-area">
+										<h5 class="reply-btn"><a href='javascript:replyReady(${comment_no }, ${refer },${lev },${step })'><b>REPLY</b></a></h5>
+									</div>
+	
+								</div><!-- post-info -->
+	
+								<p name="comment_content">${ comment.comment_content }</p>
+	
+							</div>
+	
+						</div>
+					</c:forEach>
 
 					<div class="commnets-area text-left">
 
@@ -279,9 +240,7 @@
 
 							</div><!-- post-info -->
 
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-								ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-								Ut enim ad minim veniam</p>
+							<p>Lorem ipsum </p>
 
 						</div>
 
@@ -305,44 +264,46 @@
 
 							</div><!-- post-info -->
 
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-								ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-								Ut enim ad minim veniam</p>
-
-						</div>
-
-					</div><!-- commnets-area -->
-
-					<div class="commnets-area text-left">
-
-						<div class="comment">
-
-							<div class="post-info">
-
-								<div class="left-area">
-									<a class="avatar" href="#"><img src="images/avatar-1-120x120.jpg" alt="Profile Image"></a>
-								</div>
-
-								<div class="middle-area">
-									<a class="name" href="#"><b>Katy Liu</b></a>
-									<h6 class="date">on Sep 29, 2017 at 9:48 am</h6>
-								</div>
-
-								<div class="right-area">
-									<h5 class="reply-btn" ><a href="#"><b>REPLY</b></a></h5>
-								</div>
-
-							</div><!-- post-info -->
-
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-								ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-								Ut enim ad minim veniam</p>
+							<p>Lorem ipsum dolor sit amet,</p>
 
 						</div>
 
 					</div><!-- commnets-area -->
 
 					<a class="more-comment-btn" href="#"><b>VIEW MORE COMMENTS</a>
+					
+					<!-- comment-form -->
+					<div class="comment-form">
+						<form name="comment" method="post" action='insertComment.do'>
+						
+							<div class="row">
+							
+								<input type="text" name="comment_no" id="form_comment_no" value="0">
+								<input type="hidden" name="board_no" value="${ board_no }">
+								<input type="text" name="refer" id="form_refer" value="0">
+								<input type="text" name="lev" id="form_lev" value="0">
+								<input type="text" name="step" id="form_step" value="0">
+
+								<div class="col-sm-6">
+									<input type="text" aria-required="true" name="name" class="form-control"
+										placeholder="Enter your name" aria-invalid="true" required >
+								</div><!-- col-sm-6 -->
+								<div class="col-sm-6">
+									<input type="email" aria-required="true" name="email" class="form-control"
+										placeholder="Enter your email" aria-invalid="true" required>
+								</div><!-- col-sm-6 -->
+
+								<div class="col-sm-12">
+									<textarea name="comment_content" rows="2" class="text-area-messge form-control"
+										placeholder="Enter your comment" aria-required="true" aria-invalid="false"></textarea >
+								</div><!-- col-sm-12 -->
+								<div class="col-sm-12">
+									<button class="submit-btn" onclick="submitComment()"><b>확인</b></button>&emsp;&emsp;
+								</div><!-- col-sm-12 -->
+
+							</div><!-- row -->
+						</form>
+					</div>
 
 				</div><!-- col-lg-8 col-md-12 -->
 

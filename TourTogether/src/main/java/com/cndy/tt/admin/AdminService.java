@@ -3,6 +3,8 @@ package com.cndy.tt.admin;
 import java.util.Date;
 import java.util.List;
 
+import com.cndy.tt.member.Member;
+
 public interface AdminService {
 	List<Member> chartDateService();
 	List<Integer> chartNumService();
@@ -12,4 +14,10 @@ public interface AdminService {
 	int chartGenMService();
 	int chartClsAService();
 	int chartClsPService();
+	boolean insertNoticeService(Notice notice);
+	void deleteNoticeService(long notice_no);
+	List<Member> chartCountryService();
+	List<Integer> chartCountryCountService();
+	List<Notice> selectNoticeContent(long notice_no);
+	boolean editNotice(Notice notice);
 }

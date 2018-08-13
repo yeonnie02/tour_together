@@ -27,20 +27,8 @@
 	<delete id="deleteAll">
 	  DELETE FROM TOUR_DIARY
 	</delete>
-<!-- 	
-	<select id="SelectByWriter" resultType="Board" parameterType="HashMap">
-		select * from (select A.*, ROWNUM as rn from (
-		select * from BOARD where WRITER like '%'||#{keyword}||'%' order by SEQ desc) A) 
-		where rn between #{start} and #{end}
-	</select>
-	
-	<select id="CountSelectbyWriter" resultType="int" parameterType="String">
-		 select count(*) from (select A.*, ROWNUM as rn from (
-		 select * from BOARD where WRITER like '%'||#{keyword}||'%' order by SEQ desc) A)
-	</select>
- --> 	
  
- 	<!-- Admin -->
+ 	<!-- Admin Member -->
 	<select id="selectAdminPaging" parameterType="PagingVo" resultType="Member">
 	  SELECT *
 	  FROM (  SELECT ROWNUM RNUM, P.*
@@ -53,7 +41,7 @@
 	  SELECT COUNT(*) FROM MEMBER_INFO
 	</select>
 	
-	<!-- Admin Search -->
+	<!-- Admin Member Search -->
 	<select id="selectAdminSearchPaging" parameterType="map" resultType="Member">
 	  SELECT *
 	  FROM (  SELECT ROWNUM RNUM, P.*
@@ -65,6 +53,46 @@
 	</select>
 	<select id="selectAdminSearchTotalPaging" parameterType="map" resultType="java.lang.Integer">
 	  SELECT COUNT(*) FROM MEMBER_INFO WHERE ${searchOpt} LIKE '%'||#{inputText}||'%'
+	</select>
+	
+	<!-- Admin Notice -->
+	<select id="selectNoticePaging" parameterType="PagingVo" resultType="Notice">
+	  SELECT *
+	  FROM (  SELECT ROWNUM RNUM, P.*
+	      FROM (  SELECT *
+	          FROM NOTICE
+	          ORDER BY NOTICE_NO DESC ) P )
+	  WHERE RNUM BETWEEN #{start} AND #{last}
+	</select>
+	<select id="selectNoticeTotalPaging" resultType="java.lang.Integer">
+	  SELECT COUNT(*) FROM NOTICE
+	</select>
+	
+	<!-- Admin Board -->
+	<select id="selectBoardPaging" parameterType="PagingVo" resultType="BoardDTO">
+	  SELECT *
+	  FROM (  SELECT ROWNUM RNUM, P.*
+	      FROM (  SELECT *
+	          FROM BOARD
+	          ORDER BY BOARD_NO DESC ) P )
+	  WHERE RNUM BETWEEN #{start} AND #{last}
+	</select>
+	<select id="selectBoardTotalPaging" resultType="java.lang.Integer">
+	  SELECT COUNT(*) FROM BOARD
+	</select>
+	
+	<!-- Admin Board Search -->	
+	<select id="selectBoardSearchPaging" parameterType="map" resultType="BoardDTO">
+	  SELECT *
+	  FROM (  SELECT ROWNUM RNUM, P.*
+	      FROM (  SELECT *
+	          FROM BOARD
+	          WHERE ${searchOpt} LIKE '%'||#{inputText}||'%'
+	          ORDER BY WRITE_DATE DESC ) P )
+	  WHERE RNUM BETWEEN #{pagingVo.start} AND #{pagingVo.last}
+	</select>
+	<select id="selectBoardSearchTotalPaging" parameterType="map" resultType="java.lang.Integer">
+	  SELECT COUNT(*) FROM BOARD WHERE ${searchOpt} LIKE '%'||#{inputText}||'%'
 	</select>
 </mapper>
 

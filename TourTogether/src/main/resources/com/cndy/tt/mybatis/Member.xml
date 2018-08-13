@@ -1,22 +1,46 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cndy.tt.mybatis.Member">	
+<mapper namespace="com.cndy.tt.mybatis.Member">
+	
 	<resultMap id="MemberResult" type="Member">
-		<result property="email" column="EMAIL"/>
-		<result property="telephone" column="TELEPHONE"/>
-		<result property="pwd" column="PWD"/>
-		<result property="firstname" column="FIRSTNAME"/>
-		<result property="lastname" column="LASTNAME"/>
-		<result property="profile_path" column="PROFILE_PATH"/>
-		<result property="mem_class" column="MEM_CLASS"/>
-		<result property="join_date" column="JOIN_DATE"/>
-		<result property="usedate" column="USEDATE"/>
-		<result property="intro" column="INTRO"/>
-		<result property="country" column="COUNTRY"/>
+        <result property="id" column="ID"/>
+        <result property="first_name" column="FIRST_NAME"/>
+        <result property="last_name" column="LAST_NAME"/>
+        <result property="profile_path" column="PROFILE_PATH"/>
+        <result property="member_class" column="MEMBER_CLASS"/>
+        <result property="join_date" column="JOIN_DATE"/>
+        <result property="use_date" column="USE_DATE"/>
+        <result property="intro" column="INTRO"/>
+        <result property="country" column="COUNTRY"/>
         <result property="gender" column="GENDER"/>
+        <result property="birthday" column="BIRTHDAY"/>
+        <result property="email" column="EMAIL"/>
+		<result property="telephone" column="TELEPHONE"/>
 	</resultMap>
+	
+	<insert id="memberInsert" parameterType="Member">
+ 		insert into MEMBER_INFO values(#{id}, #{first_name}, #{last_name}, null, 0, SYSDATE, SYSDATE, null, null, #{gender, jdbcType=VARCHAR}
+ 		, #{birthday}, #{email}, null)
+	</insert>
+
+	<select id="checkIdSelect" resultType="long">
+     <![CDATA[
+    	select count(*) from MEMBER_INFO where id = #{id}
+  	  ]]>
+	</select>
+	
+	<select id="profileSelect" resultType="Member">
+		select * from MEMBER_INFO where id = #{id}
+	</select>
+	
+	<update id="profileUpdate" parameterType="Member">
+		update MEMBER_INFO
+		set first_name = #{first_name}, last_name = #{last_name}, profile_path = #{profile_path, jdbcType=VARCHAR}, intro = #{intro, jdbcType=VARCHAR}, 
+		country = #{country, jdbcType=VARCHAR}, gender = #{gender, jdbcType=VARCHAR}, birthday = #{birthday, jdbcType=VARCHAR}, email = #{email} 
+		where ID = #{id, jdbcType=VARCHAR}
+	</update>
 	
 	<select id="initDateSelectAll" resultType="Member">
        select JOIN_DATE from MEMBER_INFO <![CDATA[where JOIN_DATE <= SYSDATE]]> GROUP BY JOIN_DATE ORDER BY JOIN_DATE
@@ -35,18 +59,25 @@
     </select>
     
     <select id="chartF" resultType="int">
-       select count(*) from MEMBER_INFO where GENDER = 'F'
+       select count(*) from MEMBER_INFO where GENDER = 'female'
     </select>
     
     <select id="chartM" resultType="int">
-       select count(*) from MEMBER_INFO where GENDER = 'M'
+       select count(*) from MEMBER_INFO where GENDER = 'male'
     </select>
     
     <select id="chartClsA" resultType="int">
-       select count(*) from MEMBER_INFO where MEM_CLASS = 0
+       select count(*) from MEMBER_INFO where MEMBER_CLASS = 0
     </select>
     
     <select id="chartClsP" resultType="int">
-       select count(*) from MEMBER_INFO where MEM_CLASS = 1
+       select count(*) from MEMBER_INFO where MEMBER_CLASS = 1
+    </select>
+    
+    <select id="chartCountry" resultType="Member">
+    	select COUNTRY from MEMBER_INFO group by COUNTRY
+    </select>
+    <select id="chartCountryCount" resultType="int">
+    	select COUNT(*) from MEMBER_INFO group by COUNTRY
     </select>
 </mapper>

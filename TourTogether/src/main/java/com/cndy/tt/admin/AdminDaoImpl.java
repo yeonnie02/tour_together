@@ -8,12 +8,15 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cndy.tt.member.Member;
+
 @Repository("adminDao")
 public class AdminDaoImpl implements AdminDao{
 	
 	@Autowired //
 	private SqlSessionTemplate sqlSession;
 	private String ns = "com.cndy.tt.mybatis.Member.";
+	private String ns2 = "com.cndy.tt.mybatis.Notice.";
 	
 	@Override
 	public List<Member> initDateList() {
@@ -93,5 +96,42 @@ public class AdminDaoImpl implements AdminDao{
 	public int chartClsPList() {
 		int chartClsP = sqlSession.selectOne(ns + "chartClsP");
 		return chartClsP;
+	}
+
+	@Override
+	public boolean insertNotice(Notice notice) {
+		int i = sqlSession.insert(ns2 + "insertNotice", notice);
+		if(i>0) return true;
+		else return false;
+	}
+
+	@Override
+	public void deleteNotice(long notice_no) {
+		sqlSession.delete(ns2 + "deleteNotice", notice_no);
+	}
+
+	@Override
+	public List<Member> selectCountry() {
+		List<Member> chartCountry = sqlSession.selectList(ns + "chartCountry");
+		return chartCountry;
+	}
+
+	@Override
+	public List<Integer> selectCountryCount() {
+		List<Integer> chartCountryCount = sqlSession.selectList(ns + "chartCountryCount");
+		return chartCountryCount;
+	}
+
+	@Override
+	public List<Notice> selectNoticeContent(long notice_no) {
+		List<Notice> selectNoticeContent = sqlSession.selectList(ns2 + "selectNotice", notice_no);
+		return selectNoticeContent;
+	}
+
+	@Override
+	public boolean editNotice(Notice notice) {
+		int i = sqlSession.update(ns2 + "updateNotice", notice);
+		if(i>0) return true;
+		else return false;
 	}
 }

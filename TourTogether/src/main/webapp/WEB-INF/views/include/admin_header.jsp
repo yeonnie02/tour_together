@@ -16,7 +16,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="admin_Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="admin_dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="admin_dist/css/AdminLTE.css">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
@@ -56,7 +56,7 @@
               <!-- The user image in the navbar-->
               <img src="admin_dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">Admin</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -72,7 +72,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="../" class="btn btn-default btn-flat">Home</a>                  
                 </div>
                 <div class="pull-right">
                   <a href="#" class="btn btn-default btn-flat">Sign out</a>
@@ -90,23 +90,12 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
 
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="admin_dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
-
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">목록</li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="admin_mem.do"><i class="fa fa-link"></i> <span>회원관리</span></a></li>        
+        <li><a href="admin_mem.do"><i class="fa fa-link"></i> <span>회원 관리</span></a></li>   
+        <li><a href="admin_board.do"><i class="fa fa-link"></i> <span>게시글 관리</span></a></li>        
         <li class="treeview">
         	<a href="admin_stat.do"><i class="fa fa-link"></i> <span>통계</span>
         	  <span class="pull-right-container">
@@ -118,7 +107,7 @@
 			  <li><a href="admin_stat_gen.do">성별 등급 비율</a></li>
 			  <li><a href="admin_stat_country.do">국가 비율 </a></li>
 			</ul>
-        <li><a href="#"><i class="fa fa-link"></i> <span>공지사항</span></a></li>
+        <li><a href="admin_notice.do"><i class="fa fa-link"></i> <span>공지사항</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
       

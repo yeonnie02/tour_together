@@ -3,6 +3,8 @@ package com.cndy.tt.admin;
 import java.util.Date;
 import java.util.List;
 
+import com.cndy.tt.member.Member;
+
 public interface AdminDao {
 	List<Member> initDateList();
 	List<Integer> initNumList();
@@ -12,4 +14,10 @@ public interface AdminDao {
 	int chartGenMList();
 	int chartClsAList();
 	int chartClsPList();
+	boolean insertNotice(Notice notice);
+	void deleteNotice(long notice_no);
+	List<Member> selectCountry();
+	List<Integer> selectCountryCount();
+	List<Notice> selectNoticeContent(long notice_no);
+	boolean editNotice(Notice notice);
 }
