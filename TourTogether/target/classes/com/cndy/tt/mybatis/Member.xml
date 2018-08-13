@@ -6,10 +6,12 @@
 	
 	<resultMap id="MemberResult" type="Member">
         <result property="id" column="ID"/>
+        <result property="password" column="PASSWORD"/>
+        <result property="enabled" column="ENABLED"/>
         <result property="first_name" column="FIRST_NAME"/>
         <result property="last_name" column="LAST_NAME"/>
         <result property="profile_path" column="PROFILE_PATH"/>
-        <result property="member_class" column="MEM_CLASS"/>
+        <result property="member_class" column="MEMBER_CLASS"/>
         <result property="join_date" column="JOIN_DATE"/>
         <result property="use_date" column="USE_DATE"/>
         <result property="intro" column="INTRO"/>
@@ -21,8 +23,8 @@
 	</resultMap>
 	
 	<insert id="memberInsert" parameterType="Member">
- 		insert into MEMBER_INFO values(#{id}, #{first_name}, #{last_name}, null, 0, SYSDATE, SYSDATE, null, null, #{gender, jdbcType=VARCHAR}
- 		, #{birthday}, #{email}, null)
+ 		insert into MEMBER_INFO values(#{id}, #{password}, 1, #{first_name}, #{last_name},
+ 			#{profile_path}, 0, SYSDATE, SYSDATE, #{intro}, #{country}, #{gender, jdbcType=VARCHAR}, #{birthday}, #{email}, #{telephone})
 	</insert>
 
 	<select id="checkIdSelect" resultType="long">

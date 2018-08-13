@@ -28,47 +28,41 @@ public class CommentServiceImpl implements CommentService {
 		long refer = comment.getRefer();
 		
 		if(refer == 0) {		
-			/* 댓글일 경우  */			
+			/* 댓글일 경우  넘어온 refer, lev, step 의 값은 0 */			
 			commentDao.insert(comment);
 		}else {		
-			/* 댓댓글일 경우. 넘어온 refer, lev, step은  부모댓글의 값  */
+			/* 댓댓글일 경우. 넘어온 refer, lev, step 은  부모댓글의 값  */
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			
-			// lev 셋팅 : 부모 +1
-			int lev = comment.getLev() + 1;
-			comment.setLev(lev); 	
-			System.out.println("lev: "+lev);
-			
-			long board_no = comment.getBoard_no();
-			/*			map.put("board_no", board_no);
-			map.put("lev", lev);
-			int countLev = commentDao.countLev(map);
-			System.out.println(" countLev: "+ countLev);*/
-			
-			// step 셋팅
-			int step = -1;
-			//if(countLev == 0) {	//해당 레벨의 첫 댓글이라면
-				step = comment.getStep() +1;	// step: 부모 +1
-				comment.setStep(step);
-				System.out.println(" step : "+step);
-			/*}else {	//해당 레벨에 이미 댓글들이 있다면
-				map.clear();
-				map.put("board_no", board_no);
-				map.put("refer", refer);
-				map.put("lev", lev);
-				step = commentDao.maxStep(map) + 1;		// step: 최대값  +1
-				comment.setStep(step);
-				System.out.println(" countLev > 0  step : "+step);
-			}		*/
-			map.clear();
-			map.put("board_no", board_no);
+			map.put("board_no", comment.getBoard_no());
 			map.put("refer", refer);
-			map.put("step", step);
-			commentDao.updateSteps(map); 	// 이후의 댓글들 step 변경
-						
+			int step = commentDao.maxStep(map) +1; // step: 최대값  +1
+			System.out.println("step: "+step);
+			comment.setStep(step);
+			long comment_no = comment.getComment_no();
+			System.out.println(" CommentServiceImpl comment_no: "+comment_no);
+			commentDao.updateLev(comment_no);  // 댓댓글이 달릴 때 마다 부모 댓글의 레벨  +1
+			
 			System.out.println("CommentServiceImpl 셋팅된 comment : "
 					+" refer: "+ comment.getRefer() + " lev : "+ comment.getLev()+ " step: "+ comment.getStep());
 			commentDao.insertReply(comment);
-		}
+		}	
 	}
+
+	@Override
+	public void deleteService(long comment_no, long refer) {
+		commentDao.delete(comment_no);
+		commentDao.resetLev(refer); // 부모 lev 값 -1
+	}
+
+	@Override
+	public List<Comment> replyListService(HashMap<String, Object> map) {
+		List<Comment> replies = commentDao.replyList(map);
+		for(int i=0; i<replies.size(); i++) {
+			System.out.println("replies comment_no: "+replies.get(i).getComment_no());
+			System.out.println("        lev: "+replies.get(i).getLev());
+			System.out.println("        step: "+replies.get(i).getStep());
+		}
+		return replies;
+	}
+	
 }

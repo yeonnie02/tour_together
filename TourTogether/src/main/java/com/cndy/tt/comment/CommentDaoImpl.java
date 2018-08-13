@@ -17,7 +17,7 @@ public class CommentDaoImpl implements CommentDao {
 	
 	@Override
 	public List<Comment> list(long board_no) {
-		List<Comment> comments = sqlSession.selectList(ns + "commentSelectAll", board_no);
+		List<Comment> comments = sqlSession.selectList(ns + "commentSelectList", board_no);
 		return comments;
 	}
 
@@ -27,8 +27,9 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public void updateSteps(HashMap<String, Object> map) {
-		sqlSession.update(ns + "UpdateSteps", map);
+	public void updateLev(long comment_no) {
+		System.out.println(" CommentDaoImpl comment_no: "+comment_no);
+		sqlSession.update(ns + "updateLev", comment_no);
 		
 	}
 
@@ -47,5 +48,24 @@ public class CommentDaoImpl implements CommentDao {
 	public int countLev(HashMap<String, Object> map) {
 		return sqlSession.selectOne(ns + "countLev", map);
 	}
+
+	@Override
+	public void delete(long comment_no) {
+		sqlSession.delete(ns + "commentDelete", comment_no);
+		
+	}
+
+	@Override
+	public List<Comment> replyList(HashMap<String, Object> map) {
+		List<Comment> replies = sqlSession.selectList(ns + "selectReply", map);
+		return replies;
+	}
+
+	@Override
+	public void resetLev(long refer) {
+		sqlSession.update(ns + "resetLev", refer);
+
+	}
+	
 	
 }

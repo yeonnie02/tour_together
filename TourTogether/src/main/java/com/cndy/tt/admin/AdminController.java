@@ -30,7 +30,7 @@ public class AdminController {
 	@Resource(name="pagingService")
 	private PagingService pagingService;
 	
-	//È¸¿ø°ü¸®
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value="admin_mem.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public String memCont(Model model, PagingVo pagingVo, HttpSession session) {
 		List<Member> list = pagingService.selectAdminPagingService(pagingVo);
@@ -38,12 +38,12 @@ public class AdminController {
 		model.addAttribute("list", list);
 		session.setAttribute("pagingVo", pagingVo);
 		
-		System.out.println("È¸¿ø Å×ÀÌºí ÄÁÆ®·Ñ·¯ µé¾î¿È");
+		System.out.println("È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		
 		return "admin_mem";
 	}
 	
-	//È¸¿ø°Ë»ö
+	//È¸ï¿½ï¿½ï¿½Ë»ï¿½
 	@RequestMapping(value="searchMem.do", method= {RequestMethod.POST})
 	public String memSearch(Model model, PagingVo pagingVo, HttpSession session,
 								@RequestParam(value="searchOpt") String searchOpt,
@@ -56,12 +56,12 @@ public class AdminController {
 		
 		session.setAttribute("pagingVo", pagingVo);
 		
-		System.out.println("È¸¿ø °Ë»ö ÄÁÆ®·Ñ·¯ µé¾î¿È, searchOpt: "+searchOpt);
+		System.out.println("È¸ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½ï¿½, searchOpt: "+searchOpt);
 		
 		return "admin_search";
 	}
 	
-	//°¡ÀÔÀÚ ÃßÀÌ Åë°è
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	@RequestMapping(value="admin_stat_join.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView chartJoin(Model model) {
 		List<Member> chartDate = adminService.chartDateService();
@@ -72,7 +72,7 @@ public class AdminController {
 		return mv;
 	}
 	
-	//°¡ÀÔÀÚ ¼ºº° µî±Þ Åë°è
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	@RequestMapping(value="admin_stat_gen.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView chartGend(Model model) {
 		int chartGenF = adminService.chartGenFService();

@@ -17,8 +17,8 @@
   		<result property="step" column="STEP"/>
   	</resultMap>
   	
-  	<select id="commentSelectAll" parameterType="long" resultType="Comment">
-  		select * from MY_COMMENT where BOARD_NO=#{board_no} and BOARD_TYPE='TOUR_DIARY' order by REFER, STEP 
+  	<select id="commentSelectList" parameterType="long" resultType="Comment">
+  		select * from MY_COMMENT where BOARD_NO=#{board_no} and BOARD_TYPE='TOUR_DIARY' and STEP=0 order by REFER
   	</select>
   	
   	<select id="countLev" parameterType="HashMap" resultType="Integer">
@@ -28,7 +28,7 @@
   	<select id="commentSelectMaxStep" parameterType="HashMap" resultType="Integer">
   		select MAX(STEP) from 
   			(select STEP from MY_COMMENT 
-  				where BOARD_NO=#{board_no} and BOARD_TYPE='TOUR_DIARY' and REFER= #{refer} and LEV = #{lev})
+  				where BOARD_NO=#{board_no} and BOARD_TYPE='TOUR_DIARY' and REFER= #{refer})
   	</select>
   	
   	<insert id="commentInsert" parameterType="Comment">
@@ -41,7 +41,20 @@
   			#{comment_content}, SYSDATE, #{refer}, #{lev}, #{step})
   	</insert>
   	
-  	<update id="UpdateSteps" parameterType="HashMap">
-  		update MY_COMMENT set STEP = STEP +1 where BOARD_NO=#{board_no} and BOARD_TYPE='TOUR_DIARY' and REFER=#{refer} and STEP >= #{step}
+  	<update id="updateLev" parameterType="long">
+  		update MY_COMMENT set LEV=LEV+1 where COMMENT_NO=#{comment_no}
   	</update>
+  	
+  	<delete id="commentDelete" parameterType="long">
+  		delete from MY_COMMENT where COMMENT_NO=#{comment_no}
+  	</delete>
+  	
+  	<select id="selectReply" parameterType="HashMap" resultType="Comment">
+  		select * from MY_COMMENT where BOARD_NO=${board_no} and BOARD_TYPE='TOUR_DIARY' and REFER=${refer} and STEP!=0 order by STEP
+  	</select>
+  	
+  	<update id="resetLev" parameterType="long">
+  		update MY_COMMENT set LEV=LEV-1 where COMMENT_NO=#{refer}
+  	</update>
+
   </mapper>

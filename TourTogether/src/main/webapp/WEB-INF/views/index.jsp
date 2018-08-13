@@ -1,10 +1,31 @@
-<%@ page contentType="text/html;charset=utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- spring security -->
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@ page import="org.springframework.security.core.Authentication" %>
+<%@ page import="com.cndy.tt.member.Member" %>
+<%
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication(); //(로그인)인증 객체
+
+	Object principal = auth.getPrincipal(); //인증에 성공시 member 객체 리턴 
+	
+	System.out.println(" jsp principal: "+principal);
+	System.out.println(" isAuthenticated(): "+auth.isAuthenticated());
+	String email = "";
+	if(principal != null && principal instanceof Member){
+		email = ((Member)principal).getEmail();
+		System.out.println("email: "+email);
+		System.out.println("id: "+((Member)principal).getId());
+		System.out.println("password: "+((Member)principal).getPassword());
+	}
+%>
 
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>TourTogether</title>
 <link rel="stylesheet"
 	href="https://bootswatch.com/4/spacelab/bootstrap.min.css">
@@ -205,11 +226,32 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-    <div class="container">
-    		    <br/>
-		    <a href="diary/list.do">다이어리 리스트</a><br/>
-
-		    <a href="admin/admin_mem.do">관리자</a><br/>
+    <div class="container"><br/>
+    	
+<%-- 		    <a href="<c:url value="diary/list.do"/>" >다이어리 리스트</a><br/>
+		    <a href="<c:url value="admin/admin_mem.do"/>" >관리자</a><br/> --%>
+		    
+		    <!-- spring security 권한 확인 -->
+		    <sec:authorize access="isAnonymous()"> 
+		    <a href="<c:url value="login/login.do"/>" >로그인</a><br/>
+		    <a href="<c:url value="login/join.do" />">회원가입</a>
+		    </sec:authorize>
+		        
+		    <sec:authorize access="isAuthenticated()">
+		    <%=email %>님 반갑습니다<br/>
+		    <ul>
+		    	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		    	<a href="<c:url value="admin/admin_mem.do"/>" >관리자</a><br/>
+		    	</sec:authorize>
+		    	<sec:authorize access="permitAll">
+		    	<a href="<c:url value="diary/list.do"/>" >다이어리 리스트</a><br/>
+		    	</sec:authorize>
+		    </ul>
+		    <form:form action="${pageContext.request.contextPath }/logout" method="POST">
+		    	<input type="submit" value="로그아웃"/>
+		    </form:form>
+		    </sec:authorize>
+		    
       <h3 id="heading">Log in to view your profile</h3>
       <div id="profile"></div>
       <div id="feed"></div>
