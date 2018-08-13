@@ -14,4 +14,10 @@ public interface AdminService {
 	int chartGenMService();
 	int chartClsAService();
 	int chartClsPService();
+	boolean insertNoticeService(Notice notice);
+	void deleteNoticeService(long notice_no);
+	List<Member> chartCountryService();
+	List<Integer> chartCountryCountService();
+	List<Notice> selectNoticeContent(long notice_no);
+	boolean editNotice(Notice notice);
 }

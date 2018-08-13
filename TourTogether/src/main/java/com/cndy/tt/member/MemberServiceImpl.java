@@ -45,5 +45,4 @@ public class MemberServiceImpl implements MemberService {
 	public String checkAuthorityService(String id) {
 		return memberDao.checkAuthority(id);
 	}
-
 }

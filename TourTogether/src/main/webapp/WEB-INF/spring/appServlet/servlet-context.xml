@@ -19,7 +19,6 @@
 	<resources mapping="/clever-js/**" location="/resources/clever/js/" />
 	<resources mapping="/clever-scss/**" location="/resources/clever/scss/" />
 	<resources mapping="/clever/**" location="/resources/clever/" />
-	
 
 	<resources mapping="/js/**" location="/resources/js/" /> 
 	<resources mapping="/images/**" location="/resources/images/" />
@@ -47,6 +46,7 @@
 	<resources mapping="/admin/admin_jquery/**" location="/resources/admin_jquery/" />
 	<resources mapping="/admin/admin_plugin/**" location="/resources/admin_plugin/" />
 	<resources mapping="/admin/css/**" location="/resources/css/" />
+	<resources mapping="/admin/summernote/**" location="/resources/summernote/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

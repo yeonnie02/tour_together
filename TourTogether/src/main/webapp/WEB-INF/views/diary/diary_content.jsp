@@ -259,6 +259,7 @@
 									<div class="right-area">
 										<h5 class="reply-btn"><a href='javascript:replyReady(${comment_no }, ${refer },${lev },${step })'><b>댓글</b></a></h5><br/>
 										<h5 class="reply-btn"><a href='deleteComment.do?comment_no=${comment_no }&board_no=${ board_no }&refer=${refer}'><b>삭제</b></a></h5>
+
 									</div>
 	
 								</div><!-- post-info -->
@@ -301,6 +302,7 @@
 								<div class="col-sm-12">
 									<textarea name="comment_content" rows="2" id="form_comment_content" class="text-area-messge form-control"
 										placeholder="Enter your comment" aria-required="true" required></textarea >
+
 								</div><!-- col-sm-12 -->
 								<div class="col-sm-12">
 									<button class="submit-btn" onclick="submitComment()"><b>확인</b></button>&emsp;&emsp;

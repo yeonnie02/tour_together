@@ -2,14 +2,14 @@
 <%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
  
-<%@include file="include/admin_header.jsp"%>
- 
+<%@include file="../include/admin_header.jsp"%>
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      	통계 <small>성별 & 등급</small> 
+      	통계 <small>가입자 수 추이</small> 
       </h1>
     </section>
  
@@ -17,11 +17,11 @@
     <section class="content">
  
       <!-- Your Page Content Here -->
- 	<%@include file="include/stat_gen.jsp"%>
+ 	<%@include file="../include/stat_join.jsp"%>
  		
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
   
-<%@include file="include/admin_footer.jsp"%>
+<%@include file="../include/admin_footer.jsp"%>

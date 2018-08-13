@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,10 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("firstname")
+@SessionAttributes("firstname")//����
 @RequestMapping("/member")
 public class MemberController {
-	
+
 	@Autowired
 	MemberDao memberDao;
 
@@ -40,8 +41,10 @@ public class MemberController {
 	}
 	
     @RequestMapping(value = "/add03", method = RequestMethod.POST)
+
     @ResponseBody//�ڹ� ��ü�� HTTP ��û�� body �������� �����ϴ� ����
     public long add03(@ModelAttribute Member member, HttpSession session) {//��ü������ �����ǰ� ��� MemberŸ�� ��ü�� �˾Ƽ� �������? http://springmvc.egloos.com/535572
+
         System.out.println("MemberController - add03()");
         System.out.println("id : "+member.getId());
         System.out.println("first_name : "+member.getFirst_name());
@@ -50,8 +53,7 @@ public class MemberController {
         System.out.println("birthday : "+member.getBirthday());
         System.out.println("email : "+member.getEmail());
 
-
-       /* if(member.getGender()==null) {
+       /* if(member.getGender()==null) {//ó�����ϸ� ���� ��? -> ��ܿ��� �Ѱܹ��� gender���� java�� null�� ���� ���� �� -> Member.xml���� �� ������ ����ؼ� ó���ص�
         	//nested exception is org.springframework.jdbc.UncategorizedSQLException: Error setting null for parameter #4 with JdbcType OTHER . Try setting a different JdbcType for this parameter or a different jdbcTypeForNull configuration property.
         	member.setGender("0");
         }*/
@@ -195,5 +197,4 @@ public class MemberController {
 
 		out.print(ja.toString());
 	}
-
 }

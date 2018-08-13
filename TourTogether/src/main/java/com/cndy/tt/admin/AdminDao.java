@@ -14,4 +14,10 @@ public interface AdminDao {
 	int chartGenMList();
 	int chartClsAList();
 	int chartClsPList();
+	boolean insertNotice(Notice notice);
+	void deleteNotice(long notice_no);
+	List<Member> selectCountry();
+	List<Integer> selectCountryCount();
+	List<Notice> selectNoticeContent(long notice_no);
+	boolean editNotice(Notice notice);
 }

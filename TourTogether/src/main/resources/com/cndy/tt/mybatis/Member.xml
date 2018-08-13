@@ -75,10 +75,17 @@
     </select>
     
     <select id="chartClsA" resultType="int">
-       select count(*) from MEMBER_INFO where MEM_CLASS = 0
+       select count(*) from MEMBER_INFO where MEMBER_CLASS = 0
     </select>
     
     <select id="chartClsP" resultType="int">
-       select count(*) from MEMBER_INFO where MEM_CLASS = 1
+       select count(*) from MEMBER_INFO where MEMBER_CLASS = 1
+    </select>
+    
+    <select id="chartCountry" resultType="Member">
+    	select COUNTRY from MEMBER_INFO group by COUNTRY
+    </select>
+    <select id="chartCountryCount" resultType="int">
+    	select COUNT(*) from MEMBER_INFO group by COUNTRY
     </select>
 </mapper>

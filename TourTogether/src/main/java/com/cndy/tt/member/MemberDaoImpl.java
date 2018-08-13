@@ -35,7 +35,6 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("MemberDaoImpl - profileContent()");
 
 		return sqlSession.selectOne(ns + ".profileSelect", id);//selectOne->select하면 왜안될까
-
 	}
 
 	@Override

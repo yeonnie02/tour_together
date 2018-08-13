@@ -30,7 +30,6 @@ public class CommentDaoImpl implements CommentDao {
 	public void updateLev(long comment_no) {
 		System.out.println(" CommentDaoImpl comment_no: "+comment_no);
 		sqlSession.update(ns + "updateLev", comment_no);
-		
 	}
 
 	@Override
@@ -66,6 +65,4 @@ public class CommentDaoImpl implements CommentDao {
 		sqlSession.update(ns + "resetLev", refer);
 
 	}
-	
-	
 }

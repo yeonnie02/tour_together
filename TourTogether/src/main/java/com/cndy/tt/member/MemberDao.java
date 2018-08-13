@@ -10,5 +10,4 @@ public interface MemberDao {
 	String checkAuthority(String id);
 	boolean insertAuthority(String id);
 	List<Member> autoComplete(String b);
-	
 }

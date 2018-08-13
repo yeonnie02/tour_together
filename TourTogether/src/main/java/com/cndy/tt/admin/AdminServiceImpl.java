@@ -69,6 +69,40 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 
+	@Override
+	public boolean insertNoticeService(Notice notice) {
+		return adminDao.insertNotice(notice);
+	}
 
+
+	@Override
+	public void deleteNoticeService(long notice_no) {
+		// TODO Auto-generated method stub
+		adminDao.deleteNotice(notice_no);
+	}
+
+
+	@Override
+	public List<Member> chartCountryService() {
+		return adminDao.selectCountry();
+	}
+
+
+	@Override
+	public List<Integer> chartCountryCountService() {
+		return adminDao.selectCountryCount();
+	}
+
+
+	@Override
+	public List<Notice> selectNoticeContent(long notice_no) {
+		return adminDao.selectNoticeContent(notice_no);
+	}
+
+
+	@Override
+	public boolean editNotice(Notice notice) {
+		return adminDao.editNotice(notice);		
+	}
 
 }

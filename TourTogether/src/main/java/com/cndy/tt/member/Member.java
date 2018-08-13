@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import java.util.Collection;
 
-
 import org.springframework.security.core.GrantedAuthority;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -235,5 +234,4 @@ public class Member implements UserDetails {
 				+ ", gender=" + gender + ", birthday=" + birthday + ", email=" + email + ", telephone=" + telephone
 				+ ", authorities=" + authorities + "]";
 	}
-
 }
