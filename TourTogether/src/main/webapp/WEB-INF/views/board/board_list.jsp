@@ -16,9 +16,6 @@
     <!-- Favicon -->
     <link rel="icon" href="../clever-img/core-img/favicon.ico">
 
-	<!-- paging css  -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="../clever/style.css">

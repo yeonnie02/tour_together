@@ -3,6 +3,9 @@ package com.cndy.tt.member;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -10,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,8 +40,8 @@ public class MemberController {
 	}
 	
     @RequestMapping(value = "/add03", method = RequestMethod.POST)
-    @ResponseBody//ÀÚ¹Ù °´Ã¼¸¦ HTTP ¿äÃ»ÀÇ body ³»¿ëÀ¸·Î ¸ÅÇÎÇÏ´Â ¿ªÇÒ
-    public long add03(@ModelAttribute Member member, HttpSession session) {//°´Ã¼±¸Á¶°¡ °°Àº°Ç°¡ ¾î¶»°Ô MemberÅ¸ÀÔ °´Ã¼¿¡ ¾Ë¾Æ¼­ ÀúÀåµÇÁö? http://springmvc.egloos.com/535572
+    @ResponseBody//ï¿½Ú¹ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ HTTP ï¿½ï¿½Ã»ï¿½ï¿½ body ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public long add03(@ModelAttribute Member member, HttpSession session) {//ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ ï¿½î¶»ï¿½ï¿½ MemberÅ¸ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ë¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½? http://springmvc.egloos.com/535572
         System.out.println("MemberController - add03()");
         System.out.println("id : "+member.getId());
         System.out.println("first_name : "+member.getFirst_name());
@@ -45,14 +50,15 @@ public class MemberController {
         System.out.println("birthday : "+member.getBirthday());
         System.out.println("email : "+member.getEmail());
 
-       /* if(member.getGender()==null) {//Ã³¸®¾ÈÇÏ¸é ¿À·ù ¿Ö? -> ºä´Ü¿¡¼­ ³Ñ°Ü¹ÞÀº gender°ªÀÌ javaÀÇ null°ú °°Áö ¾ÊÀº µí -> Member.xml¿¡¼­ ÀÌ ·ÎÁ÷À» ´ë½ÅÇØ¼­ Ã³¸®ÇØµÒ
+
+       /* if(member.getGender()==null) {
         	//nested exception is org.springframework.jdbc.UncategorizedSQLException: Error setting null for parameter #4 with JdbcType OTHER . Try setting a different JdbcType for this parameter or a different jdbcTypeForNull configuration property.
         	member.setGender("0");
         }*/
-        session.setAttribute("id", member.getId());//·Î±×ÀÎÇÒ¶§ ÆäºÏ¿¡¼­ ¸Å¹ø Á¤º¸¸¦ °¡Á®¿À´Âµ¥ ±× Á¤º¸¸¦ ¼¼¼Ç¿¡ ÀúÀå//ÀÌ·¸°ÔÇÏ¸é ¾È´ë´Â°Ç°¨
-        long checkIdNum = memberService.checkIdService(member);//ÇØ´ç idÀÇ Çà °¹¼ö count¸¦ ¸®ÅÏÇÏÁö¸»°í listÇØ¼­ °¡Á®¿À´Â°Ô ÁÁÀ» ±î? ´ÜÀ§ ¼Óµµ´Â Çà°¹¼ö¸¸ °¡Á®¿À´Â°Ô ºü¸£°ÚÁö?
+        session.setAttribute("id", member.getId());//ï¿½Î±ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½Å¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½//ï¿½Ì·ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½È´ï¿½Â°Ç°ï¿½
+        long checkIdNum = memberService.checkIdService(member);//ï¿½Ø´ï¿½ idï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ countï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ listï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½? ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½à°¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
         
-        if(checkIdNum < 1)//ÆäÀÌ½ººÏ¿¡¼­ ³Ñ¾î¿Â id°ªÀÌ db¿¡ ¾øÀ» ¶§¸¸ db¿¡ ÀúÀå
+        if(checkIdNum < 1)//ï¿½ï¿½ï¿½Ì½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ idï¿½ï¿½ï¿½ï¿½ dbï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ dbï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         	memberService.insertService(member);
         
         return checkIdNum;
@@ -71,7 +77,7 @@ public class MemberController {
     	HttpSession session = request.getSession();
     	String id = (String) session.getAttribute("id");
 
-    	Member member = memberService.profileContentService(id);//¿©±â ¿À·ù¸é ´Ù½Ã ·Î±×ÀÎÇÏ¸éµÊ-¼¼¼Ç¸¸·áµÇ¼­ id°ªÀÌ nullÀÎµí
+    	Member member = memberService.profileContentService(id);//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½-ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½Ç¼ï¿½ idï¿½ï¿½ï¿½ï¿½ nullï¿½Îµï¿½
 
         model.addAttribute("member", member);
     	model.addAttribute("firstname", member.getFirst_name());
@@ -176,7 +182,8 @@ public class MemberController {
 
 		String result = request.getParameter("term");//
 		System.out.println(result);
-		List<Member> list = memberDao.autoComplete(result); //result°ªÀÌ Æ÷ÇÔµÇ¾î ÀÖ´Â empÅ×ÀÌºíÀÇ ³×ÀÓÀ» ¸®ÅÏ
+
+		List<Member> list = memberDao.autoComplete(result); //resultï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ ï¿½Ö´ï¿½ empï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		JSONArray ja = new JSONArray();
 		if(list != null) {

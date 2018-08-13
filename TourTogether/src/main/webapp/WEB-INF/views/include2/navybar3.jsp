@@ -1,4 +1,14 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>  
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@ page import="org.springframework.security.core.context.SecurityContext" %>
+<%@ page import="org.springframework.security.core.Authentication" %>
+<%@ page import="org.springframework.security.core.GrantedAuthority" %>
+<%@ page import="com.cndy.tt.member.Member" %>
+
     <!-- ##### Header Area Start ##### -->
     <header class="header-area">
 
@@ -56,8 +66,25 @@
 
                             <!-- Register / Login -->
                             <div class="register-login-area">
-                                <a href="#" class="btn">Register</a>
-                                <a href="index-login.html" class="btn active">Login</a>
+                           
+                            
+                            	<!-- spring security 권한 확인 -->
+		    					<sec:authorize access="isAnonymous()">   
+                                	<a href="<c:url value="login/join.do" />" class="btn">Register</a>
+                                	<a href="<c:url value="login/login.do"/>" class="btn active">Login</a>
+                                </sec:authorize>
+                                
+                                <sec:authorize access="isAuthenticated()">
+                                	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		    						<a href="<c:url value="admin/admin_mem.do"/>" >관리자</a>
+		    						</sec:authorize>
+		    						
+		    						<form:form action="${pageContext.request.contextPath }/logout" method="POST">
+							    	<input type="submit" class="btn active" value="Logout"></a>
+							    	</form:form>
+							    </sec:authorize>
+		    	
+
                             </div>
 
                         </div>
