@@ -64,4 +64,16 @@ public class MemberDaoImpl implements MemberDao {
 		if(i>0) return true;
 		else return false;
 	}
+	
+	@Override
+	public int block(String id) {
+		int i = sqlSession.update(ns+ ".blockUser", id);
+		return i;
+	}
+
+	@Override
+	public int unblock(String id) {
+		int i = sqlSession.update(ns + ".unblockUser", id);
+		return i;
+	}
 }

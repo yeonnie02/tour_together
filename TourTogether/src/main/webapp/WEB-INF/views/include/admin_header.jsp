@@ -1,4 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@ page import="org.springframework.security.core.context.SecurityContext" %>
+<%@ page import="org.springframework.security.core.Authentication" %>
+<%@ page import="org.springframework.security.core.GrantedAuthority" %>
  
 <!DOCTYPE html>
 
@@ -53,30 +61,13 @@
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <!-- The user image in the navbar-->
-              <img src="admin_dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">Admin</span>
             </a>
             <ul class="dropdown-menu">
-              <!-- The user image in the menu -->
-              <li class="user-header">
-                <img src="admin_dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li>
-              
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="../" class="btn btn-default btn-flat">Home</a>                  
-                </div>
-                <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                </div>
+                  <span><a href="../" class="btn btn-default btn-flat">Home</a></span>
               </li>
             </ul>
           </li>          
@@ -108,7 +99,18 @@
 			  <li><a href="admin_stat_country.do">국가 비율 </a></li>
 			</ul>
         <li><a href="admin_notice.do"><i class="fa fa-link"></i> <span>공지사항</span></a></li>
-      </ul>
+        <li><a href="../"><i class="fa fa-link"></i> <span>홈페이지 이동</span></a></li>
+        
+        <sec:authorize access="isAuthenticated()">					
+			<form:form action="${pageContext.request.contextPath}/logout" method="POST">
+
+    			<i class="fa fa-link"></i> <span><input type="submit" value="Logout"></span>
+
+    		</form:form>
+    	</sec:authorize>
+    	
+    	
+     </ul>
       <!-- /.sidebar-menu -->
       
       

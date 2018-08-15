@@ -13,6 +13,8 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	
 	<!-- searching css -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>		
@@ -68,6 +70,86 @@
 		}		
 	</style>
 </head>
+
+<script>
+	function blockConfirm(){
+		if(window.confirm("사용자의 이용을 제한하시겠습니까?")){
+			console.log('yes');
+			blockUsers();
+			
+		}else{
+			console.log('no');
+			return false;
+		}		
+		
+	}
+
+	function blockUsers(){
+		var values = document.getElementsByName("user");
+		var ids = [];
+		for(var i=0; i<values.length; i++){
+			if(values[i].checked){
+				//alert('values[i].value: '+ values[i].value);
+				ids.push(values[i].value);
+			}
+		}
+ 		 $.ajax({
+			url: "block.do",
+			type: "POST",
+			dataType: "json",
+			traditional: true,
+			data: { "ids": ids },
+			success: function(result){
+				if(result){
+					alert('성공적으로 사용자의 이용이 제한되었습니다.');
+					//$("input[name=user]").prop("checked", false);
+					window.location.reload();
+				}else{
+					alert('실패');
+				}
+			}
+		}); 	 	
+	}
+	
+	function unblockConfirm(){
+		if(window.confirm("사용자의 이용 제한을 해제하시겠습니까?")){
+			console.log('yes');
+			unblockUsers();
+			
+		}else{
+			console.log('no');
+			return false;
+		}		
+	}
+
+	function unblockUsers(){
+		var values = document.getElementsByName("user");
+		var ids = [];
+		for(var i=0; i<values.length; i++){
+			if(values[i].checked){
+				//alert('values[i].value: '+ values[i].value);
+				ids.push(values[i].value);
+			}
+		}
+ 		 $.ajax({
+			url: "unblock.do",
+			type: "POST",
+			dataType: "json",
+			traditional: true,
+			data: { "ids": ids },
+			success: function(result){
+				if(result){
+					alert('성공적으로 사용자의 이용 제한이 해제되었습니다.');
+					//$("input[name=user]").prop("checked", false);
+					window.location.reload();
+				}else{
+					alert('실패');
+				}
+			}
+		}); 	 	
+	}
+</script>
+
 <body>
 	<!-- 회원 검색 테이블 -->
 	<form action="searchMem.do" method="post" class="search">
@@ -104,7 +186,8 @@
 	        <th scope="cols">등급</th>	        
 	        <th scope="cols">나라</th>
 	        <th scope="cols">성별</th>
-	        <th scope="cols">가입일</th>       
+	        <th scope="cols">가입일</th>  
+	        <th scope="cols">차단여부</th>    
 	    </tr>
 	    </thead>	    
 	    
@@ -112,7 +195,7 @@
 		     <tbody>
 			      <tr>
 			        <th scope="row" align="center">
-			        	<input type="checkbox" />
+			        	<input type="checkbox" name="user" value="${data.id}" />
 			        </th>
 			        <td>${data.email}</td>	        
 			        <td>${data.telephone}</td>
@@ -122,10 +205,20 @@
 			        <td>${data.country}</td>
 			        <td>${data.gender}</td>
 			        <td>${data.join_date}</td>
+			        <c:set var = "enabled" value = "${data.enabled}"/>
+			      <c:choose>			         
+			         <c:when test = "${enabled == true}">
+			            <td>  </td>
+			         </c:when>			         
+			         <c:when test = "${enabled == false}">
+			            <td> ✔ </td>
+			         </c:when>
+			      </c:choose>
 			      </tr>			      
 		      </tbody>
 	     </c:forEach>
-	     <td><button id="block">차단</button></td>
+	     <td><button id="block" onclick="blockConfirm()">차단</button>
+		     <button id="unblock" onclick="unblockConfirm()">해제</button></td>
 	     <td/><td/><td/><td/><td/><td/><td/>
 	     <td>총 ${pagingVo.total}명</td>
 	 </table>

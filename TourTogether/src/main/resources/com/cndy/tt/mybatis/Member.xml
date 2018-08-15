@@ -45,25 +45,37 @@
 	</update>
 	
 	<select id="autoComplete" parameterType="String" resultType="Member">
-		select first_name from MEMBER_INFO
-	 	where first_name like concat('%',concat(UPPER(#{b}),'%'))
-			or first_name like concat('%',concat(LOWER(#{b}),'%'))
-	</select> 
+	select first_name from  (select * from MEMBER_INFO where ID in (select ID from MEMBER_AUTHORITY where AUTHORITY='ROLE_USER'))
+	 where first_name like concat('%',concat(UPPER(#{b}),'%'))
+	   or first_name like concat('%',concat(LOWER(#{b}),'%'))
+	</select>  
 	
-	<select id="initDateSelectAll" resultType="Member">
-       select JOIN_DATE from MEMBER_INFO <![CDATA[where JOIN_DATE <= SYSDATE]]> GROUP BY JOIN_DATE ORDER BY JOIN_DATE
+	   <select id="initDateSelectAll" resultType="String">
+       <![CDATA[select TO_CHAR(JOIN_DATE, 'YYYY-MM-DD') from 
+          (select * from MEMBER_INFO where ID in 
+             (select ID from MEMBER_AUTHORITY where AUTHORITY='ROLE_USER')) 
+       where TO_CHAR(JOIN_DATE, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD') 
+       GROUP BY TO_CHAR(JOIN_DATE, 'YYYY-MM-DD')
+       ORDER BY TO_CHAR(JOIN_DATE, 'YYYY-MM-DD')]]>
     </select>
     
     <select id="initCountSelectAll" resultType="Integer">
-       select COUNT(*) from MEMBER_INFO <![CDATA[where JOIN_DATE <= SYSDATE]]> GROUP BY JOIN_DATE ORDER BY JOIN_DATE
+       <![CDATA[select COUNT(*) from 
+             (select * from MEMBER_INFO where ID in 
+                (select ID from MEMBER_AUTHORITY where AUTHORITY='ROLE_USER')) 
+       where TO_CHAR(JOIN_DATE, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD') 
+       GROUP BY TO_CHAR(JOIN_DATE, 'YYYY-MM-DD')
+       ORDER BY TO_CHAR(JOIN_DATE, 'YYYY-MM-DD')]]>
     </select>
     
-    <select id="newDateList" resultType="Date" parameterType="map">
-       <![CDATA[select JOIN_DATE from MEMBER_INFO where JOIN_DATE >= #{startDate} and JOIN_DATE <= #{endDate} GROUP BY JOIN_DATE ORDER BY JOIN_DATE]]>
+    <select id="newDateList" resultType="String" parameterType="map">
+       <![CDATA[select TO_CHAR(JOIN_DATE, 'YYYY-MM-DD') from MEMBER_INFO where TO_CHAR(JOIN_DATE, 'YYYY-MM-DD') >= #{startDate} 
+		and TO_CHAR(JOIN_DATE, 'YYYY-MM-DD') <= #{endDate} GROUP BY TO_CHAR(JOIN_DATE, 'YYYY-MM-DD') ORDER BY TO_CHAR(JOIN_DATE, 'YYYY-MM-DD')]]>
     </select>
     
     <select id="newCountList" resultType="int" parameterType="map">
-       <![CDATA[select COUNT(*) from MEMBER_INFO where JOIN_DATE >= #{startDate} and JOIN_DATE <= #{endDate} GROUP BY JOIN_DATE ORDER BY JOIN_DATE]]>
+       <![CDATA[select COUNT(*) from MEMBER_INFO where TO_CHAR(JOIN_DATE, 'YYYY-MM-DD') >= #{startDate} 
+       	and TO_CHAR(JOIN_DATE, 'YYYY-MM-DD') <= #{endDate} GROUP BY TO_CHAR(JOIN_DATE, 'YYYY-MM-DD') ORDER BY TO_CHAR(JOIN_DATE, 'YYYY-MM-DD')]]>
     </select>
     
     <select id="chartF" resultType="int">
@@ -88,4 +100,12 @@
     <select id="chartCountryCount" resultType="int">
     	select COUNT(*) from MEMBER_INFO group by COUNTRY
     </select>
+    
+    <update id="blockUser" parameterType="String">
+    	update MEMBER_INFO set ENABLED=0 where ID=#{id}
+    </update>
+    
+    <update id="unblockUser" parameterType="String">
+    	update MEMBER_INFO set ENABLED=1 where ID=#{id}
+    </update>
 </mapper>

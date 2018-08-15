@@ -122,7 +122,7 @@
 			var initFunc = function initData(){
 				var initDateList = new Array();
 				<c:forEach items="${chart}" var="initChart">
-					initDateList.push("${initChart.join_date}");
+					initDateList.push("${initChart}");
 				</c:forEach>
 				
 				var initCountList = new Array();

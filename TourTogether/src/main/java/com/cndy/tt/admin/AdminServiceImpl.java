@@ -15,8 +15,8 @@ public class AdminServiceImpl implements AdminService{
 	private AdminDao adminDao;
 	
 	@Override
-	public List<Member> chartDateService() {
-		List<Member> chart = adminDao.initDateList();		
+	public List<String> chartDateService() {
+		List<String> chart = adminDao.initDateList();		
 		return chart;
 	}
 	
@@ -29,8 +29,8 @@ public class AdminServiceImpl implements AdminService{
 	
 
 	@Override
-	public List<Date> newChartDateService(int startYear, int startMonth, int endYear, int endMonth) {
-		List<Date> newChart = adminDao.newDateList(startYear, startMonth, endYear, endMonth);		
+	public List<String> newChartDateService(int startYear, int startMonth, int endYear, int endMonth) {
+		List<String> newChart = adminDao.newDateList(startYear, startMonth, endYear, endMonth);		
 		return newChart;
 	}
 	

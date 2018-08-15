@@ -1,5 +1,7 @@
 package com.cndy.tt.admin;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cndy.tt.board.BoardDTO;
 import com.cndy.tt.diary.Diary;
 import com.cndy.tt.member.Member;
+import com.cndy.tt.member.MemberService;
 import com.cndy.tt.paging.PagingService;
 import com.cndy.tt.paging.PagingVo;
 
@@ -31,6 +34,9 @@ public class AdminController {
 	
 	@Resource(name="pagingService")
 	private PagingService pagingService;
+	
+	@Resource(name="memberService")
+	private MemberService memberService;
 	
 	@RequestMapping(value="admin_mem.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public String memCont(Model model, PagingVo pagingVo, HttpSession session) {
@@ -85,25 +91,24 @@ public class AdminController {
 	
 	@RequestMapping(value="admin_stat_join.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView chartJoin(Model model) {
-		List<Member> chartDate = adminService.chartDateService();
+		List<String> chartDate = adminService.chartDateService();
 		List<Integer> chartNum = adminService.chartNumService();
+		List<Date> joinDate = new ArrayList<Date>();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;		
+		for(String strDate : chartDate) {
+			try {
+				date = formatter.parse(strDate);
+				java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+				joinDate.add(sqlDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}			
 		model.addAttribute("chartCount", chartNum);
 		String view = "admin/admin_stat_join";
-		ModelAndView mv = new ModelAndView(view, "chart", chartDate);
-		return mv;
-	}
-	
-	@RequestMapping(value="admin_stat_gen.do", method= {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView chartGend(Model model) {
-		int chartGenF = adminService.chartGenFService();
-		int chartGenM = adminService.chartGenMService();
-		int chartClsA = adminService.chartClsAService();
-		int chartClsP = adminService.chartClsPService();
-		model.addAttribute("chartGenF", chartGenF);
-		model.addAttribute("chartClsA", chartClsA);
-		model.addAttribute("chartClsP", chartClsP);
-		String view = "admin/admin_stat_genNcls";
-		ModelAndView mv = new ModelAndView(view, "chartGenM", chartGenM);
+		ModelAndView mv = new ModelAndView(view, "chart", joinDate);
 		return mv;
 	}
 	
@@ -118,28 +123,48 @@ public class AdminController {
 		JSONArray json = new JSONArray();
 		JSONObject object = null;
 
-		List<Date> newChartDate = adminService.newChartDateService(startYear, startMonth, endYear, endMonth);
+		List<String> newChartDate = adminService.newChartDateService(startYear, startMonth, endYear, endMonth);
 		List<Integer> newChartCount = adminService.newChartCountService(startYear, startMonth, endYear, endMonth);
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
-		for(Date date : newChartDate) {
+		for(String date : newChartDate) {
 			object = new JSONObject();
-			String dateStr = dateFormat.format(date);
-			
-			object.put("Date", dateStr);
+			//Date dateStr;
+			try {
+				Date dateStr = dateFormat.parse(date);
+				java.sql.Date sqlDate = new java.sql.Date(dateStr.getTime());
+				object.put("Date", sqlDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 			json.add(object);			
 		}
 		for(Integer i : newChartCount) {
-			object = new JSONObject();
-			
+			object = new JSONObject();			
 			object.put("CountData", i);
 			json.add(object);
 		}
 		return json;
 	}
 	
-	//가입자 추이 통계
+	//성별
+	@RequestMapping(value="admin_stat_gen.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView chartGend(Model model) {
+		int chartGenF = adminService.chartGenFService();
+		int chartGenM = adminService.chartGenMService();
+		int chartClsA = adminService.chartClsAService();
+		int chartClsP = adminService.chartClsPService();
+		model.addAttribute("chartGenF", chartGenF);
+		model.addAttribute("chartClsA", chartClsA);
+		model.addAttribute("chartClsP", chartClsP);
+		String view = "admin/admin_stat_genNcls";
+		ModelAndView mv = new ModelAndView(view, "chartGenM", chartGenM);
+		return mv;
+	}
+	
+	
+	//가입자 나라 통계
 	@RequestMapping(value="admin_stat_country.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView chartCountry(Model model) {
 		List<Member> chartCountry = adminService.chartCountryService();
@@ -205,5 +230,25 @@ public class AdminController {
 		}
 		mv.setViewName("admin/result_msg");
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="block.do", method=RequestMethod.POST)
+	public boolean block(@RequestParam(value="ids")List<String> ids) {
+		System.out.println(" checkedValues: "+ ids.toString());
+		boolean result = memberService.blockService(ids);
+		System.out.println("block result: "+ result);
+		 
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="unblock.do", method=RequestMethod.POST)
+	public boolean unblock(@RequestParam(value="ids")List<String> ids) {
+		System.out.println( "ids: "+ids.toString());
+		boolean result = memberService.unblockService(ids);
+		System.out.println("result: "+ result);
+		
+		return result;
 	}
 } 

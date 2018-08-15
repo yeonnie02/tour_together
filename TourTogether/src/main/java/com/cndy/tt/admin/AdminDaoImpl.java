@@ -19,24 +19,23 @@ public class AdminDaoImpl implements AdminDao{
 	private String ns2 = "com.cndy.tt.mybatis.Notice.";
 	
 	@Override
-	public List<Member> initDateList() {
-		List<Member> chart = sqlSession.selectList(ns + "initDateSelectAll");
+	public List<String> initDateList() {
+		List<String> chart = sqlSession.selectList(ns + "initDateSelectAll");
 		return chart;
 	}
 	
 	@Override
 	public List<Integer> initNumList() {
 		List<Integer> chart = sqlSession.selectList(ns + "initCountSelectAll");
-		//System.out.println("chart: "+chart);
 		return chart;
 	}
 
 	@Override
-	public List<Date> newDateList(int startYear, int startMonth, int endYear, int endMonth) {
+	public List<String> newDateList(int startYear, int startMonth, int endYear, int endMonth) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String endDate = null;
 		
-		String startDate = (startYear+"-"+startMonth+"-01");
+		String startDate = (startYear+"-"+"0"+startMonth+"-01");
 		if(endMonth == 1 || endMonth == 3 || endMonth == 5 || endMonth == 7 || endMonth == 8 || endMonth == 10 || endMonth == 12) {
 			endDate = (endYear+"-"+endMonth+"-31");
 		}else if(endMonth == 2){
@@ -48,7 +47,7 @@ public class AdminDaoImpl implements AdminDao{
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
 		
-		List<Date> newChart = sqlSession.selectList(ns + "newDateList", map);
+		List<String> newChart = sqlSession.selectList(ns + "newDateList", map);
 		return newChart;
 	}
 	
@@ -57,7 +56,7 @@ public class AdminDaoImpl implements AdminDao{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String endDate = null;
 		
-		String startDate = (startYear+"-"+startMonth+"-01");
+		String startDate = (startYear+"-"+"0"+startMonth+"-01");
 		if(endMonth == 1 || endMonth == 3 || endMonth == 5 || endMonth == 7 || endMonth == 8 || endMonth == 10 || endMonth == 12) {
 			endDate = (endYear+"-"+endMonth+"-31");
 		}else if(endMonth == 2){
@@ -70,7 +69,6 @@ public class AdminDaoImpl implements AdminDao{
 		map.put("endDate", endDate);
 		
 		List<Integer> newChart = sqlSession.selectList(ns + "newCountList", map);
-
 		return newChart;
 	}
 
