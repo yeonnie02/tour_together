@@ -20,9 +20,10 @@ public class BoardDTO {
 	
 	public BoardDTO(){}
 	
-	public BoardDTO(String title, Date start_date, Date end_date, int budget, int company,
-			int board_type,String board_content,int tour_time) {
+	public BoardDTO(String title, String email, Date start_date, Date end_date, int budget, int company,
+			int board_type,String board_content,int tour_time, String region,String photo_path) {
 		this.title = title;
+		this.email = email;
 		this.start_date = start_date;
 		this.end_date = end_date;
 		this.budget = budget;
@@ -30,6 +31,8 @@ public class BoardDTO {
 		this.board_type = board_type;
 		this.board_content = board_content;
 		this.tour_time = tour_time;
+		this.region = region;
+		this.photo_path = photo_path;
 	}
 	
 	public BoardDTO(int board_no, String email, String title, int board_type, String board_content, Date start_date,

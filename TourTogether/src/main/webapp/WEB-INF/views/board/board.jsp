@@ -12,7 +12,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html>
 	<head>
 		<title>Pinball Website Template | Home :: w3layouts</title>
-		<link href="css/style.css" rel='stylesheet' type='text/css' />
+		<link href="resources/board/css/style.css" rel='stylesheet' type='text/css' />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/x-icon" href="images/fav-icon.png" />
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -21,10 +21,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 		<!----//webfonts---->
 		<!-- Global CSS for the page and tiles -->
-  		<link rel="stylesheet" href="css/main.css">
+  		<link rel="stylesheet" href="resources/board/css/main.css">
   		<!-- //Global CSS for the page and tiles -->
 		<!---start-click-drop-down-menu----->
-		<script src="js/jquery.min.js"></script>
+		<script src="resources/board/js/jquery.min.js"></script>
         <!----start-dropdown--->
          <script type="text/javascript">
 			var $ = jQuery.noConflict();
@@ -107,12 +107,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			        <c:forEach var="list" items="${list}">
 			        <li>
 			        <a href="sample.jsp"/>
-			        	<img src="images/img1.jpg" width="282" height="118">
+			        	<c:choose>
+			        		<c:when test="${'지역' eq list.region}">
+			        			<img src="resources/board/images/jegudo.jpg" width="282" height="200">
+			        		</c:when>
+			        		<c:when test="${'null' eq list.photo_path}">
+			        			<img src="resources/board/images/${list.region}.jpg" width="282" height="200">
+			        		</c:when>
+			        		<c:otherwise>
+			        			<img src="${list.photo_path}" width="282" height="200">
+			        		</c:otherwise>
+			        	</c:choose>
 			        	<div class="post-info">
 			        		<div class="post-basic-info">
-				        		<h3><a href="#">${list.title}</a></h3>
-				        		<span><a href="#"><label> </label>${list.region}</a></span>
-				        		<p>${list.board_content}</p>
+				        		<h3><a href="content.do?no=${list.board_no}">${list.title}</a></h3>
+				        		<span><a href="content.do?no=${list.board_no}"><label> </label>${list.region}</a></span>
+				        		<p><input type="submit" value="팝업창 호출" onclick="showPopup(104687663793205);" /></p>
 			        		</div>
 			        		<div class="post-info-rate-share">
 			        			<span style="font-size:0.8em; color:gray;"> &nbsp&nbsp${list.start_date}</span>
@@ -125,7 +135,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								
 								<span style="font-size:0.8em; color:gray;">(${endDate - strDate+1}일)</span>
 			        			<div class="post-share">
-			        				<span> </span>
+			        				<span><a href="#"></a></span>
 			        			</div>
 			        			<div class="clear"> </div>
 			        		</div>
@@ -139,16 +149,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 		<!---//End-content---->
 		<!----wookmark-scripts---->
-		  <script src="js/jquery.imagesloaded.js"></script>
-		  <script src="js/jquery.wookmark.js"></script>
+		  <script src="resources/board/js/jquery.imagesloaded.js"></script>
+		  <script src="resources/board/js/jquery.wookmark.js"></script>
 		  <script type="text/javascript">
+		 	 function showPopup(id) { 
+	    	   // var pop_title = "http://10.10.10.175:3000";
+	    	    
+	    	  	window.open("doA?id="+id, "채팅창", "width=600, height=400, left=100, top=50");
+//	     	  	var frmData = document.chatid;
+//	     	  	frmData.target = pop_title;
+//	     	  	frmData.submit();
+	    	  }
 		    (function ($){
 		      var $tiles = $('#tiles'),
 		          $handler = $('li', $tiles),
 		          $main = $('#main'),
 		          $window = $(window),
 		          $document = $(document),
-		          $i = 18;
+		          $i =	 18;
 		      	  $j = 0;
 		          options = {
 		            autoResize: true, // This will auto-update the layout when the browser window is resized.
@@ -187,7 +205,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		        		  $j=$i;
 			          	$.ajax({
 			        		  type: 'post',
-			        		  url: "board/search.do?page="+$i,
+			        		  url: "search.do?page="+$i,
 			        		  dataType:"json",
 			        		  contentType:'application/json;charset=UTF-8',
 			        		  
@@ -199,9 +217,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			        				  var date1 = new Date(obj.start_date);
 			        				  var date2 = new Date(obj.end_date);
 			        				  var date3 = date2-date1;
+			        				  var region = obj.region;
+			        				  if(region=="지역"){
+			        					  region = 'jegudo';
+			        				  }
 				        			  $tiles.append("<li>"
 				    		        		  +"<a href=\"sample.jsp\"/>"
-				    		        		  +"<img src=images/img1.jpg width=282 height=118>"
+				    		        		  +"<img src=resources/board/images/"+region+".jpg width=282 height=118>"
 				    		        		  +"<div class=\"post-info\">"
 				    		        		  +"<div class=\"post-basic-info\">"
 				    		        		  +"<h3><a href=\"#\">"+obj.title+"</a></h3>"

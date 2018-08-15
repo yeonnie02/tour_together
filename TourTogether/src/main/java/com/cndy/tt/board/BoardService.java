@@ -1,5 +1,6 @@
 package com.cndy.tt.board;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -20,5 +21,8 @@ public class BoardService {
 	}
 	public void insert(BoardDTO dto,HttpSession session){
 		dao.insert(dto,session);
+	}
+	public HashMap<String, String> chat_service(String chating_email1,String chating_email2){
+		return dao.chat_make(chating_email1, chating_email2);
 	}
 }

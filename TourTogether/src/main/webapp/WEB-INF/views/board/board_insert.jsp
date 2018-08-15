@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <title>좌표로 주소를 얻어내기</title>
-	<link href="css/map_style.css" rel="stylesheet" type="text/css">
+	<link href="resources/board/css/map_style.css" rel="stylesheet" type="text/css">
 </head>
 	<body style="overflow-x:hidden; overflow-y:hidden;">
 		<div class="map_wrap">
@@ -20,20 +20,6 @@
 		        <hr>
 		        <ul id="placesList"></ul>
 		        <div id="pagination"></div>
-		    </div>
-		    <div id="region" class="bg_white">
-		    	<ul id="location_List">
-		    		<li>
-		    			<div class="info">
-		    			<span > <img src="images/seoul.jpg" width="100px" height="100px" align="left"> </span>
-		    				<h5> 서울 </h5>
-		    				<span> Seoul </span>
-		    			</div>
-		    		</li>
-		    		<li>
-		    			<span> <img src="images/seoul.jpg" width="30px" height="30px"> </span>
-		    		</li>
-		    	</ul>
 		    </div>
 		    
 		    <!-- 지도타입 컨트롤 div 입니다 -->
@@ -85,6 +71,6 @@
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d15fd5bf26911082d79838012f46ad9&libraries=services"></script>
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d15fd5bf26911082d79838012f46ad9"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="js/board.script.js"></script>
+		<script src="resources/board/js/board.script.js"></script>
 	</body>
 </html>

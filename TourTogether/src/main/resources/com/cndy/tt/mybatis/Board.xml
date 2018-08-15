@@ -21,6 +21,13 @@
         <result property="photo_path" column="PHOTO_PATH"/>
 	</resultMap>
 	
+	<resultMap id="chatingResult" type="java.util.HashMap">
+		<result javaType="String" property="room_num" column="CHATING_ROOM"/>
+		<result javaType="String" property="chating_member" column="CHATING_MEMBER1"/>
+		<result javaType="String" property="user_member" column="CHATING_MEMBER2"/>
+		<result javaType="String" property="chating_content" column="CHATING_CONTENT"/>
+	</resultMap>
+	
 	<select id="boardSelectAll" resultType="BoardDTO">
    		<![CDATA[select * from BOARD where rownum<9 and board_type=10 order by board_no desc]]>
     </select>
@@ -36,9 +43,21 @@
 		<selectKey keyProperty="board_no" resultType="int" order="BEFORE">
 			select BOARD_SEQ.nextval from DUAL
 		</selectKey>
-		insert into Board values(#{board_no},'eogh0000@naver.com', #{title}, #{board_type},#{board_content},#{start_date},#{end_date},#{tour_time},'지역',#{budget},#{company},sysdate,'1',null)
+		insert into Board values(#{board_no},#{email}, #{title}, #{board_type},#{board_content},#{start_date},#{end_date},#{tour_time},#{region},#{budget},#{company},sysdate,'1',#{photo_path})
 	</insert>
 	<insert id="locationInsert" parameterType="hashmap">
 		insert into LOCATION values(#{board_no},#{jb},#{ib})
+	</insert>
+	<select id="Chating_search" parameterType="hashmap" resultType="int">
+		<![CDATA[select nvl(min(chating_room),0) from chating where chating_member1 in (#{chating_member},#{user_member}) and chating_member2 in (#{chating_member},#{user_member})]]>
+	</select>
+	<select id="Chating_select" parameterType="hashmap" resultMap="chatingResult">
+		<![CDATA[select * from chating where chating_member1 in (#{chating_member},#{user_member}) and chating_member2 in (#{chating_member},#{user_member})]]>
+	</select>
+	<insert id="chating_insert" parameterType="hashmap" useGeneratedKeys="true" keyProperty="chat_no">
+		<selectKey keyProperty="chat_no" resultType="String" order="BEFORE">
+			select chating_room_seq.nextval from DUAL
+		</selectKey>
+		insert into CHATING values(#{chat_no},#{chating_member},#{user_member},#{chating_content})
 	</insert>
 </mapper>

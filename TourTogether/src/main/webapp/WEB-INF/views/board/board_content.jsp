@@ -45,25 +45,21 @@
     </div>
     <!-- ##### Breadcumb Area End ##### -->
 
+<style>
+   #profile{
+      border-radius: 30%;
+   }
+</style>
     <!-- ##### Single Course Intro Start ##### -->
     <div class="single-course-intro d-flex align-items-center justify-content-center" style="background-image: url(../clever-img/bg-img/bg5.jpg);">
         <!-- Content -->
         <div class="single-course-intro-content text-center">
             <!-- Ratings -->
-            <div class="ratings">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
+            <a href="#"><img id="profile" src="../diary/images/avatar-1-120x120.jpg" alt="Profile Image" height="50%"width="50%"></a>
+            <br/><br/>
             <h3>Title</h3>
             <div class="meta d-flex align-items-center justify-content-center">
-                <a href="#">2018-08-09~2018-08-12(4일)</a>
-                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                <a href="#">지역</a>
             </div>
-            <div class="price">모집인원: ~3명</div>
         </div>
     </div>
     <!-- ##### Single Course Intro End ##### -->
@@ -78,10 +74,7 @@
                         <div class="clever-tabs-content">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="tab--1" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false">Description</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab--2" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="true">Itinerary</a>
+                                    <a class="nav-link active" id="tab--1" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false">Itinerary</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="tab--3" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="true">Reviews</a>
@@ -97,223 +90,38 @@
                             <div class="tab-content" id="myTabContent">
                                 <!-- Tab Text -->
                                 <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab--1">
-                                    <div class="clever-description">
-
-                                        <!-- About Course -->
-                                        <div class="about-course mb-30">
-                                            <h4>About this Tour</h4>
-                                            <p>여행에 대한 간략 정보.</p>
-                                        </div>
-
-                                        <!-- All Instructors -->
-                                        <div class="all-instructors mb-30">
-                                            <h4>All Guides</h4>
-
-                                            <div class="row">
-                                                <!-- Single Instructor -->
-                                                <div class="col-lg-6">
-                                                    <div class="single-instructor d-flex align-items-center mb-30">
-                                                        <div class="instructor-thumb">
-                                                            <img src="../clever-img/bg-img/t1.png" alt="">
-                                                        </div>
-                                                        <div class="instructor-info">
-                                                            <h5>Sarah Parker</h5>
-                                                            <span>Best Guide</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Single Instructor -->
-                                                <div class="col-lg-6">
-                                                    <div class="single-instructor d-flex align-items-center mb-30">
-                                                        <div class="instructor-thumb">
-                                                            <img src="../clever-img/bg-img/t2.png" alt="">
-                                                        </div>
-                                                        <div class="instructor-info">
-                                                            <h5>Sarah Parker</h5>
-                                                            <span>Best Guide</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Single Instructor -->
-                                                <div class="col-lg-6">
-                                                    <div class="single-instructor d-flex align-items-center mb-30">
-                                                        <div class="instructor-thumb">
-                                                            <img src="../clever-img/bg-img/t3.png" alt="">
-                                                        </div>
-                                                        <div class="instructor-info">
-                                                            <h5>Sarah Parker</h5>
-                                                            <span>Guide</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Single Instructor -->
-                                                <div class="col-lg-6">
-                                                    <div class="single-instructor d-flex align-items-center mb-30">
-                                                        <div class="instructor-thumb">
-                                                            <img src="../clever-img/bg-img/t4.png" alt="">
-                                                        </div>
-                                                        <div class="instructor-info">
-                                                            <h5>Sarah Parker</h5>
-                                                            <span>Guide</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- FAQ -->
-                                        <div class="clever-faqs">
-                                            <h4>FAQs</h4>
-
-                                            <div class="accordions" id="accordion" role="tablist" aria-multiselectable="true">
-
-                                                <!-- Single Accordian Area -->
-                                                <div class="panel single-accordion">
-                                                    <h6><a role="button" class="" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Are there any disadvantages when getting off the road?
-                                                    <span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                    <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    </a></h6>
-                                                    <div id="collapseOne" class="accordion-content collapse show">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor.</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Single Accordian Area -->
-                                                <div class="panel single-accordion">
-                                                    <h6>
-                                                        <a role="button" class="collapsed" aria-expanded="true" aria-controls="collapseTwo" data-parent="#accordion" data-toggle="collapse" href="#collapseTwo">What is the refund policy?
-                                                        <span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                        <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                        </a>
-                                                    </h6>
-                                                    <div id="collapseTwo" class="accordion-content collapse">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lectus eu felis semper finibus ac eget ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate id justo quis facilisis.</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Single Accordian Area -->
-                                                <div class="panel single-accordion">
-                                                    <h6>
-                                                        <a role="button" aria-expanded="true" aria-controls="collapseThree" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseThree">What is Travel Essential Knowledge?
-                                                        <span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                        <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                        </a>
-                                                    </h6>
-                                                    <div id="collapseThree" class="accordion-content collapse">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lectus eu felis semper finibus ac eget ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate id justo quis facilisis.</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Single Accordian Area -->
-                                                <div class="panel single-accordion">
-                                                    <h6>
-                                                        <a role="button" aria-expanded="true" aria-controls="collapseFour" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseFour">How much money do I need to have extra money?
-                                                        <span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                        <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                        </a>
-                                                    </h6>
-                                                    <div id="collapseFour" class="accordion-content collapse">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lectus eu felis semper finibus ac eget ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate id justo quis facilisis.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Tab Text -->
-                                <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab--2">
                                     <div class="clever-curriculum">
 
                                         <!-- About Curriculum -->
                                         <div class="about-curriculum mb-30">
-                                            <h4>Detailed Itinerary</h4>
+                                            <h4> 여행 정보 </h4>
                                             <p>상세 여행일정~</p>
                                         </div>
 
                                         <!-- Curriculum Level -->
                                         <div class="curriculum-level mb-30">
-                                            <h4 class="d-flex justify-content-between"><span>DAY 1</span> <span>0/4</span></h4>
-                                            <h5>2018-08-09</h5>
-                                            <p>일자별 알림 사항---------------------------------------------------</p>
+                                            <h4 class="d-flex justify-content-between"><span>여행 지역</span></h4>
 
                                             <ul class="curriculum-list">
                                                 <li><i class="fas fa-map-marked" aria-hidden="true"></i> 지역1
                                                     <ul>
                                                         <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지1: <span>내집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 1 hour</span>
+                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지: <span>내집</span></span>
+                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
                                                         </li>
                                                         <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지2: <span>니집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>  2 1/2 hours</span>
+                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지: <span>니집</span></span>
+                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
                                                         </li>
                                                         <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지3: <span>우리집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 50 minutes</span>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li><i class="fas fa-map-marked" aria-hidden="true"></i> 지역1
-                                                    <ul>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지1: <span>내집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 1 hour</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지2: <span>니집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>  2 1/2 hours</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지3: <span>우리집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 50 minutes</span>
+                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지: <span>우리집</span></span>
+                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
                                                         </li>
                                                     </ul>
                                                 </li>
                                             </ul>
                                         </div>
-
-                                        <!-- Curriculum Level -->
-                                        <div class="curriculum-level mb-30">
-                                            <h4 class="d-flex justify-content-between"><span>DAY 2</span> <span>0/5</span></h4>
-                                            <h5>2018-08-10</h5>
-                                            <p>일자별 알림 사항---------------------------------------------------</p>
-
-                                            <ul class="curriculum-list">
-                                                <li><i class="fas fa-map-marked" aria-hidden="true"></i> 지역1
-                                                    <ul>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지1: <span>내집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 1 hour</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지2: <span>니집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 2 1/2 hours</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지3: <span>우리집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 50 minutes</span>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li><i class="fas fa-map-marked" aria-hidden="true"></i> 지역1
-                                                    <ul>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지1: <span>내집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 1 hour</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지2: <span>니집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>  2 1/2 hours</span>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <a href="#" class="btn clever-btn mb-30 w-100">신청하기</a>
                                     </div>
                                 </div>
 
@@ -328,7 +136,7 @@
                                         </div>
 
                                         <!-- Ratings -->
-                                        <div class="clever-ratings d-flex align-items-center mb-30">
+<!--                                        <div class="clever-ratings d-flex align-items-center mb-30">
 
                                             <div class="total-ratings text-center d-flex align-items-center justify-content-center">
                                                 <div class="ratings-text">
@@ -345,7 +153,7 @@
                                             </div>
 
                                             <div class="rating-viewer">
-                                                <!-- Rating -->
+                                                
                                                 <div class="single-rating mb-15 d-flex align-items-center">
                                                     <span>5 STARS</span>
                                                     <div class="progress">
@@ -353,7 +161,7 @@
                                                     </div>
                                                     <span>80%</span>
                                                 </div>
-                                                <!-- Rating -->
+                                                
                                                 <div class="single-rating mb-15 d-flex align-items-center">
                                                     <span>4 STARS</span>
                                                     <div class="progress">
@@ -361,7 +169,7 @@
                                                     </div>
                                                     <span>20%</span>
                                                 </div>
-                                                <!-- Rating -->
+                                                
                                                 <div class="single-rating mb-15 d-flex align-items-center">
                                                     <span>3 STARS</span>
                                                     <div class="progress">
@@ -369,7 +177,7 @@
                                                     </div>
                                                     <span>0%</span>
                                                 </div>
-                                                <!-- Rating -->
+                                                
                                                 <div class="single-rating mb-15 d-flex align-items-center">
                                                     <span>2 STARS</span>
                                                     <div class="progress">
@@ -377,7 +185,7 @@
                                                     </div>
                                                     <span>0%</span>
                                                 </div>
-                                                <!-- Rating -->
+                                                
                                                 <div class="single-rating mb-15 d-flex align-items-center">
                                                     <span>1 STARS</span>
                                                     <div class="progress">
@@ -386,8 +194,8 @@
                                                     <span>0%</span>
                                                 </div>
                                             </div>
-                                        </div>
-
+                                        </div> 
+                                        -->
                                         <!-- Single Review -->
                                         <div class="single-review mb-30">
                                             <div class="d-flex justify-content-between mb-30">
@@ -400,14 +208,6 @@
                                                         <h6>Sarah Parker</h6>
                                                         <span>Sep 29, 2017 at 9:48 am</span>
                                                     </div>
-                                                </div>
-                                                <!-- Ratings -->
-                                                <div class="ratings">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
                                                 </div>
                                             </div>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis.</p>
@@ -425,14 +225,6 @@
                                                         <h6>Sarah Parker</h6>
                                                         <span>Sep 29, 2017 at 9:48 am</span>
                                                     </div>
-                                                </div>
-                                                <!-- Ratings -->
-                                                <div class="ratings">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
                                                 </div>
                                             </div>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis.</p>
@@ -533,73 +325,40 @@
 
                         <!-- Widget -->
                         <div class="sidebar-widget">
-                            <h4>Guide Tour Features</h4>
+                            <h4>가이드 투어 계획</h4>
                             <ul class="features-list">
                                 <li>
-                                    <h6><i class="fa fa-clock-o" aria-hidden="true"></i> Duration</h6>
-                                    <h6>4 DAYs</h6>
+                                    <h6><i class="fa fa-calendar" aria-hidden="true"></i> 여행시작 일자 </h6>
+                                    <h6>2018/8/28</h6>
                                 </li>
                                 <li>
-                                    <h6><i class="fa fa-bell" aria-hidden="true"></i> Country</h6>
-                                    <h6>5</h6>
+                                    <h6><i class="fa fa-calendar" aria-hidden="true"></i> 여행마지막 일자 </h6>
+                                    <h6>2018/8/30</h6>
                                 </li>
                                 <li>
-                                    <h6><i class="fa fa-file" aria-hidden="true"></i> Number of travelers</h6>
-                                    <h6>3</h6>
+                                    <h6><i class="fa fa-clock-o" aria-hidden="true"></i> 투어시간  </h6>
+                                    <h6> 7 Hour</h6>
                                 </li>
                                 <li>
-                                    <h6><i class="fa fa-thumbs-up" aria-hidden="true"></i> Satisfaction</h6>
-                                    <h6>60</h6>
+                                    <h6><i class="fa fa-bell" aria-hidden="true"></i> 지역 </h6>
+                                    <h6> 경기도 </h6>
                                 </li>
                                 <li>
-                                    <h6><i class="fa fa-thumbs-down" aria-hidden="true"></i> Dissatisfaction</h6>
-                                    <h6>5</h6>
+                                    <h6><i class="fa fa-file" aria-hidden="true"></i> 희망 모집인원</h6>
+                                    <h6>3 명</h6>
+                                </li>
+                                <li>
+                                    <h6><i class="fa fa-money-bill" aria-hidden="true"></i> 예상경비(1인)</h6>
+                                    <h6>60000 원</h6>
                                 </li>
                             </ul>
                         </div>
                         
                         <!-- Widget -->
                         <div class="sidebar-widget">
-                            <h4>Map</h4>
-                            <img src="../clever-img/bg-img/cer.png" alt="">
-                        </div>
-
-                        <!-- Widget -->
-                        <div class="sidebar-widget">
-                            <h4>You may like</h4>
-
-                            <!-- Single Courses -->
-                            <div class="single--courses d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="../clever-img/bg-img/yml.jpg" alt="">
-                                </div>
-                                <div class="content">
-                                    <h5>1</h5>
-                                    <h6>가</h6>
-                                </div>
-                            </div>
-
-                            <!-- Single Courses -->
-                            <div class="single--courses d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="../clever-img/bg-img/yml2.jpg" alt="">
-                                </div>
-                                <div class="content">
-                                    <h5>2</h5>
-                                    <h6>나</h6>
-                                </div>
-                            </div>
-
-                            <!-- Single Courses -->
-                            <div class="single--courses d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="../clever-img/bg-img/yml3.jpg" alt="">
-                                </div>
-                                <div class="content">
-                                    <h5>3</h5>
-                                    <h6>다</h6>
-                                </div>
-                            </div>
+                            <div class="map_wrap">
+		    					<div id="map" style="width:100%;height:350px;"></div>
+		    				</div>
                         </div>
                     </div>
                 </div>
@@ -657,6 +416,18 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="../clever-js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="../clever-js/active.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d15fd5bf26911082d79838012f46ad9&libraries=services"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d15fd5bf26911082d79838012f46ad9"></script>
+    <script type="text/javascript">
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 8 // 지도의 확대 레벨
+    };
+
+	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+	var map = new daum.maps.Map(mapContainer, mapOption);
+    </script>
 </body>
 
 </html>

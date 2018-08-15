@@ -17,10 +17,12 @@
     <link rel="icon" href="../clever-img/core-img/favicon.ico">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-	<link rel="stylesheet" href="../clever/style.css">
+    <link rel="stylesheet" href="../clever/style.css">
     <link rel="stylesheet" href="../clever-css/all.css">
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
 </head>
 
 <body>
@@ -50,26 +52,40 @@
     <!-- ##### Single Course Intro Start ##### -->
     <div class="single-course-intro d-flex align-items-center justify-content-center" style="background-image: url(../clever-img/bg-img/bg5.jpg);">
         <!-- Content -->
-        <div class="single-course-intro-content text-center">
-            <!-- Ratings -->
-            <div class="ratings">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <h3><input type="text" name="title" placeholder="제목"/></h3>
-            <div class="meta d-flex align-items-center justify-content-center">
-                <input type="text" name=""  placeholder="2018-08-09~2018-08-12"/>
-                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                <input type="text" name="region" placeholder="국가(지역?)"/>
-            </div>
-            <div class="price">모집인원: <input type="text" name="region" placeholder="인원 수"/></div>
-        </div>
+        
+           <div id="fileUpload" class="dragDropDiv">
+		   		<!-- multiple attr 가 없다면 단일 이미지만 선택한다. -->
+    			<input id="file" type="file" style="display:none;"/>
+ 				<img id="file_button" src="../resources/board/images/photo450.png" style="width:450px; height:450px"/>
+			    <!-- 해당 위치 안에 이미지가 쌓이게 된다. -->
+			</div>
+        
     </div>
     <!-- ##### Single Course Intro End ##### -->
-
+<style> 
+textarea{
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+.d_notif {
+    width: 100%;
+    height: 30px;
+    padding: 12px 1px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+</style>
     <!-- ##### Courses Content Start ##### -->
     <div class="single-course-content section-padding-100">
         <div class="container">
@@ -80,264 +96,65 @@
                         <div class="clever-tabs-content">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="tab--1" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false">Description</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab--2" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="true">Itinerary</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab--4" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="true">Guides</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab--5" data-toggle="tab" href="#tab5" role="tab" aria-controls="tab5" aria-selected="true">Etc...</a>
+                                    <a class="nav-link active" id="tab--1" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false">Tour registration form</a>
                                 </li>
                             </ul>
 
                             <div class="tab-content" id="myTabContent">
                                 <!-- Tab Text -->
                                 <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab--1">
+                                <form name="detail" action="all_insert.do" onsubmit="return false;" method="post">
                                     <div class="clever-description">
-
+										<div class="about-course mb-30">
+											<h3>제목</h3>
+                                            <h3><input class="d_notif" type="text" name="title" style="width:400px;"/></h3>
+                                            <h3>여행기간</h3>
+								            <div class="price">
+								                <input class="d_notif" type="text" id="start_date" name="start_date" style="width:100px" value="시작 날짜">
+								                ~
+								                <input class="d_notif" type="text" id="end_date" name="end_date" style="width:100px;" value="마지막 날짜">
+								            </div>
+								            <br/>
+								            <div class="price">
+								            <h3>모집인원 &emsp;&emsp;&emsp;&emsp; 투어시간</h3> <input class="d_notif" type="number" name="tour_time" style="width:220px;height:20px">
+								            &nbsp&nbsp<input class="d_notif" type="number" name="company" style="width:220px;height:20px">
+								            </div>
+								            <br/>
+								            <div class="price">
+								            <h3>필요 예산 </h3> <input class="d_notif" type="number" name="budget" style="width:220px;height:20px">
+								            </div>
+                                        </div>
                                         <!-- About Course -->
                                         <div class="about-course mb-30">
                                             <h4>About this Tour</h4>
-                                            <p><input type="text" name="" placeholder="여행에 대한 간략 정보."/></p>
-                                        </div>
-
-                                        <!-- FAQ -->
-                                        <div class="clever-faqs">
-                                            <h4>FAQs</h4>
-
-                                            <div class="accordions" id="accordion" role="tablist" aria-multiselectable="true">
-
-                                                <!-- Single Accordian Area -->
-                                                <div class="panel single-accordion">
-                                                    <h6><a role="button" class="" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Are there any disadvantages when getting off the road?
-                                                    <span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                    <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    </a></h6>
-                                                    <div id="collapseOne" class="accordion-content collapse show">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor.</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Single Accordian Area -->
-                                                <div class="panel single-accordion">
-                                                    <h6>
-                                                        <a role="button" class="collapsed" aria-expanded="true" aria-controls="collapseTwo" data-parent="#accordion" data-toggle="collapse" href="#collapseTwo">What is the refund policy?
-                                                        <span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                        <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                        </a>
-                                                    </h6>
-                                                    <div id="collapseTwo" class="accordion-content collapse">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lectus eu felis semper finibus ac eget ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate id justo quis facilisis.</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Single Accordian Area -->
-                                                <div class="panel single-accordion">
-                                                    <h6>
-                                                        <a role="button" aria-expanded="true" aria-controls="collapseThree" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseThree">What is Travel Essential Knowledge?
-                                                        <span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                        <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                        </a>
-                                                    </h6>
-                                                    <div id="collapseThree" class="accordion-content collapse">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lectus eu felis semper finibus ac eget ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate id justo quis facilisis.</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Single Accordian Area -->
-                                                <div class="panel single-accordion">
-                                                    <h6>
-                                                        <a role="button" aria-expanded="true" aria-controls="collapseFour" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseFour">How much money do I need to have extra money?
-                                                        <span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                        <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                        </a>
-                                                    </h6>
-                                                    <div id="collapseFour" class="accordion-content collapse">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lectus eu felis semper finibus ac eget ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate id justo quis facilisis.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                            <textarea name="board_content" placeholder="여행에 대한 간략 정보."></textarea>
                                         </div>
                                     </div>
-                                </div>
-
-                                <!-- Tab Text -->
-                                <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab--2">
+                                    <input type="hidden" name="board_type" value="10">
+                                    <input type="hidden" class='url' id="photo_path" name="photo_path" value="null">
+                              </form>
                                     <div class="clever-curriculum">
 
-                                        <!-- About Curriculum -->
-                                        <div class="about-curriculum mb-30">
-                                            <h4>Detailed Itinerary</h4>
-                                            <p><input type="text" name="" placeholder="상세 여행 일정 및 정보."/></p>
-                                        </div>
-
                                         <!-- Curriculum Level -->
                                         <div class="curriculum-level mb-30">
-                                            <h4 class="d-flex justify-content-between"><span>DAY 1</span> <span>0/4</span></h4>
-                                            <h5>2018-08-09</h5>
-                                            <p>일자별 알림 사항---------------------------------------------------</p>
-
+                                            <h4 class="d-flex justify-content-between"><span>여행지역</span></h4>			
                                             <ul class="curriculum-list">
-                                                <li><i class="fas fa-map-marked" aria-hidden="true"></i> 지역1
-                                                    <ul>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지1: <span>내집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 1 hour</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지2: <span>니집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>  2 1/2 hours</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지3: <span>우리집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 50 minutes</span>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li><i class="fas fa-map-marked" aria-hidden="true"></i> 지역1
-                                                    <ul>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지1: <span>내집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 1 hour</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지2: <span>니집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>  2 1/2 hours</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지3: <span>우리집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 50 minutes</span>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        <!-- Curriculum Level -->
-                                        <div class="curriculum-level mb-30">
-                                            <h4 class="d-flex justify-content-between"><span>DAY 2</span> <span>0/5</span></h4>
-                                            <h5>2018-08-10</h5>
-                                            <p>일자별 알림 사항---------------------------------------------------</p>
-
-                                            <ul class="curriculum-list">
-                                                <li><i class="fas fa-map-marked" aria-hidden="true"></i> 지역1
-                                                    <ul>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지1: <span>내집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 1 hour</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지2: <span>니집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 2 1/2 hours</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지3: <span>우리집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 50 minutes</span>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li><i class="fas fa-map-marked" aria-hidden="true"></i> 지역1
-                                                    <ul>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지1: <span>내집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 1 hour</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지2: <span>니집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>  2 1/2 hours</span>
-                                                        </li>
+                                                <li><i class="fas fa-map-marked" aria-hidden="true"></i> 지역
+                                                    <ul id="tiles">
+                                                       
                                                     </ul>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
-
-                                <!-- Tab Text -->
-                                <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab--4">
+                                    
                                     <div class="clever-members">
-
                                         <!-- About Members -->
-                                        <div class="about-members mb-30">
-                                            <h4>Guides</h4>
-                                            <p><input style="border:none" type="text" name="" placeholder="가이드 정보 & 투어리스트에게 할 말"/></p>
-                                        </div>
-
-                                        <!-- All Members -->
-                                        <div class="all-instructors mb-30">
-                                            <div class="row">
-                                                <!-- Single Members -->
-                                                <div class="col-lg-6">
-                                                    <div class="single-instructor d-flex align-items-center mb-30">
-                                                        <div class="instructor-thumb">
-                                                            <img src="../clever-img/bg-img/t1.png" alt="">
-                                                        </div>
-                                                        <div class="instructor-info">
-                                                            <h5>Sarah Parker</h5>
-                                                            <span>Guide</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Single Members -->
-                                                <div class="col-lg-6">
-                                                    <div class="single-instructor d-flex align-items-center mb-30">
-                                                        <div class="instructor-thumb">
-                                                            <img src="../clever-img/bg-img/t2.png" alt="">
-                                                        </div>
-                                                        <div class="instructor-info">
-                                                            <h5>Sarah Parker</h5>
-                                                            <span>Guide</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Single Members -->
-                                                <div class="col-lg-6">
-                                                    <div class="single-instructor d-flex align-items-center mb-30">
-                                                        <div class="instructor-thumb">
-                                                            <img src="../clever-img/bg-img/t3.png" alt="">
-                                                        </div>
-                                                        <div class="instructor-info">
-                                                            <h5>Sarah Parker</h5>
-                                                            <span>Guide</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Single Members -->
-                                                <div class="col-lg-6">
-                                                    <div class="single-instructor d-flex align-items-center mb-30">
-                                                        <div class="instructor-thumb">
-                                                            <img src="../clever-img/bg-img/t4.png" alt="">
-                                                        </div>
-                                                        <div class="instructor-info">
-                                                            <h5>Sarah Parker</h5>
-                                                            <span>Guide</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Tab Text -->
-                                <div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="tab--5">
-                                    <div class="clever-review">
-
-                                        <!-- About Review -->
-                                        <div class="about-review mb-30">
-                                            <h4>제목</h4>
-                                            <p>Sed elementum lacus a risus luctus suscipit. Aenean sollicitudin sapien neque, in fermentum lorem dignissim a. Nullam eu mattis quam. Donec porttitor nunc a diam molestie blandit. Maecenas quis ultrices</p>
-                                        </div>
 
                                     </div>
+                                    
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -346,69 +163,13 @@
                 <div class="col-12 col-lg-4">
                     <div class="course-sidebar">
                         <!-- Buy Course -->
-                        <a href="#" class="btn clever-btn mb-30 w-100">글쓰기</a>
-
-                        <!-- Widget -->
-                        <div class="sidebar-widget">
-                            <h4>Guide Tour Features</h4>
-                            <ul class="features-list">
-                                <li>
-                                    <h6><i class="fa fa-clock-o" aria-hidden="true"></i> Duration</h6>
-                                    <h6><input style="border:none" type="text" name="" placeholder="여행기간"/></h6>
-                                </li>
-                                <li>
-                                    <h6><i class="fa fa-bell" aria-hidden="true"></i> Country</h6>
-                                    <h6><input style="border:none" type="text" name="" placeholder="여행지역"/></h6>
-                                </li>
-                                <li>
-                                    <h6><i class="fa fa-file" aria-hidden="true"></i> Number of travelers</h6>
-                                    <h6><input style="border:none" type="text" name="" placeholder="모집인원"/></h6>
-                                </li>
-                            </ul>
-                        </div>
+                        <a href="#" onclick="next()" class="btn clever-btn mb-30 w-100">글쓰기</a>
                         
                         <!-- Widget -->
                         <div class="sidebar-widget">
-                            <h4>Map</h4>
-                            <img src="../clever-img/bg-img/cer.png" alt="">
-                        </div>
-
-                        <!-- Widget -->
-                        <div class="sidebar-widget">
-                            <h4>You may like</h4>
-
-                            <!-- Single Courses -->
-                            <div class="single--courses d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="../clever-img/bg-img/yml.jpg" alt="">
-                                </div>
-                                <div class="content">
-                                    <h5>1</h5>
-                                    <h6>가</h6>
-                                </div>
-                            </div>
-
-                            <!-- Single Courses -->
-                            <div class="single--courses d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="../clever-img/bg-img/yml2.jpg" alt="">
-                                </div>
-                                <div class="content">
-                                    <h5>2</h5>
-                                    <h6>나</h6>
-                                </div>
-                            </div>
-
-                            <!-- Single Courses -->
-                            <div class="single--courses d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="../clever-img/bg-img/yml3.jpg" alt="">
-                                </div>
-                                <div class="content">
-                                    <h5>3</h5>
-                                    <h6>다</h6>
-                                </div>
-                            </div>
+                            <div class="map_wrap">
+		    					<div id="map" style="width:100%;height:350px;"></div>
+		    				</div>
                         </div>
                     </div>
                 </div>
@@ -457,7 +218,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
-    <script src="../clever-js/jquery/jquery-2.2.4.min.js"></script>
+<!--     <script src="../clever-js/jquery/jquery-2.2.4.min.js"></script> -->
     <!-- Popper js -->
     <script src="../clever-js/bootstrap/popper.min.js"></script>
     <!-- Bootstrap js -->
@@ -466,6 +227,210 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="../clever-js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="../clever-js/active.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d15fd5bf26911082d79838012f46ad9&libraries=services"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d15fd5bf26911082d79838012f46ad9"></script>
+    <script type="text/javascript">
+	
+	var files = null;
+    var previewIndex = 0;
+	
+	$(document).ready(
+		    function() {
+		        // 태그에 onchange를 부여한다.
+		        $('#file').change(function() {
+		                addPreview($(this)); //preview form 추가하기
+		        });
+		    });
+		 
+		    // image preview 기능 구현
+		    // input = file object[]
+		    function addPreview(input) {
+		        if (input[0].files) {
+		            //파일 선택이 여러개였을 시의 대응
+		            for (var fileIndex = 0 ; fileIndex < input[0].files.length ; fileIndex++) {
+		                var file = input[0].files[fileIndex];
+		                var reader = new FileReader();
+		 
+		                reader.onload = function (img) {
+		                    //div id="preview" 내에 동적코드추가.
+		                    //이 부분을 수정해서 이미지 링크 외 파일명, 사이즈 등의 부가설명을 할 수 있을 것이다.
+// 		                    $("#preview").append(
+// 		                        "<img src=\"" + img.target.result + "\"\/>"
+// 		                    );
+		                	var ext = $("input:file").val().split(".").pop().toLowerCase();
+		            		if(ext.length > 0){
+		            			if($.inArray(ext, ["gif","png","jpg","jpeg"]) == -1) { 
+		            				alert("gif,png,jpg 파일만 업로드 할수 있습니다.");
+		            				files=null;
+		            				console.log(files);
+		            				$("#file_button").attr('src',"../resources/board/images/photo.png");
+		            				$()
+		            				return false;  
+		            			}                  
+		            		}
+		                	$("#file_button").attr('src',img.target.result);
+		                	files = file;
+		                	console.log(files);
+		                };
+		                
+		                reader.readAsDataURL(file);
+		            }
+		        } else alert('invalid file input'); // 첨부클릭 후 취소시의 대응책은 세우지 않았다.
+		    }
+		    
+    $( function() {
+    	
+	  $('#file_button').click(function (e) {
+	 	e.preventDefault();
+	 	$('#file').click();
+	  });
+      $( "#start_date" ).datepicker();
+      $( "#end_date" ).datepicker();
+      
+      console.log("autocomplete");
+      $("#start_date").autocomplete({
+    	  source: function(request, response){
+    	  	var date_n = $("#start_date").val();
+    	  	console.log(date_n);
+    	  }
+       });
+      
+     });
+    
+    function sendFile(){
+    	if(files==null){
+    		alert("사진 없음");
+    		return false;
+    	}
+    	alert("사진을 넣겠습니다.");
+    	data = new FormData();
+    	data.append("file", files);
+    	var $note = $(this);
+    	$.ajax({
+    		data: data,
+    		type: 'POST',
+    		url: "ImgUpload.do",
+    		cache: false,
+    		contentType: false,
+    		processData: false,
+    		enctype: "multipart/form-data",
+    		success: function(url){
+    			//$('#photo_path').val(url);
+    			$('.url').val(url);
+    			alert(url);
+    			document.detail.submit();
+    		},
+    		
+    		error:function(request,status,error){
+            	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+    	});
+	}
+    
+    function next(){
+    	var dt = new Date();
+    	
+    	var month = dt.getMonth()+1;
+    	var day = dt.getDate();
+    	var year = dt.getFullYear();
+    	
+    	dt=month+"/"+day+"/"+year;
+    	dt=new Date(dt);
+    	
+    	var date = new Date(detail.start_date.value);
+    	var end_date = new Date(detail.end_date.value);
+    	
+    	if(detail.title.value==""){
+    		alert("가이드 이름을 입력해주세요");
+    		return;
+    	}
+    	if(date=="Invalid Date"){
+    		alert(date);
+    		return;
+    	}else if(end_date=="Invalid Date"){
+    		alert("마지막 날짜를 입력해주세요");
+    		return;
+    	}else{
+    		if(date.getTime()<dt.getTime()){
+    			alert("과거여행을 가이드를 하시려면 관리자에게 문의해주세요.");
+    			return;
+    		}else if(date.getTime()>end_date.getTime()){
+    			alert("마지막 날짜가 시작날짜 이전으로 표시되었습니다.");
+    			return;
+    		}
+    	}
+    	if(detail.budget.value<0||detail.budget.value==""){
+    		alert("가격을 0 이상으로 적어주세요");
+    		return;
+    	}
+    	if(detail.company.value<1||detail.company.value==null){
+    		alert("투어리스트 인원을 1명 이상으로 적어주세요 ");
+    		return;
+    	}
+    	if(detail.board_content.value==null||detail.board_content.value=="")
+    	{
+    		alert("글 내용을 입력해주세요");
+    		return;
+    	}
+    	if(detail.tour_time.value<0||detail.tour_time.value==""){
+    		alert("투어 시간을 입력해주세요");
+    		return;
+    	}
+    	sendFile();
+    }
+    
+    var loc = <%=session.getAttribute("position")%>;
+    
+    console.log(loc);
+    
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new daum.maps.LatLng(loc[0].jb, loc[0].ib), // 지도의 중심좌표
+        level: 8 // 지도의 확대 레벨
+    };
+
+	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+	var map = new daum.maps.Map(mapContainer, mapOption);
+	
+	var geocoder = new daum.maps.services.Geocoder();
+	var $tiles = $('#tiles');
+	var num;
+
+	for(var i = 0; i<loc.length; i++){
+		var marker = new daum.maps.Marker({
+			map: map,
+			position: new daum.maps.LatLng(loc[i].jb, loc[i].ib)
+		});
+	num=i;
+	
+		searchDetailAddrFromCoords(new daum.maps.LatLng(loc[i].jb, loc[i].ib), function(result, status) {
+	       if (status === daum.maps.services.Status.OK) {
+	           var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+	           detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+	           
+	           var content = '<div class="bAddr">' +
+	                           '<span class="title">법정동 주소정보</span>' + 
+	                           detailAddr + 
+	                       '</div>';
+			   console.log(loc[num].jb);
+			   $tiles.append("<li>"+
+					   		"<span><i class=\"fas fa-map-marker-alt\" aria-hidden=\"true\"></i> 관광지 : <span>"+
+					   		"<a href=\"http://map.daum.net/link/map/"+loc[num].jb+","+loc[num].ib+"\" target=\"_blank\" class=\"link\">"+
+					   		result[0].address.address_name+
+					   		"</a>"+
+					   		"</span></span>"+
+					   		"<span><i class=\"fa fa-clock-o\" aria-hidden=\"true\"></i></span>"+
+					   		"</li>");
+	       }   
+	    });
+	}
+	
+	function searchDetailAddrFromCoords(coords, callback) {
+	    // 좌표로 행정동 주소 정보를 요청합니다
+		geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+	}
+	
+    </script>
 </body>
 
 </html>
