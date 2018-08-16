@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +37,6 @@
 }
 </style>
 </head>
-
 <body>
     <!-- Preloader -->
     <div id="preloader">
@@ -67,7 +68,13 @@
                     <!-- Hero Content -->
                     <div class="hero-content text-center">
                         <h2>Tour &amp; Diary</h2>
-                        <a href="../diary/write.do" class="btn clever-btn">Write a diary</a>
+                        
+                        <sec:authorize access="isAuthenticated()">
+                        	<c:if test="${sessionScope.userInfo.enabled eq true}">
+                        		<a href="<c:url value="../diary/write.do"/>" class="btn clever-btn">Write a diary</a>
+                        	</c:if>
+                    	</sec:authorize>
+                    	
                     </div>
                 </div>
             </div>

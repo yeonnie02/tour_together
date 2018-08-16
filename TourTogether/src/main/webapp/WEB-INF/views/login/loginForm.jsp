@@ -1,26 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
-<%@ page import="org.springframework.security.core.context.SecurityContext" %>
-<%@ page import="org.springframework.security.core.Authentication" %>
-<%@ page import="org.springframework.security.core.GrantedAuthority" %>
-<%@ page import="com.cndy.tt.member.Member" %>
-<%
-	String tag = "[ loginForm ] ";
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication(); //(로그인)인증 객체
 
-	Object principal = auth.getPrincipal(); //인증에 성공시 member 객체 리턴 
-	System.out.println(tag+" principal: "+principal);
-	String email = "";
-	if(principal != null && principal instanceof Member){
-		email = ((Member)principal).getEmail();
-		System.out.println(tag+"email: "+email);
-		System.out.println(tag+"id: "+((Member)principal).getId());
-		System.out.println(tag+"password: "+((Member)principal).getPassword());
-	}
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>

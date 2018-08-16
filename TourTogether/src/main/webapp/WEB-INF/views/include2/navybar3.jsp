@@ -3,11 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
-<%@ page import="org.springframework.security.core.context.SecurityContext" %>
-<%@ page import="org.springframework.security.core.Authentication" %>
-<%@ page import="org.springframework.security.core.GrantedAuthority" %>
-<%@ page import="com.cndy.tt.member.Member" %>
 
     <!-- ##### Header Area Start ##### -->
     <header class="header-area">
@@ -79,8 +74,8 @@
 		    						<a href="<c:url value="admin/admin_mem.do"/>" >관리자</a>
 		    						</sec:authorize>
 		    						
-		    						<form:form action="${pageContext.request.contextPath }/logout" method="POST">
-							    	<input type="submit" class="btn active" value="Logout"></a>
+		    						<form:form action="${pageContext.request.contextPath }/login/logout.do" method="POST">
+							    	<input type="submit" class="btn active" value="Logout"></a>  
 							    	</form:form>
 							    </sec:authorize>
 		    	

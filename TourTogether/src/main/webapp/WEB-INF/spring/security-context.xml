@@ -20,17 +20,20 @@
         	username-parameter="id"
         	password-parameter="password"
         	login-page="/login/login.do"
-        	default-target-url="/home.do"
+        	default-target-url="/login/login_success.do"
         	authentication-failure-url="/login/login.do?error"
         />
-        <logout logout-url="/logout"
-                logout-success-url="/home.do"
+        <logout logout-url="login/logout.do"            
                 delete-cookies="JSESSIONID" />
                 
         <!-- Spring security automatically enables csrf, which automatically disabled GET logouts.
         You can fix this by disabling csrf protection by settings <csrf disabled="true"/> in the <http> ,
         or just using a POST. -->
         <csrf disabled="true"/>
+        
+        <session-management>
+			<concurrency-control max-sessions="1" expired-url="/login_duplicate"/>
+		</session-management>
 
     </http>
 	

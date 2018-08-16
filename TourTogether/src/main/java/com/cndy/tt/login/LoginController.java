@@ -2,8 +2,11 @@ package com.cndy.tt.login;
 
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,5 +48,23 @@ public class LoginController {
 		mv.setViewName("login/result_msg");
 		
 		return mv;
+	}
+	
+	@RequestMapping(value="/login_success.do")
+	public String login_success(HttpSession session) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Member user = (Member)auth.getDetails();
+		System.out.println(tag+ " user id: "+ user.getId()+ " email: "+ user.getEmail() +" enabled: "+ user.getEnabled());
+		
+		session.setAttribute("userInfo", user);		
+
+		return "redirect:/home.do";
+	}
+	
+	@RequestMapping(value="logout.do", method=RequestMethod.POST)
+	public String logout(HttpSession session) {
+		session.invalidate();
+		System.out.println(tag+" logout");
+		return "redirect:/home.do";
 	}
 }

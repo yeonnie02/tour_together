@@ -78,7 +78,7 @@
 		    						<a href="<c:url value="admin/admin_mem.do"/>" >관리자</a><br/>
 		    						</sec:authorize>
 		    						
-		    						<form:form action="${pageContext.request.contextPath }/logout" method="POST">
+		    						<form:form action="${pageContext.request.contextPath }/login/logout.do" method="POST">
 							    	<input type="submit" class="btn active" value="Logout"></a>
 							    	</form:form>
 							    </sec:authorize>                                

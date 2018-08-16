@@ -43,7 +43,7 @@
 		<selectKey keyProperty="board_no" resultType="int" order="BEFORE">
 			select BOARD_SEQ.nextval from DUAL
 		</selectKey>
-		insert into Board values(#{board_no},#{email}, #{title}, #{board_type},#{board_content},#{start_date},#{end_date},#{tour_time},#{region},#{budget},#{company},sysdate,'1',#{photo_path})
+		insert into Board values(#{board_no},#{email}, #{title}, #{board_type},#{board_content},#{start_date},#{end_date},#{tour_time},#{region},#{budget},#{company},sysdate,0,#{photo_path})
 	</insert>
 	<insert id="locationInsert" parameterType="hashmap">
 		insert into LOCATION values(#{board_no},#{jb},#{ib})

@@ -27,22 +27,23 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
 		System.out.println(tag+ " 입력한 username: "+username);
 		
 		Member member = memberService.profileContentService(username);
-		System.out.println(tag + " id: "+member.getId()+" password: "+member.getPassword()
-		+" email: "+member.getEmail());
-		
-		String authority = memberService.checkAuthorityService(username);
-		System.out.println(tag+ " authority: "+authority);
-		
-		List<GrantedAuthority> auth = new ArrayList<>();
-		auth.add(new SimpleGrantedAuthority(authority));
-		System.out.println(tag+ " auth: "+ auth.toString());
-		member.setAuthorities(auth);
-		
-		if(member.getId() == null) {
-			System.out.println(tag+" userDetails is null");
+		if(member != null) {
+			System.out.println(tag + " id: "+member.getId()+" password: "+member.getPassword()
+			+" email: "+member.getEmail());
+			
+			String authority = memberService.checkAuthorityService(username);
+			System.out.println(tag+ " authority: "+authority);
+			
+			List<GrantedAuthority> auth = new ArrayList<>();
+			auth.add(new SimpleGrantedAuthority(authority));
+			System.out.println(tag+ " auth: "+ auth.toString());
+			member.setAuthorities(auth);
+			
+		}else {
+			System.out.println(tag+" member is null");
 			throw new UsernameNotFoundException("접속자 정보를 찾을 수 없습니다.");
 		}
-
+		
 		return member;
 	}
 }

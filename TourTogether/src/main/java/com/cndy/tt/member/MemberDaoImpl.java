@@ -18,7 +18,6 @@ public class MemberDaoImpl implements MemberDao {
         System.out.println("MemberDaoImpl - insert()");
         
 		int i = sqlSession.insert(ns + ".memberInsert", member);
-		System.out.println(" i: "+i);
 		
 		if(i>0) return true;
 		else return false;
@@ -34,7 +33,7 @@ public class MemberDaoImpl implements MemberDao {
 	public Member profileContent(String id) {
 		System.out.println("MemberDaoImpl - profileContent()");
 
-		return sqlSession.selectOne(ns + ".profileSelect", id);//selectOne->select�ϸ� �־ȵɱ�
+		return sqlSession.selectOne(ns + ".profileSelect", id);//selectOne->select�ϸ� �־ȵɱ�
 	}
 
 	@Override
@@ -60,7 +59,7 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("MemberDaoImpl - insertAuthority()");
 		
 		int i = sqlSession.insert(ns_au + "insertAuthority", id);
-		System.out.println(" i: "+i);
+
 		if(i>0) return true;
 		else return false;
 	}

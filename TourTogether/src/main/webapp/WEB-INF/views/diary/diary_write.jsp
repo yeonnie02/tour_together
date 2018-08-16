@@ -184,7 +184,7 @@ $(document).ready(function() {
 							    </label> -->
 							  </span><!-- summernote -->
 							  	
-							  <button id="send-button" type="button" onclick="submitContent()">List</button>	
+							  <button id="send-button" type="button"><a href="${pageContext.request.contextPath }/diary/list.do">List</a></button>	
 							  <button id="send-button" type="button" onclick="submitContent()">Send</button>
 							
 	

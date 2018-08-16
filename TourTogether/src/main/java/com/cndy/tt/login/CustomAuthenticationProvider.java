@@ -62,8 +62,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}
+
+		UsernamePasswordAuthenticationToken user =  new UsernamePasswordAuthenticationToken(username, password, authorities);		
+		user.setDetails(member);
 		
-		return new UsernamePasswordAuthenticationToken(username, password, authorities);		
+		return user;
 	}
 
 	@Override

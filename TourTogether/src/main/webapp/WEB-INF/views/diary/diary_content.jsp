@@ -164,11 +164,15 @@
                             </ul>
                         </div>
                     </div>
-                    								<!-- 수정 및 삭제 버튼  -->
-								<div class="editdel">
-							        <a href="edit.do?diary_no=${diary.diary_no }" class="editt">수정</a>
-							        <a href="delete.do?diary_no=${ diary.diary_no }" class="dell">삭제</a><!-- 수정 및 삭제 버튼  -->
-							    </div>
+                    <!-- 수정 및 삭제 버튼  -->
+					<div class="editdel">
+                    <sec:authorize access="isAuthenticated()">
+                        <c:if test="${sessionScope.userInfo.email eq diary.email}">
+                        	<a href="edit.do?diary_no=${diary.diary_no }" class="editt">edit</a>
+							<a href="delete.do?diary_no=${ diary.diary_no }" class="dell">delete</a><!-- 수정 및 삭제 버튼  -->
+                        </c:if>
+                    </sec:authorize>
+					</div>
                 </div>
             </div>
         </div>
@@ -257,9 +261,14 @@
 									</div>
 	
 									<div class="right-area">
-										<h5 class="reply-btn"><a href='javascript:replyReady(${comment_no }, ${refer },${lev },${step })'><b>댓글</b></a></h5><br/>
-										<h5 class="reply-btn"><a href='deleteComment.do?comment_no=${comment_no }&board_no=${ board_no }&refer=${refer}'><b>삭제</b></a></h5>
-
+										
+										<sec:authorize access="isAuthenticated()">
+											<h5 class="reply-btn"><a href='javascript:replyReady(${comment_no }, ${refer },${lev },${step })'><b>reply</b></a></h5><br/>
+                        					<c:if test="${sessionScope.userInfo.email eq comment.email}">
+                        						<h5 class="reply-btn"><a href='deleteComment.do?comment_no=${comment_no }&board_no=${ board_no }&refer=${refer}'><b>delete</b></a></h5>
+                        					</c:if>
+                    					</sec:authorize>
+									
 									</div>
 	
 								</div><!-- post-info -->
@@ -269,7 +278,7 @@
 							</div>	
 							
 							<c:if test="${ lev ne 0 }">		
-								<a id="loadReply" href="javascript:loadReply(${ board_no }, ${ refer }, ${comment_no })">더보기</a>
+								<a id="loadReply" href="javascript:loadReply(${ board_no }, ${ refer }, ${comment_no })">more</a>
 								<div id='${ comment_no}'></div>				
 							</c:if>					
 							
