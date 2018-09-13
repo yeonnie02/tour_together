@@ -24,6 +24,7 @@ public class MemberServiceImpl implements MemberService {
 		String encodedPassword = passwordEncoder.encode(member.getPassword());
 		System.out.println(tag+ " encodedPassword: "+encodedPassword);
 		member.setPassword(encodedPassword);
+
 		System.out.println(tag+ " member : "+member.toString());
 		
 		if(memberDao.insert(member) && memberDao.insertAuthority(member.getId()))

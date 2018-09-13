@@ -5,10 +5,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <!-- Footer Logo -->
-                        <div class="footer-logo">
-                            <a href="index.html"><img src="clever-img/core-img/TTLogo2.PNG" alt=""></a>
-                        </div>
                         <!-- Copywrite -->
                         <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;
@@ -29,13 +25,6 @@ by
             <div class="contact-info">
                 <a href="#"><span>Phone:</span> +44 300 303 0266</a>
                 <a href="#"><span>Email:</span> info@clever.com</a>
-            </div>
-            <!-- Follow Us -->
-            <div class="follow-us">
-                <span>Follow us</span>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
             </div>
         </div>
     </footer>

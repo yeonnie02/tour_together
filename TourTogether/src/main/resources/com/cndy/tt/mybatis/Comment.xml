@@ -18,7 +18,7 @@
   	</resultMap>
   	
   	<select id="commentSelectList" parameterType="long" resultType="Comment">
-  		select * from MY_COMMENT where BOARD_NO=#{board_no} and BOARD_TYPE='TOUR_DIARY' and STEP=0 order by REFER
+  		select * from MY_COMMENT where BOARD_NO=#{board_no} and BOARD_TYPE='TOUR_DIARY' and STEP=0 order by COMMENT_NO
   	</select>
   	
   	<select id="countLev" parameterType="HashMap" resultType="Integer">
@@ -56,5 +56,9 @@
   	<update id="resetLev" parameterType="long">
   		update MY_COMMENT set LEV=LEV-1 where COMMENT_NO=#{refer}
   	</update>
+  	
+  	<select id="commentCount" resultType="int">
+  		select count(*) from MY_COMMENT where BOARD_NO=#{board_no} and BOARD_TYPE='TOUR_DIARY'
+  	</select>
 
   </mapper>

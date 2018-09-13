@@ -48,6 +48,26 @@ public class PagingDaoImpl implements PagingDao {
 		return sqlSession.delete(NS+"deleteAll")==0 ? true : false;
 	}
 
+	@Override
+	public List<Diary> selectDiarySearchPaging(String keyword, PagingVo pagingVo) {
+		logger.info("selectDiarySearchPaging()");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		System.out.println("keyword: "+keyword);
+		System.out.println("pagingVo: "+pagingVo);
+		map.put("keyword", keyword);
+		map.put("pagingVo", pagingVo);
+		return sqlSession.selectList(NS+"selectDiarySearchPaging", map);
+	}
+
+	@Override
+	public int selectDiarySearchTotalPaging(String keyword) {
+		logger.info("selectDiarySearchTotalPaging()");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("keyword", keyword);
+		int total =  sqlSession.selectOne(NS+"selectDiarySearchTotalPaging", map);
+		//System.out.println("total: "+total);
+		return total;
+	}
 
 	@Override
 	public List<Member> selectAdminPaging(PagingVo pagingVo) {

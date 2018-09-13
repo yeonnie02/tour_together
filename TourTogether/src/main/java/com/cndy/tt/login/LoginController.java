@@ -1,5 +1,6 @@
 package com.cndy.tt.login;
 
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cndy.tt.file.Photo;
+import com.cndy.tt.file.PhotoService;
 import com.cndy.tt.member.Member;
 import com.cndy.tt.member.MemberServiceImpl;
 
@@ -22,6 +25,9 @@ public class LoginController {
 	
 	@Resource(name="memberService")
 	private MemberServiceImpl memberService;
+	
+	@Resource(name="photoService")
+	private PhotoService photoService;
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login() {	
@@ -38,8 +44,7 @@ public class LoginController {
 	@RequestMapping(value="/insert.do", method=RequestMethod.POST)
 	public ModelAndView insert(Member member) {
 		System.out.println(tag+ " insert()");
-		System.out.println(tag+ " member id: "+member.getId()+" password: "
-				+" email: "+ member.getEmail());
+		System.out.println(tag+ " member : "+member.toString());
 		
 		boolean result = memberService.insertService(member);
 		
@@ -56,6 +61,13 @@ public class LoginController {
 		Member user = (Member)auth.getDetails();
 		System.out.println(tag+ " user id: "+ user.getId()+ " email: "+ user.getEmail() +" enabled: "+ user.getEnabled());
 		
+		List<Photo> photo = photoService.selectService(user.getEmail());
+		if(photo.size() > 0) {
+			String profile_path = photo.get(0).getPhoto_path();
+			System.out.println("profile:  "+profile_path);
+			session.setAttribute("profile_path", profile_path);
+		}
+
 		session.setAttribute("userInfo", user);		
 
 		return "redirect:/home.do";
@@ -66,5 +78,11 @@ public class LoginController {
 		session.invalidate();
 		System.out.println(tag+" logout");
 		return "redirect:/home.do";
+	}
+	@RequestMapping(value="fblogout.do", method=RequestMethod.POST)
+	public String facebookLogout(HttpSession session) {
+		session.invalidate();
+		System.out.println(tag+" facebook logout");
+		return "123";
 	}
 }

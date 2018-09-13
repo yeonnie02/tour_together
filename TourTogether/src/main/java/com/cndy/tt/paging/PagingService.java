@@ -16,6 +16,9 @@ public interface PagingService {
 	public boolean insertService(Diary diary);
 	public boolean deleteAllService();
 	
+	public List<Diary> selectDiarySearchPagingService(String keyword, PagingVo pagingVo);
+	public int selectDiarySearchTotalPagingService(String keyword);
+	
 	public List<Member> selectAdminPagingService(PagingVo pagingVo);
 	public int selectAdminTotalPagingService();
 	

@@ -27,6 +27,20 @@
    <delete id="deleteAll">
      DELETE FROM TOUR_DIARY
    </delete>
+   
+	<!-- Diary Search -->
+	<select id="selectDiarySearchPaging" parameterType="map" resultType="Diary">
+	  SELECT *
+	  FROM (  SELECT ROWNUM RNUM, P.*
+	      FROM (  SELECT *
+	          FROM TOUR_DIARY
+	          WHERE TITLE LIKE '%'||#{keyword}||'%'
+	          ORDER BY WRITE_DATE DESC ) P )
+	  WHERE RNUM BETWEEN #{pagingVo.start} AND #{pagingVo.last}
+	</select>
+	<select id="selectDiarySearchTotalPaging" parameterType="map" resultType="java.lang.Integer">
+	  SELECT COUNT(*) FROM TOUR_DIARY WHERE TITLE LIKE '%'||#{keyword}||'%'
+	</select>   
  
     <!-- Admin Member -->
    <select id="selectAdminPaging" parameterType="PagingVo" resultType="Member">

@@ -29,4 +29,8 @@
 	<update id="updateNotice" parameterType="Notice">
 		update NOTICE set TITLE=#{title}, CONTENT=#{content} where NOTICE_NO=#{notice_no}
 	</update>
+	
+   <select id="selectAllNotice" resultType="Notice">
+     select * from notice where POSTDATE = (select MAX(POSTDATE) from notice)
+   </select>
 </mapper>

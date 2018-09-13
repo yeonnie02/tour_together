@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,8 +21,9 @@
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    
     <link rel="stylesheet" href="../clever/style.css">
+    <!-- Search area css-->
+	<link rel="stylesheet" href="../resources/search/search.css">
 	
 <style>
 #acenter{
@@ -36,7 +35,9 @@
     margin: auto;
 }
 </style>
+	
 </head>
+
 <body>
     <!-- Preloader -->
     <div id="preloader">
@@ -69,12 +70,31 @@
                     <div class="hero-content text-center">
                         <h2>Tour &amp; Diary</h2>
                         
-                        <sec:authorize access="isAuthenticated()">
-                        	<c:if test="${sessionScope.userInfo.enabled eq true}">
-                        		<a href="<c:url value="../diary/write.do"/>" class="btn clever-btn">Write a diary</a>
-                        	</c:if>
-                    	</sec:authorize>
-                    	
+                        <c:choose>
+                           <c:when test="${empty member}">
+                              <sec:authorize access="isAnonymous()">   
+                                 <input type="button" onclick="alarm();" class="btn clever-btn"value="Write a diary">
+                        	  </sec:authorize>
+                          
+                              <sec:authorize access="isAuthenticated()">
+                                 <c:if test='${userInfo.enabled eq false}'>
+                                    <input type="button" onclick="checkEnabled()" class="btn clever-btn" value="Write a diary">
+                                 </c:if>
+                                 <c:if test="${userInfo.enabled ne false}">
+                                    <a href="<c:url value="write.do" />" class="btn clever-btn">Write a diary</a>
+                                 </c:if>
+                             </sec:authorize> 
+                             </c:when>
+                             <c:otherwise>
+                                 <c:if test="${member.enabled eq false}">
+                                   <input type="button" onclick="checkEnabled()" class="btn clever-btn" value="Write a diary">
+                                </c:if>
+                                <c:if test="${member.enabled ne false}">
+                                   <a href="write.do" class="btn clever-btn">Write a diary</a>
+                                </c:if>
+                             </c:otherwise>
+                        </c:choose>
+                       	
                     </div>
                 </div>
             </div>
@@ -89,38 +109,84 @@
                         <a href="#" class="btn clever-btn">Get Started</a>
                     </div>
     </div> -->
+    
+	<div class="search">
+	  <input type="search" id="keyword" class="search-box" value="" />
+	  <span class="search-button">
+	    <span class="search-icon"></span>
+	  </span>
+	</div>
+	 
+    <br/><br/>
+		<div id="container"></div>
+	<br/><br/>
+<%
 
-    <!-- ##### Popular Course Area Start ##### -->
+%>
+<!-- ##### Popular Course Area Start ##### -->
     <section class="popular-courses-area section-padding-100">
         <div class="container">
             <div class="row">
+           		
            		<c:forEach items="${list}" var="data">
                 <!-- Single Popular Course -->
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
-                        <img src="../clever-img/bg-img/c1.jpg" alt="">
+                        	
+			           		<c:choose>
+			           			<c:when test="${i eq null}">
+			           				<c:set var="img" value="../clever-img/bg-img/c1.jpg"/>
+			           			</c:when>
+			           			<c:when test="${i eq 1}">
+			           				<c:set var="img" value="../clever-img/bg-img/c2.jpg"/>
+			           			</c:when>
+			           			<c:when test="${i eq 2}">
+			           				<c:set var="img" value="../clever-img/bg-img/c3.jpg"/>
+			           			</c:when>
+			           			<c:when test="${i eq 3}">
+			           				<c:set var="img" value="../clever-img/bg-img/c4.jpg"/>
+			           			</c:when>
+			           			<c:when test="${i eq 4}">
+			           				<c:set var="img" value="../clever-img/bg-img/c5.jpg"/>
+			           			</c:when>
+			           			<c:when test="${i eq 5}">
+			           				<c:set var="img" value="../clever-img/bg-img/c6.jpg"/>
+			           			</c:when>
+			           			<c:when test="${i eq 6}">
+			           				<c:set var="img" value="../clever-img/bg-img/c7.jpg"/>
+			           			</c:when>
+			           			<c:when test="${i eq 7}">
+			           				<c:set var="img" value="../clever-img/bg-img/c8.jpg"/>
+			           			</c:when>
+			           			<c:otherwise>
+			           				<c:set var="img" value="../clever-img/bg-img/c9.jpg"/>
+			           			</c:otherwise>
+			           		</c:choose>
+           			
+                        	<img src="${img}" alt="">
+                        	<c:set var="i" value="${i+1}"/>
+                        	<c:if test="i eq 10">
+                        		<c:set var="i" value="1"/>
+                        	</c:if>
+                        	
                         <!-- Course Content -->
                         <div class="course-content">
                         	<a href='content.do?diary_no=${data.diary_no}&index=${pagingVo.index}'>
                             <h4>${data.title}</h4></a>
                             <div class="meta d-flex align-items-center">
-                                <a href="#">Sarah Parker</a>
+                                <a href="#">${ data.email }</a>
                                 <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                <a href="#">Tourist</a>
+                                <a href="#">${data.region}</a>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
                         </div>
                         <!-- Seat Rating Fee -->
                         <div class="seat-rating-fee d-flex justify-content-between">
                             <div class="seat-rating h-100 d-flex align-items-center">
                                 <div class="seat">
-                                    <i class="fa fa-heart" aria-hidden="true"></i> 10
+                                    <i class="fa fa-heart" aria-hidden="true"></i> ${ data.user_like }
                                 </div>
                                 <div class="rating">
-                                    <i class="far fa-comment" aria-hidden="true"></i> 4.5
-                                </div>
-                                <div class="rating">
-                                    <i class="far fa-eye" aria-hidden="true"></i> 4.5
+                                    <i class="far fa-eye" aria-hidden="true"></i> ${data.count_read}
                                 </div>
                             </div>
                             <div class="course-fee h-100">
@@ -131,253 +197,6 @@
                 </div>
                 </c:forEach>
 
-                <!-- Single Popular Course -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="500ms">
-                        <img src="../clever-img/bg-img/c2.jpg" alt="">
-                        <!-- Course Content -->
-                        <div class="course-content">
-                            <h4>Vocabulary</h4>
-                            <div class="meta d-flex align-items-center">
-                                <a href="#">Sarah Parker</a>
-                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                <a href="#">Art &amp; Design</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
-                        </div>
-                        <!-- Seat Rating Fee -->
-                        <div class="seat-rating-fee d-flex justify-content-between">
-                            <div class="seat-rating h-100 d-flex align-items-center">
-                                <div class="seat">
-                                    <i class="fa fa-user" aria-hidden="true"></i> 10
-                                </div>
-                                <div class="rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
-                                </div>
-                            </div>
-                            <div class="course-fee h-100">
-                                <a href="#">Click</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Popular Course -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="750ms">
-                        <img src="../clever-img/bg-img/c3.jpg" alt="">
-                        <!-- Course Content -->
-                        <div class="course-content">
-                            <h4>Expository writing</h4>
-                            <div class="meta d-flex align-items-center">
-                                <a href="#">Sarah Parker</a>
-                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                <a href="#">Art &amp; Design</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
-                        </div>
-                        <!-- Seat Rating Fee -->
-                        <div class="seat-rating-fee d-flex justify-content-between">
-                            <div class="seat-rating h-100 d-flex align-items-center">
-                                <div class="seat">
-                                    <i class="fa fa-user" aria-hidden="true"></i> 10
-                                </div>
-                                <div class="rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
-                                </div>
-                            </div>
-                            <div class="course-fee h-100">
-                                <a href="#">Click</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Popular Course -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
-                        <img src="../clever-img/bg-img/c4.jpg" alt="">
-                        <!-- Course Content -->
-                        <div class="course-content">
-                            <h4>Vocabulary</h4>
-                            <div class="meta d-flex align-items-center">
-                                <a href="#">Sarah Parker</a>
-                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                <a href="#">Art &amp; Design</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
-                        </div>
-                        <!-- Seat Rating Fee -->
-                        <div class="seat-rating-fee d-flex justify-content-between">
-                            <div class="seat-rating h-100 d-flex align-items-center">
-                                <div class="seat">
-                                    <i class="fa fa-user" aria-hidden="true"></i> 10
-                                </div>
-                                <div class="rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
-                                </div>
-                            </div>
-                            <div class="course-fee h-100">
-                                <a href="#">Click</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Popular Course -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="500ms">
-                        <img src="../clever-img/bg-img/c5.jpg" alt="">
-                        <!-- Course Content -->
-                        <div class="course-content">
-                            <h4>English Grammer</h4>
-                            <div class="meta d-flex align-items-center">
-                                <a href="#">Sarah Parker</a>
-                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                <a href="#">Art &amp; Design</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
-                        </div>
-                        <!-- Seat Rating Fee -->
-                        <div class="seat-rating-fee d-flex justify-content-between">
-                            <div class="seat-rating h-100 d-flex align-items-center">
-                                <div class="seat">
-                                    <i class="fa fa-user" aria-hidden="true"></i> 10
-                                </div>
-                                <div class="rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
-                                </div>
-                            </div>
-                            <div class="course-fee h-100">
-                                <a href="#" class="free">Click</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Popular Course -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="750ms">
-                        <img src="../clever-img/bg-img/c6.jpg" alt="">
-                        <!-- Course Content -->
-                        <div class="course-content">
-                            <h4>Expository writing</h4>
-                            <div class="meta d-flex align-items-center">
-                                <a href="#">Sarah Parker</a>
-                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                <a href="#">Art &amp; Design</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
-                        </div>
-                        <!-- Seat Rating Fee -->
-                        <div class="seat-rating-fee d-flex justify-content-between">
-                            <div class="seat-rating h-100 d-flex align-items-center">
-                                <div class="seat">
-                                    <i class="fa fa-user" aria-hidden="true"></i> 10
-                                </div>
-                                <div class="rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
-                                </div>
-                            </div>
-                            <div class="course-fee h-100">
-                                <a href="#">Click</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Popular Course -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
-                        <img src="../clever-img/bg-img/c7.jpg" alt="">
-                        <!-- Course Content -->
-                        <div class="course-content">
-                            <h4>English Grammer</h4>
-                            <div class="meta d-flex align-items-center">
-                                <a href="#">Sarah Parker</a>
-                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                <a href="#">Art &amp; Design</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
-                        </div>
-                        <!-- Seat Rating Fee -->
-                        <div class="seat-rating-fee d-flex justify-content-between">
-                            <div class="seat-rating h-100 d-flex align-items-center">
-                                <div class="seat">
-                                    <i class="fa fa-user" aria-hidden="true"></i> 10
-                                </div>
-                                <div class="rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
-                                </div>
-                            </div>
-                            <div class="course-fee h-100">
-                                <a href="#" class="free">Click</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Popular Course -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="500ms">
-                        <img src="../clever-img/bg-img/c8.jpg" alt="">
-                        <!-- Course Content -->
-                        <div class="course-content">
-                            <h4>Vocabulary</h4>
-                            <div class="meta d-flex align-items-center">
-                                <a href="#">Sarah Parker</a>
-                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                <a href="#">Art &amp; Design</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
-                        </div>
-                        <!-- Seat Rating Fee -->
-                        <div class="seat-rating-fee d-flex justify-content-between">
-                            <div class="seat-rating h-100 d-flex align-items-center">
-                                <div class="seat">
-                                    <i class="fa fa-user" aria-hidden="true"></i> 10
-                                </div>
-                                <div class="rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
-                                </div>
-                            </div>
-                            <div class="course-fee h-100">
-                                <a href="#">Click</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Popular Course -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="750ms">
-                        <img src="../clever-img/bg-img/c9.jpg" alt="">
-                        <!-- Course Content -->
-                        <div class="course-content">
-                            <h4>Expository writing</h4>
-                            <div class="meta d-flex align-items-center">
-                                <a href="#">Sarah Parker</a>
-                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                <a href="#">Art &amp; Design</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
-                        </div>
-                        <!-- Seat Rating Fee -->
-                        <div class="seat-rating-fee d-flex justify-content-between">
-                            <div class="seat-rating h-100 d-flex align-items-center">
-                                <div class="seat">
-                                    <i class="fa fa-user" aria-hidden="true"></i> 10
-                                </div>
-                                <div class="rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i> 4.5
-                                </div>
-                            </div>
-                            <div class="course-fee h-100">
-                                <a href="#">Click</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div id="acenter" class="row">
@@ -426,7 +245,6 @@
                     <div class="col-12">
                         <!-- Footer Logo -->
                         <div class="footer-logo">
-                            <a href="index.html"><img src="../clever-img/core-img/logo2.png" alt=""></a>
                         </div>
                         <!-- Copywrite -->
                         <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -434,22 +252,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Bottom Footer Area -->
-        <div class="bottom-footer-area d-flex justify-content-between align-items-center">
-            <!-- Contact Info -->
-            <div class="contact-info">
-                <a href="#"><span>Phone:</span> +44 300 303 0266</a>
-                <a href="#"><span>Email:</span> info@clever.com</a>
-            </div>
-            <!-- Follow Us -->
-            <div class="follow-us">
-                <span>Follow us</span>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
             </div>
         </div>
     </footer>
@@ -468,7 +270,145 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="../clever-js/active.js"></script>
     <!-- Paging js -->
     <script type="text/javascript" src="../js/paging.js"></script>
+    <!-- Search area css -->
+    <script src="../resources/search/search.js"></script>
+    <!-- Searching AJAX -->
+   	<script type="text/javascript">
+    function alarm(){
+        alert("Please login to use it.");
+     }
+    
+   	$(document).ready(function(){
+   		if($("#keyword").val()){//검색 키워드가 존재할 때 AJAX처리해서 검색결과 도출(컨텐츠에서 뒤로가기 등의 상황)
+   			console.log("keyword 존재 OOOOOOOOOOOOOOO");
+   			ajaxAct();
+   		}
+   	});
+	$(document).ready(function(){
+		//$("#searchOk01").bind("click",function(){
+		$("#keyword").keypress(function(event){
+			if(event.keyCode == 13){//엔터키를 누를 때만 수행
+				//alert("event.keyCode "+ event.keyCode);
+			    ajaxAct();
+			 }
+		});
+	});
+	function ajaxAct() {
+		$.ajax({
+	        url : "list2.do",
+	        type: "get",
+	        data : { "keyword" : $("#keyword").val(), 
+	        		 "index" : $("#index").val(), 
+	        		 "pageStartNum" : $("#pageStartNum").val(),
+	        		 "total" : $("#total").val(),
+	        		 "listCnt" : $("#listCnt").val(),
+	        		 "pageCnt" : $("#pageCnt").val()
+	        },
+	        success : function(responseData){
+	        	var clone = $('#acenter').clone(true);
+	        	$("#sect").remove();
+	            //alert("responseData: "+ responseData.length);
+	            if(responseData.list.length == 0){
+	                return false;
+	            }
+	            //var data = JSON.parse(responseData);
+	            //alert("pageLastNum: "+ responseData.pagingVo.pageLastNum+" "+typeof responseData.pagingVo.pageLastNum);
+	            var html = "";
+	            html += "<section id='sect' class='popular-courses-area section-padding-100'><div class='container'><div class='row'>"
+	            if(responseData.length != 0){
+		            for (var i=0; i<responseData.list.length; i++) {
+		            	//alert(data[i].seq+", "+data[i].name+", "+data[i].addr+", "+data[i].rdate);
+		            	html += "<div class='col-12 col-md-6 col-lg-4'>";
+		            	html += "	<div class='single-popular-course mb-100 wow fadeInUp' data-wow-delay='250ms'>";
+		            	html += "		<img src='../clever-img/bg-img/c1.jpg' alt=''>";
+		            	html += "		<div class='course-content'>";
+		            	html += "			<a href='content.do?diary_no="+responseData.list[i].diary_no+"&index="+responseData.pagingVo.index+"'>";
+		            	html += "			<h4>"+responseData.list[i].title+"</h4></a>";
+		            	html += "			<div class='meta d-flex align-items-center'>";
+		            	html += "				<a href='#'>"+responseData.list[i].email+"</a>";
+		            	html += "				<span><i class='fa fa-circle' aria-hidden='true'></i></span>";
+		            	html += "				<a href='#'>Tourist</a>";
+		            	html += "			</div>";
+		            	html += "			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>";
+		            	html += "		</div>";
+		            	html += "		<div class='seat-rating-fee d-flex justify-content-between'>";
+		            	html += "			<div class='seat-rating h-100 d-flex align-items-center'>";
+		            	html += "				<div class='seat'>";
+		            	html += "					<i class='fa fa-heart' aria-hidden='true'></i> 10";
+		            	html += "				</div>";
+		            	html += "				<div class='rating'>";
+		            	html += "					<i class='far fa-comment' aria-hidden='true'></i> 4.5";
+		            	html += "				</div>";
+		            	html += "				<div class='rating'>";
+		            	html += "					<i class='far fa-eye' aria-hidden='true'></i> 4.5";
+		            	html += "				</div>";
+		            	html += "			</div>";
+		            	html += "			<div class='course-fee h-100'>";
+		            	html += "					<a href='content.do?diary_no="+responseData.list[i].diary_no+"&index="+responseData.pagingVo.index+"'>Click</a>";
+		            	html += "			</div>";
+		            	html += "		</div>";
+		            	html += "	</div>";
+		            	html += "</div>";
+		            }
+		            html += "</div>";
+		            html += "<div id='acenter' class='row'>";
+		            html += "	<div class='col-12'>";
+		            html += "		<div class='load-more text-center wow fadeInUp' data-wow-delay='1000ms'>";
+		            html += "			<ul id='paging' class='pagination'>";
+		            if(responseData.pagingVo.pageStartNum > 1){
+						console.log("pageStartNum: "+responseData.pagingVo.pageStartNum);	
+						console.log("total: "+responseData.pagingVo.total);
+						console.log("listCnt: "+responseData.pagingVo.listCnt);
+						console.log("pageCnt: "+responseData.pagingVo.pageCnt);
+		            html += "					<li><a onclick='pagePre("+responseData.pagingVo.pageCnt+1+","+responseData.pagingVo.pageCnt+");'>&laquo;</a></li>";
+		            html += "					<li><a onclick='pagePre("+responseData.pagingVo.pageStartNum+","+responseData.pagingVo.pageCnt+");'>&lsaquo;</a></li>";
+		            }
+		            for(var i= responseData.pagingVo.pageStartNum ; i<=responseData.pagingVo.pageLastNum ; i++){
+			            html += "					<li class='pageIndex"+i+"'><a onclick='pageIndex("+i+");'>"+i+"</a></li>";
+			        }
+		            if(responseData.pagingVo.lastChk){
+		            html += "					<li><a onclick='pageNext("+responseData.pagingVo.pageStartNum+","+responseData.pagingVo.total+","+responseData.pagingVo.listCnt+","+responseData.pagingVo.pageCnt+");'>&rsaquo;</a></li>";
+		            html += "					<li><a onclick='pageLast("+responseData.pagingVo.pageStartNum+","+responseData.pagingVo.total+","+responseData.pagingVo.listCnt+","+responseData.pagingVo.pageCnt+");'>&raquo;</a></li>";
+		            }
+		            html += "			</ul>";
+		            html += "			<form action='./paging.do' method='post' id='frmPaging'>";
+		            html += "				<input type='hidden' name='index' id='index' value='"+responseData.pagingVo.index+"'>";
+		            html += "				<input type='hidden' name='pageStartNum' id='pageStartNum' value='"+responseData.pagingVo.pageStartNum+"'>";
+		            html += "				<input type='hidden' name='listCnt' id='listCnt' value='"+responseData.pagingVo.listCnt+"'>	";
+		            html += "				<input type='hidden' name='keyword' id='keyword' value='"+$("#keyword").val()+"'>	";
+		            html += "			</form>";
+		            html += "		</div>";
+		            html += "	</div>";
+		            html += "</div>";
+		            html += "</div></section>";
+	            }else{
+	            	html += "<tr>";
+	            	html += "<td colspan='4' align='center'>조회된 결과가 없습니다.</td>";
+	                html += "</tr>";
+	            }
+	            $("#container").after(html);
+	            
+	   			// 현재번호 active
+	   			console.log("index출력전");
+	   			var index = document.getElementById("index").value;
+	   			console.log("index: "+index);
+	   			var pageIndex = document.querySelector('.pageIndex'+(Number(index)+1));
+	   			console.log("pageIndex 확인: "+ index+1 );
+	   			pageIndex.setAttribute("class", "active");
+	   			// 리스트갯수 selected 처리
+	   			$("#listCount > option").each(function () {
+	   				if ($(this).val() == $('#listCnt').val()) {
+	   					$(this).prop("selected", true);
+	   				}
+	   			});
+	        }
+	    });
+	}
+	
+    function checkEnabled(){
+        alert("Unfortunately, you won't be able to access your account at the momont. Please contact the website administrator to solve this problem.");       
+      }
+	</script>
 </body>
 
 </html>
-

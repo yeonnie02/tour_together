@@ -132,4 +132,10 @@ public class AdminDaoImpl implements AdminDao{
 		if(i>0) return true;
 		else return false;
 	}
+	
+   @Override
+   public Notice selectNoticeAll() {
+      Notice selectNoticeAll = sqlSession.selectOne(ns2 + "selectAllNotice");
+      return selectNoticeAll;
+   }
 }

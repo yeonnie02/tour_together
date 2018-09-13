@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class BoardDTO {
 	int board_no;
-	String email;
+	String id;
 	String title;
 	int board_type;
 	String board_content;
@@ -20,10 +20,10 @@ public class BoardDTO {
 	
 	public BoardDTO(){}
 	
-	public BoardDTO(String title, String email, Date start_date, Date end_date, int budget, int company,
+	public BoardDTO(String title, String id, Date start_date, Date end_date, int budget, int company,
 			int board_type,String board_content,int tour_time, String region,String photo_path) {
 		this.title = title;
-		this.email = email;
+		this.id = id;
 		this.start_date = start_date;
 		this.end_date = end_date;
 		this.budget = budget;
@@ -35,11 +35,11 @@ public class BoardDTO {
 		this.photo_path = photo_path;
 	}
 	
-	public BoardDTO(int board_no, String email, String title, int board_type, String board_content, Date start_date,
+	public BoardDTO(int board_no, String id, String title, int board_type, String board_content, Date start_date,
 			Date end_date, int tour_time, String region, int budget, int company, Date write_date, int read_count,
 			String photo_path) {
 		this.board_no = board_no;
-		this.email = email;
+		this.id = id;
 		this.title = title;
 		this.board_type = board_type;
 		this.board_content = board_content;
@@ -60,11 +60,11 @@ public class BoardDTO {
 	public void setBoard_no(int board_no) {
 		this.board_no = board_no;
 	}
-	public String getEmail() {
-		return email;
+	public String getId() {
+		return id;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getTitle() {
 		return title;

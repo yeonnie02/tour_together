@@ -11,6 +11,7 @@
 		<typeAlias alias="BoardDTO" type="com.cndy.tt.board.BoardDTO"/>
 		<typeAlias alias="MemberAuthority" type="com.cndy.tt.member.MemberAuthority"/>
 		<typeAlias alias="Notice" type="com.cndy.tt.admin.Notice"/>
+		<typeAlias alias="Photo" type="com.cndy.tt.file.Photo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/cndy/tt/mybatis/Paging.xml" />
@@ -20,5 +21,6 @@
 		<mapper resource="com/cndy/tt/mybatis/Board.xml"/>
 		<mapper resource="com/cndy/tt/mybatis/Authority.xml"/>
 		<mapper resource="com/cndy/tt/mybatis/Notice.xml"/>
+		<mapper resource="com/cndy/tt/mybatis/Photo.xml"/>
 	</mappers>
 </configuration>

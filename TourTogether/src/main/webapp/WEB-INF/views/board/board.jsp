@@ -166,7 +166,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		          $main = $('#main'),
 		          $window = $(window),
 		          $document = $(document),
-		          $i =	 18;
+		          $i = 1;
 		      	  $j = 0;
 		          options = {
 		            autoResize: true, // This will auto-update the layout when the browser window is resized.

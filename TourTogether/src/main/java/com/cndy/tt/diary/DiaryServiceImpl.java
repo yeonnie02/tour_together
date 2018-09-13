@@ -1,5 +1,6 @@
 package com.cndy.tt.diary;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -41,5 +42,19 @@ public class DiaryServiceImpl implements DiaryService {
 		System.out.println("DiaryServiceImpl : diary content "+content.get(0).getDiary_content()
 			+" count read: "+content.get(0).getCount_read());
 		return content;
+	}
+
+	@Override
+	public HashMap<String, Integer> indexService() {
+		HashMap<String, Integer> diary = new HashMap<String, Integer>();
+		diary.put("diaryThisMonth", diaryDao.thisMonth());
+		diary.put("diaryThisWeek", diaryDao.thisWeek());
+		
+		return diary;
+	}
+
+	@Override
+	public void userLikeService(long diary_no) {
+		diaryDao.userLike(diary_no);
 	}
 }

@@ -1,7 +1,13 @@
 // 4. Javascript
 //submit
 function frmPaging() {
-	document.getElementById("frmPaging").submit();
+	if($("#keyword").val()){
+		console.log("keyword 존재 OOOOOOOOOOOOOOO");
+		ajaxAct();
+	}else{
+		console.log("keyword 존재 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		document.getElementById("frmPaging").submit();
+	}
 }
 // 이전 페이지 index
 function pagePre(index, pageCnt) {
@@ -62,6 +68,7 @@ function listCnt() {
 window.onload = function() {
 	// 현재번호 active
 	var index = document.getElementById("index").value;
+	console.log(index);
 	var pageIndex = document.querySelector('.pageIndex'+(Number(index)+1));
 	pageIndex.setAttribute("class", "active");
 	// 리스트갯수 selected 처리

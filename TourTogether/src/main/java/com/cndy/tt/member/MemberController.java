@@ -3,6 +3,9 @@ package com.cndy.tt.member;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -10,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,14 +24,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.cndy.tt.login.CustomAuthenticationProvider;
 
 @Controller
-@SessionAttributes("firstname")//¼¼¼Ç
 @RequestMapping("/member")
 public class MemberController {
+	@Autowired
+	MemberDao memberDao;
 	
 	@Resource(name="memberService")
 	private MemberService memberService;
+	
+	@Resource(name="customAuthenticationProvider")
+	CustomAuthenticationProvider authenticationProvider;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index() {
@@ -32,28 +46,42 @@ public class MemberController {
 	}
 	
     @RequestMapping(value = "/add03", method = RequestMethod.POST)
-    @ResponseBody//ÀÚ¹Ù °´Ã¼¸¦ HTTP ¿äÃ»ÀÇ body ³»¿ëÀ¸·Î ¸ÅÇÎÇÏ´Â ¿ªÇÒ
-    public long add03(@ModelAttribute Member member, HttpSession session) {//°´Ã¼±¸Á¶°¡ °°Àº°Ç°¡ ¾î¶»°Ô MemberÅ¸ÀÔ °´Ã¼¿¡ ¾Ë¾Æ¼­ ÀúÀåµÇÁö? http://springmvc.egloos.com/535572
-        System.out.println("MemberController - add03()");
-        System.out.println("id : "+member.getId());
-        System.out.println("first_name : "+member.getFirst_name());
-        System.out.println("last_name: "+member.getLast_name());
-        System.out.println("gender : "+member.getGender());
-        System.out.println("birthday : "+member.getBirthday());
-        System.out.println("email : "+member.getEmail());
-       /* if(member.getGender()==null) {//Ã³¸®¾ÈÇÏ¸é ¿À·ù ¿Ö? -> ºä´Ü¿¡¼­ ³Ñ°Ü¹ŞÀº gender°ªÀÌ javaÀÇ null°ú °°Áö ¾ÊÀº µí -> Member.xml¿¡¼­ ÀÌ ·ÎÁ÷À» ´ë½ÅÇØ¼­ Ã³¸®ÇØµÒ
-        	//nested exception is org.springframework.jdbc.UncategorizedSQLException: Error setting null for parameter #4 with JdbcType OTHER . Try setting a different JdbcType for this parameter or a different jdbcTypeForNull configuration property.
-        	member.setGender("0");
-        }*/
-        session.setAttribute("email", member.getEmail());
-        session.setAttribute("id", member.getId());//·Î±×ÀÎÇÒ¶§ ÆäºÏ¿¡¼­ ¸Å¹ø Á¤º¸¸¦ °¡Á®¿À´Âµ¥ ±× Á¤º¸¸¦ ¼¼¼Ç¿¡ ÀúÀå//ÀÌ·¸°ÔÇÏ¸é ¾È´ë´Â°Ç°¨
-        long checkIdNum = memberService.checkIdService(member);//ÇØ´ç idÀÇ Çà °¹¼ö count¸¦ ¸®ÅÏÇÏÁö¸»°í listÇØ¼­ °¡Á®¿À´Â°Ô ÁÁÀ» ±î? ´ÜÀ§ ¼Óµµ´Â Çà°¹¼ö¸¸ °¡Á®¿À´Â°Ô ºü¸£°ÚÁö?
+    @ResponseBody//å ìŒ˜ë±„ì˜™ å ì™ì˜™ì²´å ì™ì˜™ HTTP å ì™ì˜™ì²­å ì™ì˜™ body å ì™ì˜™å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì‹¹ëŒì˜™ å ì™ì˜™å ì™ì˜™
+    public void addFacebookMember(@ModelAttribute Member member, HttpSession session) {//ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ ï¿½î¶»ï¿½ï¿½ MemberÅ¸ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ë¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½? http://springmvc.egloos.com/535572
+        System.out.println("MemberController - addFacebookMember()");
+  
+        long checkIdNum = memberService.checkIdService(member);//ï¿½Ø´ï¿½ idï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ countï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ listï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½? ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½à°¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+        member.setEnabled(1);
+        member.setLogin_type(2);
         
-        if(checkIdNum < 1)//ÆäÀÌ½ººÏ¿¡¼­ ³Ñ¾î¿Â id°ªÀÌ db¿¡ ¾øÀ» ¶§¸¸ db¿¡ ÀúÀå
-        	memberService.insertService(member);
-        
-        return checkIdNum;
+        if(checkIdNum < 1) {//í˜ì´ìŠ¤ë¶ì—ì„œ ë„˜ì–´ì˜¨ idê°’ì´ dbì— ì—†ì„ ë•Œë§Œ dbì— ì €ì¥
+           member.setPassword("face_book_login");//í˜ë¶ì‚¬ìš©ì ì„ì˜ ë¹„ë°€ë²ˆí˜¸ ì§€ì •
+           memberService.insertService(member);
+        }
+        session.setAttribute("member", member);
+        System.out.println("member: "+member);
     }
+    
+    @RequestMapping(value = "/addGoogleMember", method = RequestMethod.POST)
+    @ResponseBody//å ìŒ˜ë±„ì˜™ å ì™ì˜™ì²´å ì™ì˜™ HTTP å ì™ì˜™ì²­å ì™ì˜™ body å ì™ì˜™å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì‹¹ëŒì˜™ å ì™ì˜™å ì™ì˜™
+    public void addGoogleMember(@ModelAttribute Member member, HttpSession session) {//ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ ï¿½î¶»ï¿½ï¿½ MemberÅ¸ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ë¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½? http://springmvc.egloos.com/535572
+        System.out.println("MemberController - addGoogleMember()");
+  
+        long checkIdNum = memberService.checkIdService(member);//ï¿½Ø´ï¿½ idï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ countï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ listï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½? ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½à°¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+        member.setEnabled(1);
+        member.setLogin_type(3);        
+        System.out.println("member: "+member);
+        System.out.println("member id: "+member.getId());
+        System.out.println("checkIdNum: "+checkIdNum);
+        if(checkIdNum < 1) {//í˜ì´ìŠ¤ë¶ì—ì„œ ë„˜ì–´ì˜¨ idê°’ì´ dbì— ì—†ì„ ë•Œë§Œ dbì— ì €ì¥
+        	System.out.println("google user DB ì €ì¥");
+           member.setPassword("google_login");//í˜ë¶ì‚¬ìš©ì ì„ì˜ ë¹„ë°€ë²ˆí˜¸ ì§€ì •
+           memberService.insertService(member);
+        }
+        session.setAttribute("member", member);
+        System.out.println("member: "+member);
+    }
+    
     @RequestMapping(value = "/sessionoff", method = RequestMethod.POST)
     public void sessionOff(HttpSession session) {
     	System.out.println("MemberController - sessionOff()");
@@ -66,8 +94,9 @@ public class MemberController {
     public String profile(Model model, HttpServletRequest request) {
     	System.out.println("MemberController - profile()");
     	HttpSession session = request.getSession();
-    	String id = (String) session.getAttribute("id");
-    	Member member = memberService.profileContentService(id);//¿©±â ¿À·ù¸é ´Ù½Ã ·Î±×ÀÎÇÏ¸éµÊ-¼¼¼Ç¸¸·áµÇ¼­ id°ªÀÌ nullÀÎµí
+    	Member user = (Member)session.getAttribute("userInfo");
+    	System.out.println("id: "+user.getId());
+    	Member member = memberService.profileContentService(user.getId());//å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ìŒ•ì™ì˜™ å ì‹¸ê¹ì˜™å ì™ì˜™å ì‹¹ëªŒì˜™å ï¿½-å ì™ì˜™å ì‹¤ëªŒì˜™å ì™ì˜™í“¬å ï¿½ idå ì™ì˜™å ì™ì˜™ nullå ì‹¸ë“¸ì˜™
 
         model.addAttribute("member", member);
     	model.addAttribute("firstname", member.getFirst_name());
@@ -159,4 +188,27 @@ public class MemberController {
 		return "redirect:/member/profile";
 	}
 
+	@RequestMapping(value = "autocomplete", method = RequestMethod.POST)
+	public void AutoTest(Locale locale, Model model, HttpServletRequest request,
+			HttpServletResponse resp, Member member) throws IOException {
+		System.out.println("MemberController - AutoTest()");
+
+		String result = request.getParameter("term");//
+		System.out.println(result);
+		List<Member> list = memberDao.autoComplete(result); //resultê°’ì´ í¬í•¨ë˜ì–´ ìˆëŠ” empí…Œì´ë¸”ì˜ ë„¤ì„ì„ ë¦¬í„´
+		System.out.println("111111");
+		JSONArray ja = new JSONArray();
+		if(list != null) {
+			System.out.println("list is not null");
+			for (int i = 0; i < list.size(); i++) {
+				ja.add(list.get(i).getEmail());
+			}
+			System.out.println("222222222");
+		}
+		System.out.println("4444444444");
+		PrintWriter out = resp.getWriter();
+		System.out.println("333333333");
+		out.print(ja.toString());
+		System.out.println("333333333");
+	}
 }

@@ -7,6 +7,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.cndy.tt.file.Photo;
+import com.cndy.tt.file.PhotoService;
+
 @Service("commentService")
 public class CommentServiceImpl implements CommentService {
 
@@ -31,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
 			/* 댓글일 경우  넘어온 refer, lev, step 의 값은 0 */			
 			commentDao.insert(comment);
 		}else {		
-			/* 댓댓글일 경우. 넘어온 refer, lev, step 은  부모댓글의 값  */
+			/* 대댓글일 경우. 넘어온 refer, lev, step 은  부모댓글의 값  */
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("board_no", comment.getBoard_no());
 			map.put("refer", refer);
@@ -64,4 +67,5 @@ public class CommentServiceImpl implements CommentService {
 		}
 		return replies;
 	}
+
 }

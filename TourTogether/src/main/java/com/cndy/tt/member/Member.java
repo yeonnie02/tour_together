@@ -18,7 +18,6 @@ public class Member implements UserDetails {
 	private int enabled;
 	private String first_name;
 	private String last_name;
-	private String profile_path;
 	private long member_class;
 	private Date join_date;
 	private Date use_date;
@@ -28,6 +27,7 @@ public class Member implements UserDetails {
 	private String birthday;
 	private String email;
 	private String telephone;
+	private long login_type;
 	private Collection<? extends GrantedAuthority> authorities;
 	
 	public Member() {}
@@ -39,15 +39,14 @@ public class Member implements UserDetails {
 		this.authorities = authorities;
 	}
 	
-	public Member(String id, String password, int enabled, String first_name, String last_name, String profile_path,
+	public Member(String id, String password, int enabled, String first_name, String last_name,
 			long member_class, Date join_date, Date use_date, String intro, String country, String gender,
-			String birthday, String email, String telephone) {
+			String birthday, String email, String telephone, long login_type) {
 		this.id = id;
 		this.password = password;
 		this.enabled = enabled;
 		this.first_name = first_name;
 		this.last_name = last_name;
-		this.profile_path = profile_path;
 		this.member_class = member_class;
 		this.join_date = join_date;
 		this.use_date = use_date;
@@ -57,6 +56,7 @@ public class Member implements UserDetails {
 		this.birthday = birthday;
 		this.email = email;
 		this.telephone = telephone;
+		this.login_type = login_type;
 	}
 
 	public String getId() {
@@ -89,14 +89,6 @@ public class Member implements UserDetails {
 
 	public void setLast_name(String last_name) {
 		this.last_name = last_name;
-	}
-
-	public String getProfile_path() {
-		return profile_path;
-	}
-
-	public void setProfile_path(String profile_path) {
-		this.profile_path = profile_path;
 	}
 
 	public long getMember_class() {
@@ -170,6 +162,15 @@ public class Member implements UserDetails {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+	
+	public long getLogin_type() {
+		return login_type;
+	}
+
+	public void setLogin_type(long login_type) {
+		this.login_type = login_type;
+	}
+	
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -229,9 +230,9 @@ public class Member implements UserDetails {
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", password=" + password + ", enabled=" + enabled + ", first_name=" + first_name
-				+ ", last_name=" + last_name + ", profile_path=" + profile_path + ", member_class=" + member_class
+				+ ", last_name=" + last_name + ", member_class=" + member_class
 				+ ", join_date=" + join_date + ", use_date=" + use_date + ", intro=" + intro + ", country=" + country
 				+ ", gender=" + gender + ", birthday=" + birthday + ", email=" + email + ", telephone=" + telephone
-				+ ", authorities=" + authorities + "]";
+				+ ", login_type=" + login_type + ", authorities=" + authorities +"]";
 	}
 }

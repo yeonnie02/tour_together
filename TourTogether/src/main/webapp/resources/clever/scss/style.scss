@@ -547,7 +547,7 @@ textarea:focus {
         form {
             position: relative;
             z-index: 10;
-            width: 230px;
+            width: 30px;
             height: 40px;
             margin: 0 50px;
             @media #{$breakpoint-lg} {
@@ -561,7 +561,7 @@ textarea:focus {
                 margin: 15px auto;
             }
             input {
-                width: 100%;
+                width: 130px;
                 height: 40px;
                 border-radius: 6px;
                 border: 1px solid $border-color;

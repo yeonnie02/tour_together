@@ -11,6 +11,7 @@
 	<http pattern="/**/*.js" security="none"/>
 	<http pattern="/**/*.css" security="none"/>
 	<http pattern="/images/*" security="none"/>
+	<http pattern="/uploadimgs/*" security="none"/>
     
     <!-- 검사 URL -->
     <http auto-config="true" use-expressions="true">

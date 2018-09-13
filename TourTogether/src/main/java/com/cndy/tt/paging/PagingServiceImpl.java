@@ -36,6 +36,15 @@ public class PagingServiceImpl implements PagingService {
 	}
 
 	@Override
+	public List<Diary> selectDiarySearchPagingService(String keyword, PagingVo pagingVo) {
+		return dao.selectDiarySearchPaging(keyword, pagingVo);
+	} 
+	@Override
+	public int selectDiarySearchTotalPagingService(String keyword) {
+		return dao.selectDiarySearchTotalPaging(keyword);
+	}
+	
+	@Override
 	public List<Member> selectAdminPagingService(PagingVo pagingVo) {
 		return dao.selectAdminPaging(pagingVo);
 	}

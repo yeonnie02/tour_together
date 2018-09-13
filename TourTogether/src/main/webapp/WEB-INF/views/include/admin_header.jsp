@@ -33,6 +33,19 @@
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        
+  <!-- NEW -->
+  <style> 
+	input[type=submit] {
+	    background-color: #4292f4;
+	    border: none;
+	    color: white;
+	    padding: 10px;
+	    text-decoration: none;
+	    margin: 2px;
+	    cursor: pointer;
+	}
+	</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -54,25 +67,15 @@
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">  
-          <!-- User Account Menu -->
-          <li class="dropdown user user-menu">
-            <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Admin</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                  <span><a href="../" class="btn btn-default btn-flat">Home</a></span>
-              </li>
-            </ul>
-          </li>          
-        </ul>
-      </div>
+      
+    <!-- NEW -->
+	<!-- 로그아웃 버튼 -->
+    <sec:authorize access="isAuthenticated()">			
+		<form:form action="${pageContext.request.contextPath}/login/logout.do" method="POST">
+			<input type="submit" value="Logout" style="position: absolute; right: 10px; top: 5px">
+		</form:form>
+	</sec:authorize>
+
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
@@ -100,19 +103,8 @@
 			</ul>
         <li><a href="admin_notice.do"><i class="fa fa-link"></i> <span>공지사항</span></a></li>
         <li><a href="../"><i class="fa fa-link"></i> <span>홈페이지 이동</span></a></li>
-        
-        <sec:authorize access="isAuthenticated()">					
-			<form:form action="${pageContext.request.contextPath}/logout" method="POST">
-
-    			<i class="fa fa-link"></i> <span><input type="submit" value="Logout"></span>
-
-    		</form:form>
-    	</sec:authorize>
-    	
-    	
      </ul>
-      <!-- /.sidebar-menu -->
-      
+      <!-- /.sidebar-menu -->    
       
     </section>
     <!-- /.sidebar -->

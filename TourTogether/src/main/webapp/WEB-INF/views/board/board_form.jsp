@@ -106,28 +106,29 @@ textarea{
                                 <form name="detail" action="all_insert.do" onsubmit="return false;" method="post">
                                     <div class="clever-description">
 										<div class="about-course mb-30">
-											<h3>제목</h3>
+											<h4>Title</h4>
                                             <h3><input class="d_notif" type="text" name="title" style="width:400px;"/></h3>
-                                            <h3>여행기간</h3>
+                                            <h4>Travel period</h4>
 								            <div class="price">
-								                <input class="d_notif" type="text" id="start_date" name="start_date" style="width:100px" value="시작 날짜">
+								                <input class="d_notif" type="text" id="start_date" name="start_date" style="width:100px" value="   start date">
 								                ~
-								                <input class="d_notif" type="text" id="end_date" name="end_date" style="width:100px;" value="마지막 날짜">
+								                <input class="d_notif" type="text" id="end_date" name="end_date" style="width:100px;" value="   last date">
 								            </div>
 								            <br/>
 								            <div class="price">
-								            <h3>모집인원 &emsp;&emsp;&emsp;&emsp; 투어시간</h3> <input class="d_notif" type="number" name="tour_time" style="width:220px;height:20px">
-								            &nbsp&nbsp<input class="d_notif" type="number" name="company" style="width:220px;height:20px">
+								            <h4>Number of people to join &emsp;&emsp;&emsp; Tour time</h4> <input class="d_notif" type="number" name="tour_time" style="width:220px;height:20px">
+								            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								            <input class="d_notif" type="number" name="company" style="width:220px;height:20px">
 								            </div>
 								            <br/>
 								            <div class="price">
-								            <h3>필요 예산 </h3> <input class="d_notif" type="number" name="budget" style="width:220px;height:20px">
+								            <h4>Budget </h4> <input class="d_notif" type="number" name="budget" style="width:220px;height:20px">
 								            </div>
                                         </div>
                                         <!-- About Course -->
                                         <div class="about-course mb-30">
                                             <h4>About this Tour</h4>
-                                            <textarea name="board_content" placeholder="여행에 대한 간략 정보."></textarea>
+                                            <textarea name="board_content" placeholder="brief information on travel."></textarea>
                                         </div>
                                     </div>
                                     <input type="hidden" name="board_type" value="10">
@@ -137,9 +138,9 @@ textarea{
 
                                         <!-- Curriculum Level -->
                                         <div class="curriculum-level mb-30">
-                                            <h4 class="d-flex justify-content-between"><span>여행지역</span></h4>			
+                                            <h4 class="d-flex justify-content-between"><span>Travel area</span></h4>			
                                             <ul class="curriculum-list">
-                                                <li><i class="fas fa-map-marked" aria-hidden="true"></i> 지역
+                                                <li><i class="fas fa-map-marked" aria-hidden="true"></i> Area
                                                     <ul id="tiles">
                                                        
                                                     </ul>
@@ -163,7 +164,7 @@ textarea{
                 <div class="col-12 col-lg-4">
                     <div class="course-sidebar">
                         <!-- Buy Course -->
-                        <a href="#" onclick="next()" class="btn clever-btn mb-30 w-100">글쓰기</a>
+                        <a href="#" onclick="next()" class="btn clever-btn mb-30 w-100">Register</a>
                         
                         <!-- Widget -->
                         <div class="sidebar-widget">
@@ -187,7 +188,6 @@ textarea{
                     <div class="col-12">
                         <!-- Footer Logo -->
                         <div class="footer-logo">
-                            <a href="index.html"><img src="../clever-img/core-img/logo2.png" alt=""></a>
                         </div>
                         <!-- Copywrite -->
                         <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -195,22 +195,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Bottom Footer Area -->
-        <div class="bottom-footer-area d-flex justify-content-between align-items-center">
-            <!-- Contact Info -->
-            <div class="contact-info">
-                <a href="#"><span>Phone:</span> +44 300 303 0266</a>
-                <a href="#"><span>Email:</span> info@clever.com</a>
-            </div>
-            <!-- Follow Us -->
-            <div class="follow-us">
-                <span>Follow us</span>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
             </div>
         </div>
     </footer>
@@ -299,32 +283,32 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     
     function sendFile(){
     	if(files==null){
-    		alert("사진 없음");
-    		return false;
+    		$('.url').val(null);
+    		document.detail.submit();
+    	}else{
+	    	data = new FormData();
+	    	data.append("file", files);
+	    	var $note = $(this);
+	    	$.ajax({
+	    		data: data,
+	    		type: 'POST',
+	    		url: "ImgUpload.do",
+	    		cache: false,
+	    		contentType: false,
+	    		processData: false,
+	    		enctype: "multipart/form-data",
+	    		success: function(url){
+	    			//$('#photo_path').val(url);
+	    			$('.url').val(url);
+	    			//alert(url);
+	    			document.detail.submit();
+	    		},
+	    		
+	    		error:function(request,status,error){
+	            	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	            }
+	    	});
     	}
-    	alert("사진을 넣겠습니다.");
-    	data = new FormData();
-    	data.append("file", files);
-    	var $note = $(this);
-    	$.ajax({
-    		data: data,
-    		type: 'POST',
-    		url: "ImgUpload.do",
-    		cache: false,
-    		contentType: false,
-    		processData: false,
-    		enctype: "multipart/form-data",
-    		success: function(url){
-    			//$('#photo_path').val(url);
-    			$('.url').val(url);
-    			alert(url);
-    			document.detail.submit();
-    		},
-    		
-    		error:function(request,status,error){
-            	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-    	});
 	}
     
     function next(){
@@ -414,7 +398,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	                       '</div>';
 			   console.log(loc[num].jb);
 			   $tiles.append("<li>"+
-					   		"<span><i class=\"fas fa-map-marker-alt\" aria-hidden=\"true\"></i> 관광지 : <span>"+
+					   		"<span><i class=\"fas fa-map-marker-alt\" aria-hidden=\"true\"></i> A tourist spot : <span>"+
 					   		"<a href=\"http://map.daum.net/link/map/"+loc[num].jb+","+loc[num].ib+"\" target=\"_blank\" class=\"link\">"+
 					   		result[0].address.address_name+
 					   		"</a>"+

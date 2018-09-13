@@ -68,6 +68,32 @@
 			border: none;
 			cursor: pointer;
 		}		
+		
+		/* NEW */
+		.blockButton {
+		    background-color: #555555; /* Black */ 
+		    border: none;
+		    color: white;
+		    padding: 15px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 16px;
+		    margin: 4px 2px;
+		    cursor: pointer;
+		}
+		.unblockButton {
+		    background-color: #e7e7e7; /* Black */ 
+		    border: none;
+		    color: black;
+		    padding: 15px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 16px;
+		    margin: 4px 2px;
+		    cursor: pointer;
+		}
 	</style>
 </head>
 
@@ -217,11 +243,14 @@
 			      </tr>			      
 		      </tbody>
 	     </c:forEach>
-	     <td><button id="block" onclick="blockConfirm()">차단</button>
-		     <button id="unblock" onclick="unblockConfirm()">해제</button></td>
+	     <td></td>
 	     <td/><td/><td/><td/><td/><td/><td/>
 	     <td>총 ${pagingVo.total}명</td>
 	 </table>
+	 
+	 <!-- NEW -->
+	 <button id="unblock" onclick="unblockConfirm()" style="float: right;" class="unblockButton">해제</button> &nbsp;&nbsp;&nbsp;
+	 <button id="block" onclick="blockConfirm()" style="float: right;" class="blockButton">차단</button>
 	
 	<!-- paging view -->
 	    <div align="center">

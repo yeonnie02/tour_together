@@ -9,4 +9,7 @@ public interface DiaryDao {
 	void delete(long diary_no);
 	List<Diary> content(long diary_no);
 	void updateCountRead(long diary_no);
+	int thisMonth();
+	int thisWeek();
+	void userLike(long diary_no);
 }

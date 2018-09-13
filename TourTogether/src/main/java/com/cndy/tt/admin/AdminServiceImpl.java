@@ -104,5 +104,10 @@ public class AdminServiceImpl implements AdminService{
 	public boolean editNotice(Notice notice) {
 		return adminDao.editNotice(notice);		
 	}
+	
+   @Override
+   public Notice selectAllNotice() {
+      return adminDao.selectNoticeAll();
+   }
 
 }

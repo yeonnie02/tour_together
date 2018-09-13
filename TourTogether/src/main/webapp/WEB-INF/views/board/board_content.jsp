@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" import="com.cndy.tt.board.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,9 +36,9 @@
         <!-- Breadcumb -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Tour</a></li>
-                <li class="breadcrumb-item"><a href="#">Tour &amp; Guide</a></li>
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item">Tour</li>
+                <li class="breadcrumb-item">Tour &amp; Guide</li>
                 <li class="breadcrumb-item active" aria-current="page">Tour Content</li>
             </ol>
         </nav>
@@ -55,9 +55,10 @@
         <!-- Content -->
         <div class="single-course-intro-content text-center">
             <!-- Ratings -->
-            <a href="#"><img id="profile" src="../diary/images/avatar-1-120x120.jpg" alt="Profile Image" height="50%"width="50%"></a>
+            <a href="#"><img id="profile" src="${photo}" alt="Profile Image" height="50%"width="50%"></a>
             <br/><br/>
-            <h3>Title</h3>
+            <h3>${con.title}</h3>
+            <span style="font-size:1em; color:gray;">${con.id}</span>
             <div class="meta d-flex align-items-center justify-content-center">
             </div>
         </div>
@@ -77,13 +78,7 @@
                                     <a class="nav-link active" id="tab--1" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false">Itinerary</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="tab--3" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="true">Reviews</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" id="tab--4" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="true">Guides</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab--5" data-toggle="tab" href="#tab5" role="tab" aria-controls="tab5" aria-selected="true">Etc...</a>
                                 </li>
                             </ul>
 
@@ -95,7 +90,7 @@
                                         <!-- About Curriculum -->
                                         <div class="about-curriculum mb-30">
                                             <h4> 여행 정보 </h4>
-                                            <p>상세 여행일정~</p>
+                                            <p>${con.board_content}</p>
                                         </div>
 
                                         <!-- Curriculum Level -->
@@ -103,132 +98,31 @@
                                             <h4 class="d-flex justify-content-between"><span>여행 지역</span></h4>
 
                                             <ul class="curriculum-list">
-                                                <li><i class="fas fa-map-marked" aria-hidden="true"></i> 지역1
-                                                    <ul>
+                                                <li><i class="fas fa-map-marked" aria-hidden="true"></i> 지역
+                                                    <ul id="tiles">
                                                         <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지: <span>내집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지: <span>니집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 관광지: <span>우리집</span></span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+
                                                         </li>
                                                     </ul>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <a href="#" class="btn clever-btn mb-30 w-100">신청하기</a>
-                                    </div>
-                                </div>
+                                        <c:if test="${empty member}">
+                                       		<sec:authorize access="isAnonymous()">
+                                        		
+                                        	</sec:authorize>
+                                        	<sec:authorize access="isAuthenticated()">
+                                        		<c:if test="${userInfo.id eq con.id}">
+                                        			<a href="delete.do?no=${con.board_no}&type=${con.board_type}" class="btn clever-btn mb-30 w-100">Delete</a>
+                                        		</c:if>
+                                        	</sec:authorize>
+                                        </c:if>
+                                        <c:if test="${!empty member}">
+	                               			<c:if test="${member.id eq con.id}">
+                                        		<a href="delete.do?no=${con.board_no}&type=${con.board_type}" class="btn clever-btn mb-30 w-100">Delete</a>
+                                        	</c:if> 
+                        				</c:if>
 
-                                <!-- Tab Text -->
-                                <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab--3">
-                                    <div class="clever-review">
-
-                                        <!-- About Review -->
-                                        <div class="about-review mb-30">
-                                            <h4>Reviews</h4>
-                                            <p>가이드에 대한 리뷰를 확인해보세요.</p>
-                                        </div>
-
-                                        <!-- Ratings -->
-<!--                                        <div class="clever-ratings d-flex align-items-center mb-30">
-
-                                            <div class="total-ratings text-center d-flex align-items-center justify-content-center">
-                                                <div class="ratings-text">
-                                                    <h2>4.5</h2>
-                                                    <div class="ratings--">
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                                    </div>
-                                                    <span>Rated 5 out of 3 Ratings</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="rating-viewer">
-                                                
-                                                <div class="single-rating mb-15 d-flex align-items-center">
-                                                    <span>5 STARS</span>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <span>80%</span>
-                                                </div>
-                                                
-                                                <div class="single-rating mb-15 d-flex align-items-center">
-                                                    <span>4 STARS</span>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <span>20%</span>
-                                                </div>
-                                                
-                                                <div class="single-rating mb-15 d-flex align-items-center">
-                                                    <span>3 STARS</span>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <span>0%</span>
-                                                </div>
-                                                
-                                                <div class="single-rating mb-15 d-flex align-items-center">
-                                                    <span>2 STARS</span>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <span>0%</span>
-                                                </div>
-                                                
-                                                <div class="single-rating mb-15 d-flex align-items-center">
-                                                    <span>1 STARS</span>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <span>0%</span>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                        -->
-                                        <!-- Single Review -->
-                                        <div class="single-review mb-30">
-                                            <div class="d-flex justify-content-between mb-30">
-                                                <!-- Review Admin -->
-                                                <div class="review-admin d-flex">
-                                                    <div class="thumb">
-                                                        <img src="../clever-img/bg-img/t1.png" alt="">
-                                                    </div>
-                                                    <div class="text">
-                                                        <h6>Sarah Parker</h6>
-                                                        <span>Sep 29, 2017 at 9:48 am</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis.</p>
-                                        </div>
-
-                                        <!-- Single Review -->
-                                        <div class="single-review mb-30">
-                                            <div class="d-flex justify-content-between mb-30">
-                                                <!-- Review Admin -->
-                                                <div class="review-admin d-flex">
-                                                    <div class="thumb">
-                                                        <img src="../clever-img/bg-img/t1.png" alt="">
-                                                    </div>
-                                                    <div class="text">
-                                                        <h6>Sarah Parker</h6>
-                                                        <span>Sep 29, 2017 at 9:48 am</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis.</p>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -300,19 +194,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Tab Text -->
-                                <div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="tab--5">
-                                    <div class="clever-review">
-
-                                        <!-- About Review -->
-                                        <div class="about-review mb-30">
-                                            <h4>제목</h4>
-                                            <p>Sed elementum lacus a risus luctus suscipit. Aenean sollicitudin sapien neque, in fermentum lorem dignissim a. Nullam eu mattis quam. Donec porttitor nunc a diam molestie blandit. Maecenas quis ultrices</p>
-                                        </div>
-
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -321,7 +202,21 @@
                 <div class="col-12 col-lg-4">
                     <div class="course-sidebar">
                         <!-- Buy Course -->
-                        <a href="#" class="btn clever-btn mb-30 w-100">신청하기</a>
+                        <c:if test="${empty member}">
+                        	<sec:authorize access="isAnonymous()"> 
+                        		<input type="button" onclick="alarm();" class="btn clever-btn mb-30 w-100" value="1:1 Counseling"/>
+                        	</sec:authorize>
+                        	<sec:authorize access="isAuthenticated()">
+                        	<c:if test="${userInfo.id ne con.id}">
+                        		<input type="button" onclick="showPopup('${con.id}');" class="btn clever-btn mb-30 w-100" value="1:1 Counseling"/>
+                        	</c:if>
+                        	</sec:authorize>
+						</c:if>
+						<c:if test="${!empty member}">
+						<c:if test="${member.id ne con.id}">
+                        	<input type="button" onclick="showPopup('${con.id}');" class="btn clever-btn mb-30 w-100" value="1:1 Counseling"/>
+						</c:if>
+						</c:if>
 
                         <!-- Widget -->
                         <div class="sidebar-widget">
@@ -329,27 +224,27 @@
                             <ul class="features-list">
                                 <li>
                                     <h6><i class="fa fa-calendar" aria-hidden="true"></i> 여행시작 일자 </h6>
-                                    <h6>2018/8/28</h6>
+                                    <h6>${con.start_date}</h6>
                                 </li>
                                 <li>
                                     <h6><i class="fa fa-calendar" aria-hidden="true"></i> 여행마지막 일자 </h6>
-                                    <h6>2018/8/30</h6>
+                                    <h6>${con.end_date}</h6>
                                 </li>
                                 <li>
                                     <h6><i class="fa fa-clock-o" aria-hidden="true"></i> 투어시간  </h6>
-                                    <h6> 7 Hour</h6>
+                                    <h6> ${con.company} Hour</h6>
                                 </li>
                                 <li>
                                     <h6><i class="fa fa-bell" aria-hidden="true"></i> 지역 </h6>
-                                    <h6> 경기도 </h6>
+                                    <h6> ${con.region} </h6>
                                 </li>
                                 <li>
                                     <h6><i class="fa fa-file" aria-hidden="true"></i> 희망 모집인원</h6>
-                                    <h6>3 명</h6>
+                                    <h6> ${con.tour_time} 명</h6>
                                 </li>
                                 <li>
                                     <h6><i class="fa fa-money-bill" aria-hidden="true"></i> 예상경비(1인)</h6>
-                                    <h6>60000 원</h6>
+                                    <h6>${con.budget} 원</h6>
                                 </li>
                             </ul>
                         </div>
@@ -376,7 +271,6 @@
                     <div class="col-12">
                         <!-- Footer Logo -->
                         <div class="footer-logo">
-                            <a href="index.html"><img src="../clever-img/core-img/logo2.png" alt=""></a>
                         </div>
                         <!-- Copywrite -->
                         <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -384,22 +278,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Bottom Footer Area -->
-        <div class="bottom-footer-area d-flex justify-content-between align-items-center">
-            <!-- Contact Info -->
-            <div class="contact-info">
-                <a href="#"><span>Phone:</span> +44 300 303 0266</a>
-                <a href="#"><span>Email:</span> info@clever.com</a>
-            </div>
-            <!-- Follow Us -->
-            <div class="follow-us">
-                <span>Follow us</span>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
             </div>
         </div>
     </footer>
@@ -419,14 +297,85 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d15fd5bf26911082d79838012f46ad9&libraries=services"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d15fd5bf26911082d79838012f46ad9"></script>
     <script type="text/javascript">
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = { 
-        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 8 // 지도의 확대 레벨
-    };
-
-	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-	var map = new daum.maps.Map(mapContainer, mapOption);
+    function alarm(){
+        alert("Please login and use it.");
+     }
+     var winRef;
+	 function showPopup(id) { 
+		if(winRef == null){//처음팝업
+			console.log("showPopup1");
+  	  	 	winRef = window.open("doA?id="+id, "채팅창", "width=600, height=400, left=100, top=50");
+		}else{
+	        if (winRef.closed == false) { //팝업이 닫히지 않았다면
+	        	console.log("showPopup2");
+	            winRef.focus();
+	        }else{//팝업이 닫혔다면
+	        	console.log("showPopup3");
+	        	winRef = window.open("doA?id="+id, "채팅창", "width=600, height=400, left=100, top=50");
+	        }
+	    }
+  	  }
+    
+	var loc = "${con.board_no}";
+	var mapContainer;
+	var map;
+	var geocoder = new daum.maps.services.Geocoder();
+	var $tiles = $('#tiles');
+	var num;
+	console.log(loc);
+	(function ($){
+		$.ajax({
+  		  type: 'post',
+  		  url: "location.do?no="+loc,
+  		  dataType:"json",
+  		  contentType:'application/json;charset=UTF-8',
+  		  
+  		  success:function(data){
+  			  var json = {list:data};
+  			  mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+  		      mapOption = { 
+  		          center: new daum.maps.LatLng(json.list[0].data.LOCATION_JB, json.list[0].data.LOCATION_IB), // 지도의 중심좌표
+  		          level: 9 // 지도의 확대 레벨
+  		      };
+  			  // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+  			  map = new daum.maps.Map(mapContainer, mapOption);
+  			  
+  			for(var i = 0; i<json.list.length; i++){
+  				var marker = new daum.maps.Marker({
+  					map: map,
+  					position: new daum.maps.LatLng(json.list[i].data.LOCATION_JB, json.list[i].data.LOCATION_IB)
+  				});
+  			num=i;
+  			
+				searchDetailAddrFromCoords(new daum.maps.LatLng(json.list[i].data.LOCATION_JB, json.list[i].data.LOCATION_IB), function(result, status) {
+			       if (status === daum.maps.services.Status.OK) {
+			           var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+			           detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+			           
+			           var content = '<div class="bAddr">' +
+			                           '<span class="title">법정동 주소정보</span>' + 
+			                           detailAddr + 
+			                       '</div>';
+					   console.log(json.list[num].data.LOCATION_JB, json.list[num].data.LOCATION_IB);
+					   $tiles.append("<li>"+
+							   		"<span><i class=\"fas fa-map-marker-alt\" aria-hidden=\"true\"></i> 관광지 : <span>"+
+							   		"<a href=\"http://map.daum.net/link/map/"+json.list[num].data.LOCATION_JB+","+json.list[num].data.LOCATION_IB+"\" target=\"_blank\" class=\"link\">"+
+							   		result[0].address.address_name+
+							   		"</a>"+
+							   		"</span></span>"+
+							   		"<span><i class=\"fa fa-clock-o\" aria-hidden=\"true\"></i></span>"+
+							   		"</li>");
+			       }   
+  			    });
+  			}
+  		}
+  	  });
+	})(jQuery);
+	function searchDetailAddrFromCoords(coords, callback) {
+	    // 좌표로 행정동 주소 정보를 요청합니다
+		geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+	}
+	 
     </script>
 </body>
 

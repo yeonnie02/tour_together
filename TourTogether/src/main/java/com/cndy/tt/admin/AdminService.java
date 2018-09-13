@@ -20,4 +20,5 @@ public interface AdminService {
 	List<Integer> chartCountryCountService();
 	List<Notice> selectNoticeContent(long notice_no);
 	boolean editNotice(Notice notice);
+	Notice selectAllNotice();
 }

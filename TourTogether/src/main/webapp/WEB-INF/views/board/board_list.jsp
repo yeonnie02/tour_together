@@ -53,7 +53,7 @@
                 <div class="col-12">
                     <!-- Hero Content -->
                     <div class="hero-content text-center">
-                        <h2>Tour &amp; Diary</h2>
+                        <h2>Tour &amp; Board</h2>
                         <a href="../board/form.do" class="btn clever-btn">Write a board</a>
                     </div>
                 </div>

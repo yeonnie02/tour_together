@@ -13,6 +13,7 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
  	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+ 	<script src="single-post-2/js/form.js"></script>
 	
 	<!-- autocomplete + modal css-->
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -23,6 +24,9 @@
 		    overflow-y: scroll; 
 		    overflow-x: hidden;
 		}
+		footer{
+			margin-top: 50px;
+		}		
 	</style>
 	
 	<!-- Stylesheets -->
@@ -42,9 +46,8 @@
 
 	
 	<script>
-		function submitContent(){
+		function submitContent(writer){
 			document.input.submit();
-			
 		}
 		
 		/* summernote script */
@@ -84,7 +87,7 @@
         		processData: false,
         		enctype: "multipart/form-data",
         		success: function(url){
-        			alert(url);
+        			//alert(url);
         			$('#summernote').summernote('insertImage', url);
         		}
         	});
@@ -115,7 +118,7 @@
 	
 <!-- autocomplete js http://api.jqueryui.com/autocomplete/ -->
 <script type="text/javascript">
-$(document).ready(function() {
+ $(document).ready(function() {
 	$("#input-4").autocomplete({
 		source : function(request, response) {
 
@@ -135,7 +138,7 @@ $(document).ready(function() {
 			});
 		}
 	});
-});
+}); 
 </script>	
 
 	<section class="post-area">
@@ -148,32 +151,41 @@ $(document).ready(function() {
 							<!-- content -->
 							<form name="input" method="post" action="../diary/write.do" enctype="multipart/form-data">
 						<div class="post-top-area-x">
+						
+							<c:choose>
+								<c:when test="${empty member}">
+									<c:set var="writer" value="${sessionScope.userInfo.email}"/>
+								</c:when>
+								<c:otherwise>
+									<c:set var="writer" value="${sessionScope.member.email}"/>
+								</c:otherwise>
+							</c:choose>
+							
+							<span class="input">
+							    <input type="text" class="input__field" id="input-2" name="email" value="${writer}" disabled />
+							    <label for="input-2" class="input__label">
+							      <span class="input__label-content">WRITER</span>
+							    </label>
+							  </span>
 
 							  <span class="input">
 							    <input type="text" class="input__field" id="input-1" name="title"/>
 							    <label for="input-1" class="input__label">
-							      <span class="input__label-content">제목</span>
+							      <span class="input__label-content">TITLE</span>
 							  </label>
-							  </span>
-							
-							  <span class="input">
-							    <input type="text" class="input__field" id="input-2" name="email"/>
-							    <label for="input-2" class="input__label">
-							      <span class="input__label-content">글쓴이</span>
-							    </label>
 							  </span>
 							
 							  <span class="input">
 							    <input type="text" class="input__field" id="input-3" name="region"/>
 							    <label for="input-3" class="input__label">
-							      <span class="input__label-content">지역</span>
+							      <span class="input__label-content">LOCATION</span>
 							    </label>
 							  </span>
 							
 							  <span class="input">
 							    <input type="text" class="input__field" id="input-4" name="company"/>
 							    <label for="input-4" class="input__label">
-							      <span class="input__label-content">동행자</span>
+							      <span class="input__label-content">COMPANY</span>
 							    </label>
 							  </span>
 							  <!-- summernote -->
@@ -183,11 +195,7 @@ $(document).ready(function() {
 							      <span class="input__label-content">Message</span>
 							    </label> -->
 							  </span><!-- summernote -->
-							  	
-							  <button id="send-button" type="button"><a href="${pageContext.request.contextPath }/diary/list.do">List</a></button>	
 							  <button id="send-button" type="button" onclick="submitContent()">Send</button>
-							
-	
 	   					</div>
 	   					</form>
 				    </div>
@@ -197,8 +205,27 @@ $(document).ready(function() {
 
 		</div><!-- container -->
 	</section><!-- section -->
-
-
+	
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <!-- Top Footer Area -->
+        <div class="top-footer-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Footer Logo -->
+                        <div class="footer-logo">
+                        </div>
+                        <!-- Copywrite -->
+                        <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->	
 	
 	<!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
@@ -218,7 +245,7 @@ $(document).ready(function() {
 	<script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
 	<!-- Autocomplete js http://api.jqueryui.com/autocomplete/ -->
 	<script type="text/javascript">
-	$(document).ready(function() {
+ 	$(document).ready(function() {
 		$("#input-4").autocomplete({
 			source : function(request, response) {
 	
@@ -238,7 +265,7 @@ $(document).ready(function() {
 				});
 			}
 		});
-	});
+	}); 
 	</script>    
 	
 

@@ -15,6 +15,9 @@ public interface PagingDao {
 	public boolean insert(Diary diary);
 	public boolean deleteAll();
 	
+	public List<Diary> selectDiarySearchPaging(String keyword, PagingVo pagingVo);
+	public int selectDiarySearchTotalPaging(String keyword);
+	
 	public List<Member> selectAdminPaging(PagingVo pagingVo);
 	public int selectAdminTotalPaging();
 	

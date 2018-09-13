@@ -14,6 +14,8 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory --><resources mapping="/clever-css/**" location="/resources/clever/css/" /><resources mapping="/clever-fonts/**" location="/resources/clever/fonts/" /><resources mapping="/clever-img/**" location="/resources/clever/img/" /><resources mapping="/clever-js/**" location="/resources/clever/js/" /><resources mapping="/clever-scss/**" location="/resources/clever/scss/" /><resources mapping="/clever/**" location="/resources/clever/" /><resources mapping="/js/**" location="/resources/js/" />
 	
+	<resources mapping="/uploadimgs/**" location="/uploadimgs/"/>
+	
 	<resources mapping="/images/**" location="/resources/images/" />
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/resources/**" location="/resources/" />
@@ -30,7 +32,6 @@
 	<resources mapping="/diary/front-page-category/**" location="/resources/front-page-category/" />
 	<resources mapping="/diary/blank-static/**" location="/resources/blank-static/" />
 	<resources mapping="/diary/summernote/**" location="/resources/summernote/" />
-	<resources mapping="/static/uploadimg/**" location="/static/uploadimg/"/>
 	<resources mapping="/board/uploadimg/**" location="/board/uploadimg/"/>
 	
 	<resources mapping="/board/resources/board/css/**" location="/resources/board/css/"/>

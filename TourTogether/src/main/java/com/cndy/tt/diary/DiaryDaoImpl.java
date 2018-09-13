@@ -47,6 +47,19 @@ public class DiaryDaoImpl implements DiaryDao {
 		sqlSession.update(ns + "diaryCountRead", diary_no);		
 	}
 
-	
+	@Override
+	public int thisMonth() {
+		return sqlSession.selectOne(ns+ "diaryThisMonth");
+	}
+
+	@Override
+	public int thisWeek() {
+		return sqlSession.selectOne(ns + "diaryThisWeek");
+	}
+
+	@Override
+	public void userLike(long diary_no) {
+		sqlSession.update(ns+ "userLike", diary_no);
+	}
 	
 }

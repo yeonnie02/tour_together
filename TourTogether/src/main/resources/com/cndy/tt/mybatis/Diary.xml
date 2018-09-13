@@ -45,4 +45,16 @@
 		update TOUR_DIARY set TITLE=#{title}, EMAIL=#{email}, REGION=#{region}, 
 			COMPANY=#{company}, DIARY_CONTENT=#{diary_content} where DIARY_NO=#{diary_no}
 	</update>	
+	
+	<select id="diaryThisMonth" resultType="int">
+		select count(*) from TOUR_DIARY where WRITE_DATE between (select trunc(sysdate,'mm') from dual) and (select last_day(sysdate) from dual)
+	</select>
+	
+	<select id="diaryThisWeek" resultType="int">
+		select count(*) from TOUR_DIARY where WRITE_DATE between (select sysdate + 1 - to_char(sysdate, 'd') from dual) and (select sysdate + 7 - to_char(sysdate, 'd') from dual)
+	</select>
+	
+	<update id="userLike" parameterType="long">
+		update TOUR_DIARY set USER_LIKE = USER_LIKE +1 where DIARY_NO=#{diary_no}
+	</update>
 </mapper>

@@ -20,4 +20,5 @@ public interface AdminDao {
 	List<Integer> selectCountryCount();
 	List<Notice> selectNoticeContent(long notice_no);
 	boolean editNotice(Notice notice);
+	Notice selectNoticeAll();
 }

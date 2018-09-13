@@ -65,9 +65,62 @@
 			font-size: 17px;
 			border: none;
 			cursor: pointer;
+		}	
+		/* NEW */
+		.blockButton {
+		    background-color: #555555; /* Black */ 
+		    border: none;
+		    color: white;
+		    padding: 15px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 16px;
+		    margin: 4px 2px;
+		    cursor: pointer;
 		}		
 	</style>
 </head>
+<!-- NEW -->
+<script>
+	function blockConfirm(){
+		if(window.confirm("게시물을 차단하시겠습니까?")){
+			console.log('yes');
+			blockContent();
+		}else{
+			console.log('no');
+			return false;
+		}		
+		
+	}
+
+	function blockContent(){
+		var values = document.getElementsByName("user");
+		var ids = [];
+		for(var i=0; i<values.length; i++){
+			if(values[i].checked){
+				//alert('values[i].value: '+ values[i].value);
+				ids.push(values[i].value);
+			}
+		}
+ 		 $.ajax({
+			url: "blockContent.do",
+			type: "POST",
+			dataType: "json",
+			traditional: true,
+			data: { "ids": ids },
+			success: function(result){
+				if(result){
+					alert('성공적으로 게시물이 차단되었습니다.');
+					//$("input[name=user]").prop("checked", false);
+					window.location.reload();
+				}else{
+					alert('실패');
+				}
+			}
+		}); 	 	
+	}
+</script>
 <body>
 	<!-- 게시물 검색 -->
 	<form action="searchBoard.do" method="post" class="search">		
@@ -98,7 +151,7 @@
 	    	<th scope="cols">선택</th>
 	        <th scope="cols">번호</th>
 	        <th scope="cols">제목</th>
-	        <th scope="cols">이메일</th>
+	        <th scope="cols">아이디</th>
 	        <th scope="cols">글타입</th>	        
 	        <th scope="cols">지역</th>
 	        <th scope="cols">게시날짜</th>
@@ -113,7 +166,7 @@
 			        </th>
 			        <td>${data.board_no}</td>	        
 			        <td>${data.title}</td>
-			        <td>${data.email}</td>	        
+			        <td>${data.id}</td>	        
 			        <td>${data.board_type}</td>
 			        <td>${data.region}</td>			        	        
 			        <td>${data.write_date}</td>
@@ -121,6 +174,9 @@
 		      </tbody>
 	     </c:forEach>
 	 </table>
+	 
+	 <!-- NEW -->	
+	 <button id="block" onclick="blockConfirm()" style="float: right;" class="blockButton">게시물 차단</button>
 	 
 	<script>		
 	</script>	 

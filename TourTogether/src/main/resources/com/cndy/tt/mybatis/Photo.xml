@@ -4,9 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace= "com.cndy.tt.mybatis.Photo">
  	<resultMap id="photoResult" type="Photo">
- 		<result property="photo_no" column="PHOTO_NO"/>
- 		<result property="diary_no" column="DIARY_NO"/>
- 		<result property="old_file_name" column="OLD_FILE_NAME"/>
- 		<result property="save_file_name" column="SAVE_FILE_NAME"/>
+ 		<result property="email" column="EMAIL"/>
+ 		<result property="photo_path" column="PHOTO_PATH"/>
  	</resultMap>
+ 	
+ 	<insert id="insert" parameterType="Photo" >
+ 		insert into PHOTO values(#{email}, #{photo_path})
+ 	</insert>
+ 	
+ 	<select id="select" parameterType="String" resultType="Photo">
+ 		select PHOTO_PATH from PHOTO where EMAIL=#{email}
+ 	</select>
+ 	
+ 	<select id="selectPath" parameterType="long" resultType="String">
+ 		select PHOTO_PATH from PHOTO where EMAIL=(select EMAIL from TOUR_DIARY where DIARY_NO=#{diary_no})
+	</select>
  </mapper>

@@ -65,4 +65,5 @@ public class CommentDaoImpl implements CommentDao {
 		sqlSession.update(ns + "resetLev", refer);
 
 	}
+
 }

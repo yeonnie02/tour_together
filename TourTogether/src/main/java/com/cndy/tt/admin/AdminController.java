@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cndy.tt.board.BoardDTO;
+import com.cndy.tt.board.BoardService;
 import com.cndy.tt.diary.Diary;
 import com.cndy.tt.member.Member;
 import com.cndy.tt.member.MemberService;
@@ -37,6 +38,9 @@ public class AdminController {
 	
 	@Resource(name="memberService")
 	private MemberService memberService;
+	
+	@Resource(name="BoardService")
+	private BoardService boardService;
 	
 	@RequestMapping(value="admin_mem.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public String memCont(Model model, PagingVo pagingVo, HttpSession session) {
@@ -177,7 +181,8 @@ public class AdminController {
 	
 	//공지사항 리스팅
 	@RequestMapping(value="admin_notice.do", method= {RequestMethod.POST, RequestMethod.GET})
-	public String adminBoard(Model model, PagingVo pagingVo, HttpSession session) {		
+	public String adminBoard(Model model, PagingVo pagingVo, HttpSession session) {	
+		System.out.println("공지사항 컨트롤러");
 		List<Notice> list = pagingService.selectNoticePagingService(pagingVo);
 		pagingVo.setTotal(pagingService.selectNoticeTotalPagingService());
 		model.addAttribute("list", list);
@@ -235,20 +240,21 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping(value="block.do", method=RequestMethod.POST)
 	public boolean block(@RequestParam(value="ids")List<String> ids) {
-		System.out.println(" checkedValues: "+ ids.toString());
 		boolean result = memberService.blockService(ids);
-		System.out.println("block result: "+ result);
-		 
 		return result;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="unblock.do", method=RequestMethod.POST)
 	public boolean unblock(@RequestParam(value="ids")List<String> ids) {
-		System.out.println( "ids: "+ids.toString());
-		boolean result = memberService.unblockService(ids);
-		System.out.println("result: "+ result);
-		
+		boolean result = memberService.unblockService(ids);		
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="blockContent.do", method=RequestMethod.POST)
+	public boolean blockContent(@RequestParam(value="ids")List<String> ids) {
+		boolean result = boardService.blockService(ids);
 		return result;
 	}
 } 
